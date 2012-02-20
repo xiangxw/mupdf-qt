@@ -44,5 +44,6 @@ int main(int argc, char **argv)
 	/* print page count */
 	printf("page count: %d\n", pdf_count_pages(xref));
 
+	pdf_free_xref(xref);
 	return 0;
 }
