@@ -1,6 +1,6 @@
 /**
  * @file main.cpp
- * @brief render as QImage
+ * @brief render as QImage(based on mupdf-0.9/apps/pdfdraw.c)
  * @author xiangxw xiangxw5689@126.com
  * @date 2012-02-20
  */

@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * @brief show infomation of a PDF file
+ * @brief show infomation of a PDF file(based on mupdf-0.9/apps/win_main.c)
  * @author xiangxw xiangxw5689@126.com
  * @date 2011-12-15
  */

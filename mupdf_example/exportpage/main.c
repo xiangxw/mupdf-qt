@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * @brief export page
+ * @brief export page(based on mupdf-0.9/apps/pdfdraw.c)
  * @author xiangxw xiangxw5689@126.com
  * @date 2012-02-20
  */

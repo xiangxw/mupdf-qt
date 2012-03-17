@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * @brief print page count of a pdf file
+ * @brief print page count of a pdf file(based on mupdf-0.9/apps/pdfdraw.c)
  * @author xiangxw xiangxw5689@126.com
  * @date 2011-12-15
  */
