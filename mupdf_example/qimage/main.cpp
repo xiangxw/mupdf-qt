@@ -14,6 +14,8 @@ extern "C" {
 #include <QtGui/QPixmap>
 #include <QtGui/QLabel>
 
+void rgba2bgra(unsigned char *data, int size);
+
 int main(int argc, char **argv)
 {
 	QApplication app(argc, argv);
@@ -59,7 +61,8 @@ int main(int argc, char **argv)
 	ctm = fz_concat(ctm, fz_rotate(page->rotate));
 	fz_bbox bbox = fz_round_rect(fz_transform_rect(ctm, page->mediabox));
 	fz_pixmap *pixmap = fz_new_pixmap_with_rect(fz_device_rgb, bbox);
-	fz_clear_pixmap_with_color(pixmap, 255);
+//	fz_clear_pixmap(pixmap); /* don't draw anything and save alpha */
+	fz_clear_pixmap_with_color(pixmap, 255); /* draw white background and don't save alpha */
 	fz_glyph_cache *glyphcache = fz_new_glyph_cache();
 	fz_device *device = fz_new_draw_device(glyphcache, pixmap);
 	pdf_run_page(xref, page, device, ctm);
@@ -67,6 +70,7 @@ int main(int argc, char **argv)
 	fz_free_device(device);
 
 	/* render as QImage */
+	rgba2bgra(pixmap->samples, pixmap->w * pixmap->h * 4);
 	QImage image(pixmap->samples, pixmap->w, pixmap->h, QImage::Format_ARGB32);
 	QLabel label;
 	label.setPixmap(QPixmap::fromImage(image));
@@ -78,4 +82,26 @@ int main(int argc, char **argv)
 	pdf_free_page(page);
 
 	return app.exec();
+}
+
+/**
+ * @brief transform rgba data to bgra data. fz_pixmap store data as rgba, but QImage store data as bgra.
+ *
+ * @param data pointer to fz_pixmap data
+ * @param size size of fz_pixmap data
+ */
+void rgba2bgra(unsigned char *data, int size)
+{
+	unsigned char r, g, b/* ,a */;
+	for (int i = 0; i < size; i += 4) {
+		r = *(data + i);
+		/* g = *(data + i + 1); */
+		b = *(data + i + 2);
+		/* a = *(data + i + 3); */
+
+		*(data + i) = b;
+		/* *(data + i + 1) = g; */
+		*(data + i + 2) = r;
+		/* *(data + i + 3) = a */
+	}
 }
