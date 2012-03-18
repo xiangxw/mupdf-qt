@@ -1,0 +1,41 @@
+### mupdf-qt API
+* rendering
+* zoom and rotation
+* text selection
+* links
+* bookmarks
+* PDF file attribute
+* export image in PDF pages
+* export page to PNG file
+* others
+
+### A PDF reader with plugins
+* Vim plugin
+* Latex plugin
+* Paper Citation plugin
+* Note plugin
+* Cloud sync plugin
+* Word count plugin
+* Others if you want
+
+---
+
+### mupdf-qt API
+* 页面渲染
+* 缩放和旋转
+* 文本选择
+* 链接
+* 书签
+* PDF文件属性
+* 导出页面中的图片
+* 保存页面为PNG文件
+* 其他
+
+### 一个提供插件功能的PDF阅读器
+* Vim插件
+* Latex插件
+* 论文引用插件
+* 笔记插件
+* 云同步插件
+* 字数统计插件
+* 其他你想要的插件
