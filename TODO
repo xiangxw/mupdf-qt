@@ -16,6 +16,7 @@
 * Note plugin
 * Cloud sync plugin
 * Word count plugin
+* Other file formats
 * Others if you want
 
 ---
@@ -38,4 +39,5 @@
 * 笔记插件
 * 云同步插件
 * 字数统计插件
+* 支持其他文件格式
 * 其他你想要的插件
