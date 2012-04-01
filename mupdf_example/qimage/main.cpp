@@ -13,6 +13,7 @@ extern "C" {
 #include <QtGui/QImage>
 #include <QtGui/QPixmap>
 #include <QtGui/QLabel>
+#include <QtGui/QFileDialog>
 
 void rgba2bgra(unsigned char *data, int size);
 
@@ -23,16 +24,15 @@ int main(int argc, char **argv)
 	pdf_xref *xref = NULL;
 	pdf_page *page = NULL;
 	fz_error error;
-	char *filename = NULL;
-	int index;
+	const char *filename = NULL;
+	int index = 0;
 
 	/* get filename */
-	if (argc != 3) {
-		printf("usage: %s filename.pdf pagenum\n", argv[0]);
-		return 1;
+	QString str = QFileDialog::getOpenFileName(0, "Select PDF file", ".", "PDF (*.pdf)");
+	if (str.isEmpty()) {
+		return 0;
 	}
-	filename = argv[1];
-	index = atoi(argv[2]) - 1;
+	filename = str.toLocal8Bit().data();
 
 	/* open xref */
 	error = pdf_open_xref(&xref, filename, NULL);
@@ -75,7 +75,7 @@ int main(int argc, char **argv)
 	QLabel label;
 	label.setPixmap(QPixmap::fromImage(image));
 	label.show();
-	fz_drop_pixmap(pixmap);
+	fz_drop_pixmap(pixmap); // should i do this?
 
 	/* free xref and page*/
 	pdf_free_xref(xref);

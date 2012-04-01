@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 {
 	pdf_xref *xref = NULL;
 	fz_error error;
-	const char *filename = "/home/a/document/PDF_Reference_1-7.pdf";
+	const char *filename = "/home/a/project/mupdf-qt/pdf_files/CJK_fonts_not_embedded.pdf";
 
 	/* open xref */
 	error = pdf_open_xref(&xref, filename, NULL);

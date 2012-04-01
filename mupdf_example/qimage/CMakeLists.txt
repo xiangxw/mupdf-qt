@@ -1,8 +1,8 @@
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 2.8 FATAL_ERROR)
 project (qimage)
 
-include_directories (/usr/local/mupdf/include/) #modify if necessary
-link_directories (/usr/local/mupdf/lib/) #modify if necessary
+include_directories (/usr/local/mupdf/include/) # modify if necessary
+link_directories (/usr/local/mupdf/lib/) # modify if necessary
 find_package (Qt4 REQUIRED)
 include (${QT_USE_FILE})
 
