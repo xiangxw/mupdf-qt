@@ -16,10 +16,11 @@
 #include <QtGui/QScrollBar>
 
 MainWindow::MainWindow(QWidget *parent)
-	:QMainWindow(parent), m_doc(NULL), m_index(0)
+	:QMainWindow(parent)
+	 , m_doc(NULL), m_index(0), m_scale(1.0f)
 {
 	scrollArea = new QScrollArea;
-	scrollArea->setAlignment(Qt::AlignHCenter);
+	scrollArea->setAlignment(Qt::AlignCenter);
 	label = new QLabel;
 	scrollArea->setWidget(label);
 	this->setCentralWidget(scrollArea);
@@ -57,6 +58,9 @@ void MainWindow::open()
 
 void MainWindow::previousPage()
 {
+	if (m_doc == NULL) {
+		return;
+	}
 	if (m_index > 0) {
 		--m_index;
 	}
@@ -65,22 +69,55 @@ void MainWindow::previousPage()
 
 void MainWindow::nextPage()
 {
+	if (m_doc == NULL) {
+		return;
+	}
 	if (m_index < m_numPages - 1) {
 		++m_index;
 	}
 	showPage(m_index);
 }
 
+void MainWindow::zoomIn()
+{
+	if (m_doc == NULL) {
+		return;
+	}
+	if (m_scale >= 10.0f) {
+		return;
+	}
+	m_scale += 0.1f;
+	showPage(m_index);
+}
+
+void MainWindow::zoomOut()
+{
+	if (m_doc == NULL) {
+		return;
+	}
+	if (m_scale <= 0.1f) {
+		return;
+	}
+	m_scale -= 0.1f;
+	showPage(m_index);
+}
+
 void MainWindow::createActions()
 {
-	openAction = new QAction(tr("&Open"), this);
+	openAction = new QAction(tr("Open"), this);
 	connect(openAction, SIGNAL(triggered()), this, SLOT(open()));
 
-	previousPageAction = new QAction(tr("&Previous"), this);
+	previousPageAction = new QAction(tr("Previous"), this);
 	connect(previousPageAction, SIGNAL(triggered()), this, SLOT(previousPage()));
 
-	nextPageAction = new QAction(tr("&Next"), this);
+	nextPageAction = new QAction(tr("Next"), this);
 	connect(nextPageAction, SIGNAL(triggered()), this, SLOT(nextPage()));
+
+	zoomInAction = new QAction(tr("ZoomIn"), this);
+	connect(zoomInAction, SIGNAL(triggered()), this, SLOT(zoomIn()));
+
+	zoomOutAction = new QAction(tr("ZoomOut"), this);
+	connect(zoomOutAction, SIGNAL(triggered()), this, SLOT(zoomOut()));
 }
 
 void MainWindow::createToolBars()
@@ -89,12 +126,14 @@ void MainWindow::createToolBars()
 	toolBar->addAction(openAction);
 	toolBar->addAction(previousPageAction);
 	toolBar->addAction(nextPageAction);
+	toolBar->addAction(zoomInAction);
+	toolBar->addAction(zoomOutAction);
 }
 
 void MainWindow::showPage(int index)
 {
 	Mupdf::Page page = m_doc->page(index);
-	QImage image = page.renderImage();
+	QImage image = page.renderImage(m_scale);
 	label->setPixmap(QPixmap::fromImage(image));
 	label->resize(label->sizeHint());
 	scrollArea->verticalScrollBar()->setValue(0);
@@ -107,5 +146,7 @@ void MainWindow::showPage(int index)
 	}
 	title += "Page " + QString::number(m_index + 1)
 		+ "/" + QString::number(m_numPages);
+	title += " - ";
+	title += "Scale " + QString::number(m_scale * 100) + "%";
 	this->setWindowTitle(title);
 }

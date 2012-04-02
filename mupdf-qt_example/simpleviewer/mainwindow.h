@@ -28,6 +28,8 @@ private slots:
 	void open();
 	void previousPage();
 	void nextPage();
+	void zoomIn();
+	void zoomOut();
 
 private:
 	void createActions();
@@ -40,10 +42,13 @@ private:
 	QAction *openAction;
 	QAction *previousPageAction;
 	QAction *nextPageAction;
+	QAction *zoomInAction;
+	QAction *zoomOutAction;
 	Mupdf::Document *m_doc;
 	QString m_title;
 	int m_numPages;
 	int m_index;
+	float m_scale;
 };
 
 #endif // end MAINWINDOW_H
