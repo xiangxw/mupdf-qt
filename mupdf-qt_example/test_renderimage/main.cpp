@@ -22,7 +22,9 @@ int main(int argc, char **argv)
 	}
 
 	Mupdf::Document document(file);
+	if (!document.isLoaded())return 0;
 	Mupdf::Page page = document.page(0);
+	if (!page.isLoaded()) return 0;
 	QImage image = page.renderImage();
 	QLabel label;
 	label.setPixmap(QPixmap::fromImage(image));

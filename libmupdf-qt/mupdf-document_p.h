@@ -2,7 +2,7 @@
  * @file mupdf-document_p.h
  * @brief class DocumentPrivate
  * @author xiangxw xiangxw5689@126.com
- * @date 2012-03-31
+ * @date 2012-04-03
  */
 
 #ifndef MUPDF_DOCUMENT_P_H
@@ -10,7 +10,6 @@
 
 extern "C" {
 #include "fitz.h"
-#include "mupdf.h"
 }
 
 namespace Mupdf
@@ -19,18 +18,21 @@ namespace Mupdf
 class DocumentPrivate
 {
 public:
-	DocumentPrivate():xref(NULL), numPages(0), info(NULL) {}
+	DocumentPrivate():document(NULL), numPages(-1)
+	{
+		context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
+	}
 	~DocumentPrivate()
 	{
-		if (xref) {
-			pdf_free_xref(xref);
-			xref = NULL;
+		if (context) {
+			fz_free_context(context);
+			context = NULL;
 		}
 	}
 
-	pdf_xref *xref;
+	fz_context *context;
+	fz_document *document;
 	int numPages;
-	fz_obj *info;
 };
 
 } // end namespace Mupdf

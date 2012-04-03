@@ -2,22 +2,21 @@
  * @file mupdf-page.cpp
  * @brief class Page
  * @author xiangxw xiangxw5689@126.com
- * @date 2012-03-31
+ * @date 2012-04-03
  */
 
 #include "mupdf-page.h"
 #include "mupdf-page_p.h"
 #include "mupdf-document.h"
 #include "mupdf-document_p.h"
-#include <QtGui/QImage>
 extern "C" {
 #include "fitz.h"
-#include "mupdf.h"
 }
+#include <QtGui/QImage>
 
 namespace Mupdf
 {
-
+	
 /**
  * @brief Whether the page is successfully loaded
  */
@@ -29,34 +28,38 @@ bool Page::isLoaded() const
 /**
  * @brief Render page to QImage
  *
- * @param scale Default scale = 1.0f
+ * @param scaleX Scale for X
+ * @param scaleY Scale for Y
  * @param rotate Clockwise rotation of 0, 90, 180 or 270 degrees
  *
  * @return QImage use implicit data share, so there is no deep copy here
  */
-QImage Page::renderImage(float scale, PDFRotateType rotate)
+QImage Page::renderImage(float scaleX, float scaleY, PDFRotateType rotate)
 {
-	fz_matrix ctm = fz_translate(0, -(m_sharedData->d->page->mediabox.y1));
-	ctm = fz_concat(ctm, fz_scale(scale, -scale));
-	ctm = fz_concat(ctm, fz_rotate(m_sharedData->d->page->rotate));
-	fz_bbox bbox = fz_round_rect(fz_transform_rect(ctm, m_sharedData->d->page->mediabox));
-	if (m_sharedData->d->pixmap) {
-		fz_drop_pixmap(m_sharedData->d->pixmap);
-	}
-	m_sharedData->d->pixmap = fz_new_pixmap_with_rect(fz_device_rgb, bbox);
-	fz_pixmap *pixmap = m_sharedData->d->pixmap;
-//	fz_clear_pixmap(pixmap); /* draw nothing and save alpha */
-	fz_clear_pixmap_with_color(pixmap, 255); /* draw white background and don't save alpha */
-	fz_glyph_cache *glyphcache = fz_new_glyph_cache();
-	fz_device *device = fz_new_draw_device(glyphcache, pixmap);
-	pdf_run_page(m_sharedData->d->xref, m_sharedData->d->page, device, ctm);
-	fz_free_glyph_cache(glyphcache);
-	fz_free_device(device);
+	PagePrivate *d = m_sharedData->d;
+	fz_pixmap *pixmap = d->pixmap;
 
-	/* render as QImage */
-	m_sharedData->d->rgba2bgra(pixmap->samples, pixmap->w * pixmap->h * 4);
-	QImage image(pixmap->samples, /* no deep copy here */
-			pixmap->w, pixmap->h, QImage::Format_ARGB32);
+	fz_matrix transform = fz_scale(scaleX, scaleY);
+//	transform = fz_concat(transform, fz_rotate(rotation));
+
+	fz_rect rect = fz_bound_page(d->document, d->page);
+	rect = fz_transform_rect(transform, rect);
+	fz_bbox bbox = fz_round_rect(rect);
+
+	pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_rgb, bbox);
+	fz_clear_pixmap_with_value(d->context, pixmap, 0xff);
+
+	fz_device *dev = fz_new_draw_device(d->context, pixmap);
+	fz_run_page(d->document, d->page, dev, transform, NULL);
+	fz_free_device(dev);
+
+	// render as QImage
+	unsigned char *samples = fz_pixmap_samples(d->context, pixmap);
+	int width = fz_pixmap_width(d->context, pixmap);
+	int height = fz_pixmap_height(d->context, pixmap);
+	d->rgba2bgra(samples, width * height * 4);
+	QImage image(samples, // no deep copy here
+			width, height, QImage::Format_ARGB32);
 	return image;
 }
 
@@ -64,10 +67,16 @@ QImage Page::renderImage(float scale, PDFRotateType rotate)
  * @brief Constructor
  */
 Page::Page(const Document &document, int index)
-	:m_sharedData(new PageData)
 {
-	m_sharedData->d->xref = document.d->xref;
-	pdf_load_page(&(m_sharedData->d->page), document.d->xref, index);
+	if (document.d->document == NULL || index < 0) {
+		return;
+	}
+
+	m_sharedData = new PageData;
+	PagePrivate *d = m_sharedData->d;
+	d->context = document.d->context;
+	d->document = document.d->document;
+	d->page = fz_load_page(d->document, index);
 }
 
 /**
@@ -76,19 +85,16 @@ Page::Page(const Document &document, int index)
 PageData::PageData()
 	:d(new PagePrivate)
 {
-
 }
 
 /**
  * @brief Copy constructor, used for copy-on-write.
  */
 PageData::PageData(const PageData &other)
-	:QSharedData(other), d(new PagePrivate)
+	:QSharedData(other)
 {
-	d->xref = other.d->xref;
-	d->page = other.d->page;
-	d->pixmap = other.d->pixmap;
-	qDebug("should not come here!\n");
+	qDebug("Should not come here! \
+			Because there will be no copy-on-write in this library.\n");
 }
 
 /**
@@ -96,6 +102,14 @@ PageData::PageData(const PageData &other)
  */
 PageData::~PageData()
 {
+	if (d->page) {
+		fz_free_page(d->document, d->page);
+		d->page = NULL;
+	}
+	if (d->pixmap) {
+		fz_drop_pixmap(d->context, d->pixmap);
+		d->pixmap = NULL;
+	}
 	if (d) {
 		delete d;
 		d = NULL;

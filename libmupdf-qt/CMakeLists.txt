@@ -11,14 +11,14 @@ set (lib_SOURCES
 	)
 
 # Mupdf library
-include_directories (/usr/local/mupdf/include/) #modify if necessary
-link_directories (/usr/local/mupdf/lib/) #modify if necessary
+include_directories (${CMAKE_CURRENT_SOURCE_DIR}/../libmupdf/include) #modify if necessary
+link_directories (${CMAKE_CURRENT_SOURCE_DIR}/../libmupdf/lib) #modify if necessary
 
 # Qt4 library
 find_package (Qt4 REQUIRED)
 include (${QT_USE_FILE})
 
 add_library (${lib_NAME} SHARED ${lib_SOURCES})
-target_link_libraries (${lib_NAME} mupdf fitz)
+target_link_libraries (${lib_NAME} fitz)
 target_link_libraries (${lib_NAME} freetype jbig2dec jpeg openjpeg z m)
 target_link_libraries (${lib_NAME} ${QT_LIBRARIES})

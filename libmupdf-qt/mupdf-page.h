@@ -2,7 +2,7 @@
  * @file mupdf-page.h
  * @brief class Page
  * @author xiangxw xiangxw5689@126.com
- * @date 2012-03-31
+ * @date 2012-04-03
  */
 
 #ifndef MUPDF_PAGE_H
@@ -20,7 +20,7 @@ class PageData;
 class PagePrivate;
 class Document;
 
-// class Page, implicitly share, see document for class QSharedDataPointer
+// class Page. Implicitly share, see document for class QSharedDataPointer
 class MUPDF_QT_EXPORT Page
 {
 public:
@@ -32,7 +32,7 @@ public:
 	};
 	Page(const Page &other):m_sharedData(other.m_sharedData) {}
 	bool isLoaded() const;
-	QImage renderImage(float scale = 1.0f, PDFRotateType rotate = PDFRotate0);
+	QImage renderImage(float scaleX = 1.0f, float scaleY = 1.0f, PDFRotateType rotate = PDFRotate0);
 
 private:
 	Page(const Document &document, int index);
@@ -42,16 +42,16 @@ friend class Document;
 };
 
 // class PageData
-class PageData : public QSharedData
+class  PageData : public QSharedData
 {
 public:
 	PageData();
-	PageData(const PageData &);
+	PageData(const PageData &other);
 	~PageData();
 
 	PagePrivate *d;
 };
-	
+
 } // end namespace Mupdf
 
 #endif // end MUPDF_PAGE_H
