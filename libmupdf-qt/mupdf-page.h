@@ -13,7 +13,7 @@
 #include <QtCore/QSharedData>
 class QImage;
 
-namespace Mupdf
+namespace MuPDF
 {
 class Page;
 class PageData;
@@ -52,6 +52,6 @@ public:
 	PagePrivate *d;
 };
 
-} // end namespace Mupdf
+} // end namespace MuPDF
 
 #endif // end MUPDF_PAGE_H

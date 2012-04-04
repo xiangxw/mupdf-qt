@@ -21,9 +21,9 @@ int main(int argc, char **argv)
 		return 0;
 	}
 
-	Mupdf::Document document(file);
+	MuPDF::Document document(file);
 	if (!document.isLoaded())return 0;
-	Mupdf::Page page = document.page(0);
+	MuPDF::Page page = document.page(0);
 	if (!page.isLoaded()) return 0;
 	QImage image = page.renderImage();
 	QLabel label;

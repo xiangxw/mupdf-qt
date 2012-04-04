@@ -12,7 +12,7 @@ extern "C" {
 #include "fitz.h"
 }
 
-namespace Mupdf
+namespace MuPDF
 {
 
 class DocumentPrivate
@@ -35,6 +35,6 @@ public:
 	int numPages;
 };
 
-} // end namespace Mupdf
+} // end namespace MuPDF
 
 #endif // end MUPDF_DOCUMENT_P_H

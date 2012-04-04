@@ -18,17 +18,17 @@ int main(int argc, char **argv)
 	if (file.isEmpty()) {
 		return 0;
 	}
-	Mupdf::Document document(file);
+	MuPDF::Document document(file);
 	if (document.isLoaded()) {
 		qDebug() << "Page count:" << document.numPages();
-//		qDebug() << "Title:" << document.getInfo(Mupdf::Document::PDFInfoTitle);
-//		qDebug() << "Subject:" << document.getInfo(Mupdf::Document::PDFInfoSubject);
-//		qDebug() << "Author:" << document.getInfo(Mupdf::Document::PDFInfoAuthor);
-//		qDebug() << "Keywords:" << document.getInfo(Mupdf::Document::PDFInfoKeywords);
-//		qDebug() << "Creator:" << document.getInfo(Mupdf::Document::PDFInfoCreator);
-//		qDebug() << "Producer:" << document.getInfo(Mupdf::Document::PDFInfoProducer);
-//		qDebug() << "CreationDate:" << document.getInfo(Mupdf::Document::PDFInfoCreationDate);
-//		qDebug() << "ModDate:" << document.getInfo(Mupdf::Document::PDFInfoModDate);
+//		qDebug() << "Title:" << document.getInfo(MuPDF::Document::PDFInfoTitle);
+//		qDebug() << "Subject:" << document.getInfo(MuPDF::Document::PDFInfoSubject);
+//		qDebug() << "Author:" << document.getInfo(MuPDF::Document::PDFInfoAuthor);
+//		qDebug() << "Keywords:" << document.getInfo(MuPDF::Document::PDFInfoKeywords);
+//		qDebug() << "Creator:" << document.getInfo(MuPDF::Document::PDFInfoCreator);
+//		qDebug() << "Producer:" << document.getInfo(MuPDF::Document::PDFInfoProducer);
+//		qDebug() << "CreationDate:" << document.getInfo(MuPDF::Document::PDFInfoCreationDate);
+//		qDebug() << "ModDate:" << document.getInfo(MuPDF::Document::PDFInfoModDate);
 	} else {
 		qDebug() << "not loaded";
 	}

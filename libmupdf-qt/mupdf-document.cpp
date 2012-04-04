@@ -14,7 +14,7 @@ extern "C" {
 }
 #include <QtCore/QString>
 
-namespace Mupdf
+namespace MuPDF
 {
 
 /**
@@ -81,4 +81,4 @@ Page Document::page(int index) const
 	return Page(*this, index);
 }
 
-} // end namespace Mupdf
+} // end namespace MuPDF

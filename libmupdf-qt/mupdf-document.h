@@ -11,7 +11,7 @@
 #include "mupdf-global.h"
 #include <QtCore/QString>
 
-namespace Mupdf
+namespace MuPDF
 {
 class Document;
 class DocumentPrivate;
@@ -35,6 +35,6 @@ private:
 friend class Page;
 };
 
-} // end namespace Mupdf
+} // end namespace MuPDF
 
 #endif // end MUPDF_DOCUMENT_H

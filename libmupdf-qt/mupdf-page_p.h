@@ -12,7 +12,7 @@ extern "C" {
 #include "fitz.h"
 }
 
-namespace Mupdf
+namespace MuPDF
 {
 
 class PagePrivate
@@ -36,6 +36,6 @@ public:
 	fz_pixmap *pixmap; // page image
 };
 
-} // end namespace Mupdf
+} // end namespace MuPDF
 
 #endif // end MUPDF_PAGE_P_H

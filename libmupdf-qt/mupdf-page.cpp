@@ -14,7 +14,7 @@ extern "C" {
 }
 #include <QtGui/QImage>
 
-namespace Mupdf
+namespace MuPDF
 {
 	
 /**
@@ -138,4 +138,4 @@ void PagePrivate::rgba2bgra(unsigned char *data, int size)
 	}
 }
 
-} // end namespace Mupdf
+} // end namespace MuPDF
