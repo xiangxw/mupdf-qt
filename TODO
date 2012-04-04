@@ -1,5 +1,5 @@
 ### mupdf-qt API
-* rendering
+* rendering DONE
 * zoom and rotation
 * text selection
 * links
@@ -22,7 +22,7 @@
 ---
 
 ### mupdf-qt API
-* 页面渲染
+* 页面渲染 DONE
 * 缩放和旋转
 * 文本选择
 * 链接
