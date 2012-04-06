@@ -58,7 +58,7 @@ void MainWindow::open()
 
 void MainWindow::previousPage()
 {
-	if (m_doc == NULL) {
+	if (NULL == m_doc) {
 		return;
 	}
 	if (m_index > 0) {
@@ -69,7 +69,7 @@ void MainWindow::previousPage()
 
 void MainWindow::nextPage()
 {
-	if (m_doc == NULL) {
+	if (NULL == m_doc) {
 		return;
 	}
 	if (m_index < m_numPages - 1) {
@@ -80,7 +80,7 @@ void MainWindow::nextPage()
 
 void MainWindow::zoomIn()
 {
-	if (m_doc == NULL) {
+	if (NULL == m_doc) {
 		return;
 	}
 	if (m_scale >= 10.0f) {
@@ -92,7 +92,7 @@ void MainWindow::zoomIn()
 
 void MainWindow::zoomOut()
 {
-	if (m_doc == NULL) {
+	if (NULL == m_doc) {
 		return;
 	}
 	if (m_scale <= 0.1f) {

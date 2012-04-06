@@ -26,10 +26,10 @@ namespace MuPDF
 Document *loadDocument(const QString &filePath)
 {
 	Document *doc = new Document(filePath);
-	if (doc == NULL) {
+	if (NULL == doc) {
 		return NULL;
 	}
-	if (doc->d->document) {
+	if (doc->d->context && doc->d->document) {
 		return doc;
 	}
 	delete doc; doc = NULL;
@@ -42,9 +42,21 @@ Document *loadDocument(const QString &filePath)
  * @param filePath Document path
  */
 Document::Document(const QString &filePath)
-	:d(new DocumentPrivate(filePath))
 {
-
+	d = new DocumentPrivate();
+	if (NULL == d) {
+		return;
+	}
+	
+	// create context
+	d->context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
+	// open document
+	d->document = fz_open_document(d->context, filePath.toLocal8Bit().data());
+	if (NULL == d->document) {
+		return;
+	}
+	// count pages
+	d->numPages = fz_count_pages(d->document);
 }
 
 /**
@@ -63,7 +75,7 @@ Document::~Document()
  */
 int Document::numPages() const
 {
-	if (d->document == NULL) {
+	if (NULL == d->document) {
 		return -1;
 	}
 	return d->numPages;
@@ -74,11 +86,20 @@ int Document::numPages() const
  *
  * @param index Page index, begin with 0
  *
- * @return Page use implicit data share, so there is no deep copy here
+ * @return Note: you need delete this manually before document is deleted
  */
-Page Document::page(int index) const
+Page *Document::page(int index) const
 {
-	return Page(*this, index);
+	Page *page = new Page(*this, index);
+	if (NULL == page) {
+		return NULL;
+	}
+	if (NULL == page->d->page) {
+		delete page;
+		page = NULL;
+		return NULL;
+	}
+	return page;
 }
 
 } // end namespace MuPDF

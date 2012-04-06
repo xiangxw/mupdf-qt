@@ -25,7 +25,7 @@ class MUPDF_QT_EXPORT Document
 public:
 	~Document();
 	int numPages() const;
-	Page page(int index) const;
+	Page *page(int index) const;
 
 private:
 	Document(const QString &filePath);

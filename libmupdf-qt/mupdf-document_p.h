@@ -19,19 +19,8 @@ namespace MuPDF
 class DocumentPrivate
 {
 public:
-	DocumentPrivate(const QString &filePath):document(NULL), numPages(-1)
+	DocumentPrivate():context(NULL), document(NULL), numPages(-1)
 	{
-		// create context
-		context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
-
-		// open document
-		document = fz_open_document(context, filePath.toLocal8Bit().data());
-		if (document == NULL) {
-			return;
-		}
-
-		// count pages
-		numPages = fz_count_pages(document);
 	}
 	~DocumentPrivate()
 	{

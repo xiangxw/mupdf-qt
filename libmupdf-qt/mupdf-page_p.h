@@ -8,6 +8,8 @@
 #ifndef MUPDF_PAGE_P_H
 #define MUPDF_PAGE_P_H
 
+#include "mupdf-document.h"
+#include "mupdf-document_p.h"
 extern "C" {
 #include "fitz.h"
 }
@@ -23,11 +25,19 @@ public:
 		document(NULL),
 		page(NULL),
 		pixmap(NULL)
-	{}
-	~PagePrivate()
 	{
 	}
-
+	~PagePrivate()
+	{
+		if (pixmap) {
+			fz_drop_pixmap(context, pixmap);
+			pixmap = NULL;
+		}
+		if (page) {
+			fz_free_page(document, page);
+			page = NULL;
+		}
+	}
 	void rgba2bgra(unsigned char *data, int size);
 
 	fz_context *context;

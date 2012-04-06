@@ -21,11 +21,16 @@ int main(int argc, char **argv)
 		return 0;
 	}
 
-	MuPDF::Document document(file);
-	if (!document.isLoaded())return 0;
-	MuPDF::Page page = document.page(0);
-	if (!page.isLoaded()) return 0;
-	QImage image = page.renderImage();
+	MuPDF::Document *document = MuPDF::loadDocument(file);
+	if (NULL == document) {
+		return -1;
+	}
+	MuPDF::Page *page = document->page(0);
+	if (NULL == page) {
+		delete document;
+		return -1;
+	}
+	QImage image = page->renderImage();
 	QLabel label;
 	label.setPixmap(QPixmap::fromImage(image));
 	label.show();

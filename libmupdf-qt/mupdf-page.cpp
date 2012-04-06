@@ -7,8 +7,6 @@
 
 #include "mupdf-page.h"
 #include "mupdf-page_p.h"
-#include "mupdf-document.h"
-#include "mupdf-document_p.h"
 extern "C" {
 #include "fitz.h"
 }
@@ -16,15 +14,33 @@ extern "C" {
 
 namespace MuPDF
 {
-	
+
 /**
- * @brief Whether the page is successfully loaded
+ * @brief Constructor
  */
-bool Page::isLoaded() const
+Page::Page(const Document &document, int index)
 {
-	return m_sharedData->d->page;
+	if (document.d->document == NULL || index < 0) {
+		return;
+	}
+
+	d = new PagePrivate();
+	if (NULL == d) {
+		return;
+	}
+	d->context = document.d->context;
+	d->document = document.d->document;
+	d->page = fz_load_page(d->document, index);
 }
 
+Page::~Page()
+{
+	if (d) {
+		delete d;
+		d = NULL;
+	}
+}
+	
 /**
  * @brief Render page to QImage
  *
@@ -36,9 +52,11 @@ bool Page::isLoaded() const
  */
 QImage Page::renderImage(float scaleX, float scaleY, PDFRotateType rotate)
 {
-	PagePrivate *d = m_sharedData->d;
-	fz_pixmap *pixmap = d->pixmap;
+	if (NULL == d->page) {
+		return QImage();
+	}
 
+	fz_pixmap *pixmap = d->pixmap;
 	fz_matrix transform = fz_scale(scaleX, scaleY);
 //	transform = fz_concat(transform, fz_rotate(rotation));
 
@@ -61,59 +79,6 @@ QImage Page::renderImage(float scaleX, float scaleY, PDFRotateType rotate)
 	QImage image(samples, // no deep copy here
 			width, height, QImage::Format_ARGB32);
 	return image;
-}
-
-/**
- * @brief Constructor
- */
-Page::Page(const Document &document, int index)
-{
-	if (document.d->document == NULL || index < 0) {
-		return;
-	}
-
-	m_sharedData = new PageData;
-	PagePrivate *d = m_sharedData->d;
-	d->context = document.d->context;
-	d->document = document.d->document;
-	d->page = fz_load_page(d->document, index);
-}
-
-/**
- * @brief Constructor
- */
-PageData::PageData()
-	:d(new PagePrivate)
-{
-}
-
-/**
- * @brief Copy constructor, used for copy-on-write.
- */
-PageData::PageData(const PageData &other)
-	:QSharedData(other)
-{
-	qDebug("Should not come here! \
-			Because there will be no copy-on-write in this library.\n");
-}
-
-/**
- * @brief Destructor
- */
-PageData::~PageData()
-{
-	if (d->page) {
-		fz_free_page(d->document, d->page);
-		d->page = NULL;
-	}
-	if (d->pixmap) {
-		fz_drop_pixmap(d->context, d->pixmap);
-		d->pixmap = NULL;
-	}
-	if (d) {
-		delete d;
-		d = NULL;
-	}
 }
 
 /**
