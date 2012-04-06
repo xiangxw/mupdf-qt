@@ -18,9 +18,9 @@ int main(int argc, char **argv)
 	if (file.isEmpty()) {
 		return 0;
 	}
-	MuPDF::Document document(file);
-	if (document.isLoaded()) {
-		qDebug() << "Page count:" << document.numPages();
+	MuPDF::Document *document = MuPDF::loadDocument(file);
+	if (document) {
+		qDebug() << "Page count:" << document->numPages();
 //		qDebug() << "Title:" << document.getInfo(MuPDF::Document::PDFInfoTitle);
 //		qDebug() << "Subject:" << document.getInfo(MuPDF::Document::PDFInfoSubject);
 //		qDebug() << "Author:" << document.getInfo(MuPDF::Document::PDFInfoAuthor);
@@ -29,6 +29,7 @@ int main(int argc, char **argv)
 //		qDebug() << "Producer:" << document.getInfo(MuPDF::Document::PDFInfoProducer);
 //		qDebug() << "CreationDate:" << document.getInfo(MuPDF::Document::PDFInfoCreationDate);
 //		qDebug() << "ModDate:" << document.getInfo(MuPDF::Document::PDFInfoModDate);
+		delete document;
 	} else {
 		qDebug() << "not loaded";
 	}

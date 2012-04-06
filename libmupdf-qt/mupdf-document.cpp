@@ -12,10 +12,29 @@
 extern "C" {
 #include "fitz.h"
 }
-#include <QtCore/QString>
 
 namespace MuPDF
 {
+
+/**
+ * @brief Load document
+ *
+ * @param filePath Document path
+ *
+ * @return Return NULL if failed.(Note: you need delete manually when it's useless)
+ */
+Document *loadDocument(const QString &filePath)
+{
+	Document *doc = new Document(filePath);
+	if (doc == NULL) {
+		return NULL;
+	}
+	if (doc->d->document) {
+		return doc;
+	}
+	delete doc; doc = NULL;
+	return NULL;
+}
 
 /**
  * @brief Constructor
@@ -23,16 +42,9 @@ namespace MuPDF
  * @param filePath Document path
  */
 Document::Document(const QString &filePath)
-	:d(new DocumentPrivate)
+	:d(new DocumentPrivate(filePath))
 {
-	// open document
-	d->document = fz_open_document(d->context, filePath.toLocal8Bit().data());
-	if (d->document == NULL) {
-		return;
-	}
 
-	// count pages
-	d->numPages = fz_count_pages(d->document);
 }
 
 /**
@@ -40,22 +52,10 @@ Document::Document(const QString &filePath)
  */
 Document::~Document()
 {
-	if (d->document) {
-		fz_close_document(d->document);
-		d->document = NULL;
-	}
 	if (d) {
 		delete d;
 		d = NULL;
 	}
-}
-
-/**
- * @brief Whether the document is successfully loaded
- */
-bool Document::isLoaded() const
-{
-	return d->document;
 }
 
 /**

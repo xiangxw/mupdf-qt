@@ -9,7 +9,8 @@
 #define MUPDF_DOCUMENT_H
 
 #include "mupdf-global.h"
-#include <QtCore/QString>
+
+class QString;
 
 namespace MuPDF
 {
@@ -17,22 +18,25 @@ class Document;
 class DocumentPrivate;
 class Page;
 
+Document * MUPDF_QT_EXPORT loadDocument(const QString &filePath);
+
 class MUPDF_QT_EXPORT Document
 {
 public:
-	Document(const QString &filePath);
 	~Document();
-	bool isLoaded() const;
 	int numPages() const;
 	Page page(int index) const;
 
 private:
-	DocumentPrivate *d;
+	Document(const QString &filePath);
 	// disable copy
 	Document(const Document &);
 	Document &operator=(const Document &);
 
+	DocumentPrivate *d;
+
 friend class Page;
+friend Document *loadDocument(const QString &filePath);
 };
 
 } // end namespace MuPDF
