@@ -1,13 +1,12 @@
 /**
  * @file main.cpp
- * @brief render as QImage(based on mupdf-0.9/apps/pdfdraw.c)
+ * @brief render as QImage(based on mupdf/doc/examples)
  * @author xiangxw xiangxw5689@126.com
  * @date 2012-02-20
  */
 
 extern "C" {
 #include "fitz.h"
-#include "mupdf.h"
 }
 #include <QtGui/QApplication>
 #include <QtGui/QImage>
@@ -20,66 +19,48 @@ void rgba2bgra(unsigned char *data, int size);
 int main(int argc, char **argv)
 {
 	QApplication app(argc, argv);
-
-	pdf_xref *xref = NULL;
-	pdf_page *page = NULL;
-	fz_error error;
-	const char *filename = NULL;
-	int index = 0;
+	int index = 1;
 
 	/* get filename */
 	QString str = QFileDialog::getOpenFileName(0, "Select PDF file", ".", "PDF (*.pdf)");
 	if (str.isEmpty()) {
 		return 0;
 	}
-	filename = str.toLocal8Bit().data();
 
-	/* open xref */
-	error = pdf_open_xref(&xref, filename, NULL);
-	if (error) {
-		printf("pdf_open_xref error: %s\n", filename);
-		return 1;
-	}
+	/* open document */
+	fz_context *context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
+	fz_document *document = fz_open_document(context, str.toLocal8Bit().data());
 
-	/* load page tree */
-	error = pdf_load_page_tree(xref);
-	if (error) {
-		printf("pdf_load_page_tree error: %s\n", filename);
-		return 1;
-	}
-
-	/* load page */
-	error = pdf_load_page(&page, xref, index);
-	if (error) {
-		printf("can not load page %d in file %s\n", index, filename);
-		return 1;
-	}
+	/* load page*/
+	fz_page *page = fz_load_page(document, index - 1);
 
 	/* render page to pixmap */
-	fz_matrix ctm = fz_translate(0, -page->mediabox.y1);
-	ctm = fz_concat(ctm, fz_scale(1.0f, -1.0f));
-	ctm = fz_concat(ctm, fz_rotate(page->rotate));
-	fz_bbox bbox = fz_round_rect(fz_transform_rect(ctm, page->mediabox));
-	fz_pixmap *pixmap = fz_new_pixmap_with_rect(fz_device_rgb, bbox);
-//	fz_clear_pixmap(pixmap); /* don't draw anything and save alpha */
-	fz_clear_pixmap_with_color(pixmap, 255); /* draw white background and don't save alpha */
-	fz_glyph_cache *glyphcache = fz_new_glyph_cache();
-	fz_device *device = fz_new_draw_device(glyphcache, pixmap);
-	pdf_run_page(xref, page, device, ctm);
-	fz_free_glyph_cache(glyphcache);
+	fz_matrix transform = fz_scale(1.0f, 1.0f);
+	transform = fz_concat(transform, fz_rotate(0.0f));
+	fz_rect rect = fz_bound_page(document, page);
+	rect = fz_transform_rect(transform, rect); // fz_rect use float
+	fz_bbox bbox = fz_round_rect(rect); //fz_bbox use int
+	fz_pixmap *pixmap = fz_new_pixmap_with_bbox(context, fz_device_rgb, bbox);
+	fz_clear_pixmap_with_value(context, pixmap, 0xff); // 0xff = 255
+	fz_device *device = fz_new_draw_device(context, pixmap);
+	fz_run_page(document, page, device, transform, NULL);
 	fz_free_device(device);
 
 	/* render as QImage */
-	rgba2bgra(pixmap->samples, pixmap->w * pixmap->h * 4);
-	QImage image(pixmap->samples, pixmap->w, pixmap->h, QImage::Format_ARGB32);
+	unsigned char *samples = fz_pixmap_samples(context, pixmap);
+	int width = fz_pixmap_width(context, pixmap);
+	int height = fz_pixmap_height(context, pixmap);
+	rgba2bgra(samples, width * height * 4);
+	QImage image(samples, width, height, QImage::Format_ARGB32);
 	QLabel label;
 	label.setPixmap(QPixmap::fromImage(image));
 	label.show();
-	fz_drop_pixmap(pixmap); // should i do this?
+	fz_drop_pixmap(context, pixmap);
 
-	/* free xref and page*/
-	pdf_free_xref(xref);
-	pdf_free_page(page);
+	/* clean up */
+	fz_free_page(document, page);
+	fz_close_document(document);
+	fz_free_context(context);
 
 	return app.exec();
 }

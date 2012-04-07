@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * @brief print page count of a pdf file(based on mupdf-0.9/apps/pdfdraw.c)
+ * @brief print page count of a pdf file(based on mupdf/doc/example.c)
  * @author xiangxw xiangxw5689@126.com
  * @date 2011-12-15
  */
@@ -8,15 +8,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include "fitz.h"
-#include "mupdf.h"
 
 int main(int argc, char **argv)
 {
-	pdf_xref *xref = NULL;
-	fz_error error;
-	char *filename = NULL;
-
 	/* get filename */
+	char *filename = NULL;
 	if (argc != 2) {
 		printf("usage: %s filename.pdf\n", argv[0]);
 		return 1;
@@ -27,23 +23,14 @@ int main(int argc, char **argv)
 	}
 	filename = argv[1];
 
-	/* open xref */
-	error = pdf_open_xref(&xref, filename, NULL);
-	if (error) {
-		printf("pdf_open_xref error: %s\n", filename);
-		return 1;
-	}
-
-	/* load page tree */
-	error = pdf_load_page_tree(xref);
-	if (error) {
-		printf("pdf_load_page_tree error: %s\n", filename);
-		return 1;
-	}
+	/* open document */
+	fz_context *context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
+	fz_document *document = fz_open_document(context, filename);
 
 	/* print page count */
-	printf("page count: %d\n", pdf_count_pages(xref));
+	printf("page count: %d\n", fz_count_pages(document));
 
-	pdf_free_xref(xref);
+	fz_close_document(document);
+	fz_free_context(context);
 	return 0;
 }
