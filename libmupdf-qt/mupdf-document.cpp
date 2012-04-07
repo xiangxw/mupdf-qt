@@ -50,13 +50,19 @@ Document::Document(const QString &filePath)
 	
 	// create context
 	d->context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
+	if (NULL == d->context) {
+		return;
+	}
 	// open document
-	d->document = fz_open_document(d->context, filePath.toLocal8Bit().data());
+	d->document = fz_open_document(d->context,
+			filePath.toLocal8Bit().data());
 	if (NULL == d->document) {
 		return;
 	}
 	// count pages
-	d->numPages = fz_count_pages(d->document);
+	if (!fz_needs_password(d->document)) {
+		d->numPages = fz_count_pages(d->document);
+	}
 }
 
 /**
@@ -71,13 +77,39 @@ Document::~Document()
 }
 
 /**
+ * @brief Whether the document needs password
+ */
+bool Document::needsPassword() const
+{
+	return fz_needs_password(d->document);
+}
+
+/**
+ * @brief Authenticate password
+ *
+ * @param password User password or owner password
+ * This will first try user password and then owner password.
+ * Owner have full access to the document while user don't
+ *
+ * @return true if succeed, false if failed
+ */
+bool Document::authPassword(const QString &password)
+{
+	bool tmp;
+	tmp = fz_authenticate_password(d->document,
+			password.toLocal8Bit().data());
+	if (tmp) {
+		d->numPages = fz_count_pages(d->document);
+	}
+
+	return tmp;
+}
+
+/**
  * @brief Get number of pages. Return -1 when error occurs
  */
 int Document::numPages() const
 {
-	if (NULL == d->document) {
-		return -1;
-	}
 	return d->numPages;
 }
 

@@ -7,6 +7,8 @@
 
 #include <QtGui/QApplication>
 #include <QtGui/QFileDialog>
+#include <QtGui/QInputDialog>
+#include <QtGui/QLineEdit>
 #include <QDebug>
 #include "mupdf-qt.h"
 
@@ -14,12 +16,36 @@ int main(int argc, char **argv)
 {
 	QApplication app(argc, argv);
 
-	QString file = QFileDialog::getOpenFileName(NULL, "Select PDF file", ".", "PDF (*.pdf)");
+	// open document
+	QString file = QFileDialog::getOpenFileName(NULL,
+			"Select PDF file", ".", "PDF (*.pdf)");
 	if (file.isEmpty()) {
 		return 0;
 	}
 	MuPDF::Document *document = MuPDF::loadDocument(file);
-	if (document) {
+	if (NULL == document) {
+		return 0;
+	}
+
+	// authenticate
+	bool authed = false;
+	if (document->needsPassword()) {
+		bool ok = true;
+		QString password;
+		while (!authed && ok) {
+			password = QInputDialog::getText(NULL,
+					"Please input password", "Password",
+					QLineEdit::Password, "", &ok);
+			if (ok) {
+				authed = document->authPassword(password);
+			}
+		}
+	} else {
+		authed = true;
+	}
+
+	// print info
+	if (authed) {
 		qDebug() << "Page count:" << document->numPages();
 //		qDebug() << "Title:" << document.getInfo(MuPDF::Document::PDFInfoTitle);
 //		qDebug() << "Subject:" << document.getInfo(MuPDF::Document::PDFInfoSubject);

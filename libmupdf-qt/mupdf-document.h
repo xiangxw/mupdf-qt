@@ -24,6 +24,8 @@ class MUPDF_QT_EXPORT Document
 {
 public:
 	~Document();
+	bool needsPassword() const;
+	bool authPassword(const QString &password);
 	int numPages() const;
 	Page *page(int index) const;
 
