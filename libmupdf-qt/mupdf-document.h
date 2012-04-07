@@ -11,6 +11,7 @@
 #include "mupdf-global.h"
 
 class QString;
+class QDateTime;
 
 namespace MuPDF
 {
@@ -28,6 +29,15 @@ public:
 	bool authPassword(const QString &password);
 	int numPages() const;
 	Page *page(int index) const;
+	QString pdfVersion() const;
+	QString title() const;
+	QString author() const;
+	QString subject() const;
+	QString keywords() const;
+	QString creator() const;
+	QString producer() const;
+	QDateTime creationDate() const;
+	QDateTime modDate() const;
 
 private:
 	Document(const QString &filePath);

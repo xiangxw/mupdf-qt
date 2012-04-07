@@ -11,7 +11,10 @@
 #include "mupdf-page_p.h"
 extern "C" {
 #include "fitz.h"
+#include "mupdf.h"
+#include "mupdf-internal.h"
 }
+#include <QtCore/QDateTime>
 
 namespace MuPDF
 {
@@ -132,6 +135,157 @@ Page *Document::page(int index) const
 		return NULL;
 	}
 	return page;
+}
+
+/**
+ * @brief PDF version number, for example: 1.7
+ */
+QString Document::pdfVersion() const
+{
+	pdf_document *xref = (pdf_document *)d->document;
+	return QString::number(xref->version / 10.0f);
+}
+
+/**
+ * @brief PDF title
+ */
+QString Document::title() const
+{
+	pdf_obj *info = d->info();
+	if (NULL == info) {
+		return QString();
+	}
+	char *key = (char *)"Title";
+	pdf_obj *obj = pdf_dict_gets(info, key);
+	if (NULL == obj) {
+		return QString();
+	}
+	return QString::fromUtf8(pdf_to_utf8(d->context, obj));
+}
+
+/**
+ * @brief Author of the document
+ */
+QString Document::author() const
+{
+	pdf_obj *info = d->info();
+	if (NULL == info) {
+		return QString();
+	}
+	char *key = (char *)"Author";
+	pdf_obj *obj = pdf_dict_gets(info, key);
+	if (NULL == obj) {
+		return QString();
+	}
+	return QString::fromUtf8(pdf_to_utf8(d->context, obj));
+}
+
+/**
+ * @brief The subject of the document
+ */
+QString Document::subject() const
+{
+	pdf_obj *info = d->info();
+	if (NULL == info) {
+		return QString();
+	}
+	char *key = (char *)"Subject";
+	pdf_obj *obj = pdf_dict_gets(info, key);
+	if (NULL == obj) {
+		return QString();
+	}
+	return QString::fromUtf8(pdf_to_utf8(d->context, obj));
+}
+
+/**
+ * @brief Keywords associated with the document
+ */
+QString Document::keywords() const
+{
+	pdf_obj *info = d->info();
+	if (NULL == info) {
+		return QString();
+	}
+	char *key = (char *)"Keywords";
+	pdf_obj *obj = pdf_dict_gets(info, key);
+	if (NULL == obj) {
+		return QString();
+	}
+	return QString::fromUtf8(pdf_to_utf8(d->context, obj));
+}
+
+/**
+ * @brief If the document was converted to PDF from another format, the name of the application (for example, Adobe FrameMaker®) that created the original document from which it was converted
+ */
+QString Document::creator() const
+{
+	pdf_obj *info = d->info();
+	if (NULL == info) {
+		return QString();
+	}
+	char *key = (char *)"Creator";
+	pdf_obj *obj = pdf_dict_gets(info, key);
+	if (NULL == obj) {
+		return QString();
+	}
+	return QString::fromUtf8(pdf_to_utf8(d->context, obj));
+}
+
+/**
+ * @brief If the document was converted to PDF from another format, the name of the application (for example, Acrobat Distiller) that converted it to PDF
+ */
+QString Document::producer() const
+{
+	pdf_obj *info = d->info();
+	if (NULL == info) {
+		return QString();
+	}
+	char *key = (char *)"Producer";
+	pdf_obj *obj = pdf_dict_gets(info, key);
+	if (NULL == obj) {
+		return QString();
+	}
+	return QString::fromUtf8(pdf_to_utf8(d->context, obj));
+}
+
+/**
+ * @brief The date and time the document was created
+ */
+QDateTime Document::creationDate() const
+{
+	pdf_obj *info = d->info();
+	if (NULL == info) {
+		return QDateTime();
+	}
+	char *key = (char *)"CreationDate";
+	pdf_obj *obj = pdf_dict_gets(info, key);
+	if (NULL == obj) {
+		return QDateTime();
+	}
+	QString str = pdf_to_utf8(d->context, obj);
+	// see pdf_reference_1.7.pdf 2.8.3 Dates
+	return QDateTime::fromString(str.left(16),
+			"'D:'yyyyMMddHHmmss");
+}
+
+/**
+ * @brief The date and time the document was most recently modified
+ */
+QDateTime Document::modDate() const
+{
+	pdf_obj *info = d->info();
+	if (NULL == info) {
+		return QDateTime();
+	}
+	char *key = (char *)"ModDate";
+	pdf_obj *obj = pdf_dict_gets(info, key);
+	if (NULL == obj) {
+		return QDateTime();
+	}
+	QString str = pdf_to_utf8(d->context, obj);
+	// see pdf_reference_1.7.pdf 2.8.3 Dates
+	return QDateTime::fromString(str.left(16),
+			"'D:'yyyyMMddHHmmss");
 }
 
 } // end namespace MuPDF

@@ -9,6 +9,7 @@
 #include <QtGui/QFileDialog>
 #include <QtGui/QInputDialog>
 #include <QtGui/QLineEdit>
+#include <QtCore/QDateTime>
 #include <QDebug>
 #include "mupdf-qt.h"
 
@@ -46,15 +47,18 @@ int main(int argc, char **argv)
 
 	// print info
 	if (authed) {
+		qDebug() << "PDF version:" << document->pdfVersion();
 		qDebug() << "Page count:" << document->numPages();
-//		qDebug() << "Title:" << document.getInfo(MuPDF::Document::PDFInfoTitle);
-//		qDebug() << "Subject:" << document.getInfo(MuPDF::Document::PDFInfoSubject);
-//		qDebug() << "Author:" << document.getInfo(MuPDF::Document::PDFInfoAuthor);
-//		qDebug() << "Keywords:" << document.getInfo(MuPDF::Document::PDFInfoKeywords);
-//		qDebug() << "Creator:" << document.getInfo(MuPDF::Document::PDFInfoCreator);
-//		qDebug() << "Producer:" << document.getInfo(MuPDF::Document::PDFInfoProducer);
-//		qDebug() << "CreationDate:" << document.getInfo(MuPDF::Document::PDFInfoCreationDate);
-//		qDebug() << "ModDate:" << document.getInfo(MuPDF::Document::PDFInfoModDate);
+		qDebug() << "Title:" << document->title();
+		qDebug() << "Subject:" << document->subject();
+		qDebug() << "Author:" << document->author();
+		qDebug() << "Keywords:" << document->keywords();
+		qDebug() << "Creator:" << document->creator();
+		qDebug() << "Producer:" << document->producer();
+		qDebug() << "CreationDate:" << document->creationDate()
+			.toString(Qt::SystemLocaleLongDate);
+		qDebug() << "ModDate:" << document->modDate()
+			.toString(Qt::SystemLocaleLongDate);
 		delete document;
 	} else {
 		qDebug() << "not loaded";

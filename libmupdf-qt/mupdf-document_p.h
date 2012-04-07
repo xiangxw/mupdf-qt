@@ -11,6 +11,8 @@
 #include <QtCore/QString>
 extern "C" {
 #include "fitz.h"
+#include "mupdf.h"
+#include "mupdf-internal.h"
 }
 
 namespace MuPDF
@@ -32,6 +34,13 @@ public:
 			fz_free_context(context);
 			context = NULL;
 		}
+	}
+	pdf_obj *info() const
+	{
+		pdf_document *xref = (pdf_document *)document;
+		char *key = (char *)"Info";
+		pdf_obj *obj = pdf_dict_gets(xref->trailer, key);
+		return obj;
 	}
 
 	fz_context *context;
