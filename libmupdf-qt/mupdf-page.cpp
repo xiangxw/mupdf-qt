@@ -31,7 +31,17 @@ Page::Page(const Document &document, int index)
 	}
 	d->context = document.d->context;
 	d->document = document.d->document;
-	d->page = fz_load_page(d->document, index);
+
+	// load page
+	fz_try(d->context)
+	{
+		d->page = fz_load_page(d->document, index);
+	}
+	fz_catch(d->context)
+	{
+		fz_free_page(d->document, d->page);
+		d->page = NULL;
+	}
 }
 
 Page::~Page()
@@ -57,25 +67,46 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 		return QImage();
 	}
 
+	// apply scale and rotate
 	fz_matrix transform = fz_scale(scaleX, scaleY);
 	transform = fz_concat(transform, fz_rotate(rotate));
 
+	// get transformed page size
 	fz_rect rect = fz_bound_page(d->document, d->page);
 	rect = fz_transform_rect(transform, rect);
 	fz_bbox bbox = fz_round_rect(rect);
 
+	// delete previous pixmap
 	if (d->pixmap) {
 		fz_drop_pixmap(d->context, d->pixmap);
 	}
-	d->pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_rgb, bbox);
+
+	// render to pixmap
+	fz_device *dev = NULL;
+	fz_try(d->context)
+	{
+		d->pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_rgb, bbox);
+		fz_clear_pixmap_with_value(d->context, d->pixmap, 0xff);
+		dev = fz_new_draw_device(d->context, d->pixmap);
+		fz_run_page(d->document, d->page, dev, transform, NULL);
+	}
+	fz_always(d->context)
+	{
+		if (dev) {
+			fz_free_device(dev);
+		}
+		dev = NULL;
+	}
+	fz_catch(d->context)
+	{
+		if (d->pixmap) {
+			fz_drop_pixmap(d->context, d->pixmap);
+		}
+		d->pixmap = NULL;
+	}
+
+	// render to QImage
 	fz_pixmap *pixmap = d->pixmap;
-	fz_clear_pixmap_with_value(d->context, pixmap, 0xff);
-
-	fz_device *dev = fz_new_draw_device(d->context, pixmap);
-	fz_run_page(d->document, d->page, dev, transform, NULL);
-	fz_free_device(dev);
-
-	// render as QImage
 	unsigned char *samples = fz_pixmap_samples(d->context, pixmap);
 	int width = fz_pixmap_width(d->context, pixmap);
 	int height = fz_pixmap_height(d->context, pixmap);
