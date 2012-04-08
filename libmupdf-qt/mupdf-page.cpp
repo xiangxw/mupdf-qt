@@ -11,6 +11,7 @@ extern "C" {
 #include "fitz.h"
 }
 #include <QtGui/QImage>
+#include <QtCore/QRect>
 
 namespace MuPDF
 {
@@ -79,6 +80,17 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 	QImage image(samples, // no deep copy here
 			width, height, QImage::Format_ARGB32);
 	return image;
+}
+
+/**
+ * @brief Page size at 72 dpi
+ */
+QRect Page::size() const
+{
+	fz_rect rect = fz_bound_page(d->document, d->page);
+	fz_bbox bbox = fz_round_rect(rect);
+	return QRect(bbox.x0, bbox.y0,
+			bbox.x1 - bbox.x0, bbox.y1 - bbox.y0);
 }
 
 /**

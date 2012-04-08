@@ -11,25 +11,33 @@
 #include <QtGui/QLabel>
 #include <QtGui/QPixmap>
 #include <QtGui/QImage>
+#include <QtCore/QDebug>
 
 int main(int argc, char **argv)
 {
 	QApplication app(argc, argv);
 
+	// open document
 	QString file = QFileDialog::getOpenFileName(NULL, "Select PDF file", ".", "PDF (*.pdf)");
 	if (file.isEmpty()) {
 		return 0;
 	}
-
 	MuPDF::Document *document = MuPDF::loadDocument(file);
 	if (NULL == document) {
 		return -1;
 	}
+
+	// load page
 	MuPDF::Page *page = document->page(0);
 	if (NULL == page) {
 		delete document;
 		return -1;
 	}
+
+	// test Page::size()
+	qDebug() << page->size();
+
+	// test Page::renderImage()
 	QImage image = page->renderImage(1.0f, 1.0f, 90.0f);
 	QLabel label;
 	label.setPixmap(QPixmap::fromImage(image));

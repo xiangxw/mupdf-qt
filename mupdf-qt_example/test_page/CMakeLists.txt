@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8 FATAL_ERROR)
-project (test_renderimage)
+project (test_page)
 
 # libmupdf-qt library
 include_directories (${CMAKE_SOURCE_DIR}/../../libmupdf-qt)
