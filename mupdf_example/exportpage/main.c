@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 
 	/* export to image file */
 	char str[100];
-	sprintf(str, "%d.png", index + 1);
+	sprintf(str, "%d.png", index);
 	fz_write_png(context, pixmap, str, 0);
 	fz_drop_pixmap(context, pixmap);
 
