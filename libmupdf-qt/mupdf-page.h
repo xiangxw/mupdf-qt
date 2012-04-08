@@ -20,14 +20,8 @@ class Document;
 class MUPDF_QT_EXPORT Page
 {
 public:
-	enum PDFRotateType {
-		PDFRotate0,
-		PDFRotate90,
-		PDFRotate180,
-		PDFRotate270
-	};
 	~Page();
-	QImage renderImage(float scaleX = 1.0f, float scaleY = 1.0f, PDFRotateType rotate = PDFRotate0);
+	QImage renderImage(float scaleX = 1.0f, float scaleY = 1.0f, float rotate = 0.0f);
 
 private:
 	Page(const Document &document, int index);

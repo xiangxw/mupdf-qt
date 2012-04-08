@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 		delete document;
 		return -1;
 	}
-	QImage image = page->renderImage();
+	QImage image = page->renderImage(1.0f, 1.0f, 90.0f);
 	QLabel label;
 	label.setPixmap(QPixmap::fromImage(image));
 	label.show();

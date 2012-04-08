@@ -46,11 +46,11 @@ Page::~Page()
  *
  * @param scaleX Scale for X
  * @param scaleY Scale for Y
- * @param rotate Clockwise rotation of 0, 90, 180 or 270 degrees
+ * @param rotate Degrees of clockwise rotation. Values less than zero and greater than 360 are handled as expected.
  *
  * @return QImage use implicit data share, so there is no deep copy here
  */
-QImage Page::renderImage(float scaleX, float scaleY, PDFRotateType rotate)
+QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 {
 	if (NULL == d->page) {
 		return QImage();
@@ -58,7 +58,7 @@ QImage Page::renderImage(float scaleX, float scaleY, PDFRotateType rotate)
 
 	fz_pixmap *pixmap = d->pixmap;
 	fz_matrix transform = fz_scale(scaleX, scaleY);
-//	transform = fz_concat(transform, fz_rotate(rotation));
+	transform = fz_concat(transform, fz_rotate(rotate));
 
 	fz_rect rect = fz_bound_page(d->document, d->page);
 	rect = fz_transform_rect(transform, rect);
