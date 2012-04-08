@@ -44,7 +44,7 @@ private:
 	QAction *nextPageAction;
 	QAction *zoomInAction;
 	QAction *zoomOutAction;
-	Mupdf::Document *m_doc;
+	MuPDF::Document *m_doc;
 	QString m_title;
 	int m_numPages;
 	int m_index;

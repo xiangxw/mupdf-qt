@@ -47,9 +47,13 @@ void MainWindow::open()
 
 	if (m_doc) {
 		delete m_doc;
+		m_doc = NULL;
 	}
-	m_doc = new Mupdf::Document(file);
-	m_title = m_doc->getInfo(Mupdf::Document::PDFInfoTitle);
+	m_doc = MuPDF::loadDocument(file);
+	if (NULL == m_doc) {
+		return;
+	}
+	m_title = m_doc->title();
 	m_numPages = m_doc->numPages();
 
 	m_index = 0;
@@ -132,9 +136,13 @@ void MainWindow::createToolBars()
 
 void MainWindow::showPage(int index)
 {
-	Mupdf::Page page = m_doc->page(index);
-	QImage image = page.renderImage(m_scale);
+	MuPDF::Page *page = m_doc->page(index);
+	if (NULL == page) {
+		return;
+	}
+	QImage image = page->renderImage(m_scale, m_scale);
 	label->setPixmap(QPixmap::fromImage(image));
+	delete page;
 	label->resize(label->sizeHint());
 	scrollArea->verticalScrollBar()->setValue(0);
 
