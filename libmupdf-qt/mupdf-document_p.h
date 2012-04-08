@@ -8,12 +8,13 @@
 #ifndef MUPDF_DOCUMENT_P_H
 #define MUPDF_DOCUMENT_P_H
 
-#include <QtCore/QString>
 extern "C" {
 #include "fitz.h"
 #include "mupdf.h"
 #include "mupdf-internal.h"
 }
+
+class QString;
 
 namespace MuPDF
 {
@@ -35,13 +36,7 @@ public:
 			context = NULL;
 		}
 	}
-	pdf_obj *info() const
-	{
-		pdf_document *xref = (pdf_document *)document;
-		char *key = (char *)"Info";
-		pdf_obj *obj = pdf_dict_gets(xref->trailer, key);
-		return obj;
-	}
+	QString info(const char * key);
 
 	fz_context *context;
 	fz_document *document;

@@ -14,6 +14,7 @@ extern "C" {
 #include "mupdf.h"
 #include "mupdf-internal.h"
 }
+#include <QtCore/QString>
 #include <QtCore/QDateTime>
 
 namespace MuPDF
@@ -151,16 +152,7 @@ QString Document::pdfVersion() const
  */
 QString Document::title() const
 {
-	pdf_obj *info = d->info();
-	if (NULL == info) {
-		return QString();
-	}
-	char *key = (char *)"Title";
-	pdf_obj *obj = pdf_dict_gets(info, key);
-	if (NULL == obj) {
-		return QString();
-	}
-	return QString::fromUtf8(pdf_to_utf8(d->context, obj));
+	return d->info("Title");
 }
 
 /**
@@ -168,16 +160,7 @@ QString Document::title() const
  */
 QString Document::author() const
 {
-	pdf_obj *info = d->info();
-	if (NULL == info) {
-		return QString();
-	}
-	char *key = (char *)"Author";
-	pdf_obj *obj = pdf_dict_gets(info, key);
-	if (NULL == obj) {
-		return QString();
-	}
-	return QString::fromUtf8(pdf_to_utf8(d->context, obj));
+	return d->info("Author");
 }
 
 /**
@@ -185,16 +168,7 @@ QString Document::author() const
  */
 QString Document::subject() const
 {
-	pdf_obj *info = d->info();
-	if (NULL == info) {
-		return QString();
-	}
-	char *key = (char *)"Subject";
-	pdf_obj *obj = pdf_dict_gets(info, key);
-	if (NULL == obj) {
-		return QString();
-	}
-	return QString::fromUtf8(pdf_to_utf8(d->context, obj));
+	return d->info("Subject");
 }
 
 /**
@@ -202,16 +176,7 @@ QString Document::subject() const
  */
 QString Document::keywords() const
 {
-	pdf_obj *info = d->info();
-	if (NULL == info) {
-		return QString();
-	}
-	char *key = (char *)"Keywords";
-	pdf_obj *obj = pdf_dict_gets(info, key);
-	if (NULL == obj) {
-		return QString();
-	}
-	return QString::fromUtf8(pdf_to_utf8(d->context, obj));
+	return d->info("Keywords");
 }
 
 /**
@@ -219,16 +184,7 @@ QString Document::keywords() const
  */
 QString Document::creator() const
 {
-	pdf_obj *info = d->info();
-	if (NULL == info) {
-		return QString();
-	}
-	char *key = (char *)"Creator";
-	pdf_obj *obj = pdf_dict_gets(info, key);
-	if (NULL == obj) {
-		return QString();
-	}
-	return QString::fromUtf8(pdf_to_utf8(d->context, obj));
+	return d->info("Creator");
 }
 
 /**
@@ -236,16 +192,7 @@ QString Document::creator() const
  */
 QString Document::producer() const
 {
-	pdf_obj *info = d->info();
-	if (NULL == info) {
-		return QString();
-	}
-	char *key = (char *)"Producer";
-	pdf_obj *obj = pdf_dict_gets(info, key);
-	if (NULL == obj) {
-		return QString();
-	}
-	return QString::fromUtf8(pdf_to_utf8(d->context, obj));
+	return d->info("Producer");
 }
 
 /**
@@ -253,16 +200,10 @@ QString Document::producer() const
  */
 QDateTime Document::creationDate() const
 {
-	pdf_obj *info = d->info();
-	if (NULL == info) {
+	QString str = d->info("CreationDate");
+	if (str.isEmpty()) {
 		return QDateTime();
 	}
-	char *key = (char *)"CreationDate";
-	pdf_obj *obj = pdf_dict_gets(info, key);
-	if (NULL == obj) {
-		return QDateTime();
-	}
-	QString str = pdf_to_utf8(d->context, obj);
 	// see pdf_reference_1.7.pdf 2.8.3 Dates
 	return QDateTime::fromString(str.left(16),
 			"'D:'yyyyMMddHHmmss");
@@ -273,19 +214,35 @@ QDateTime Document::creationDate() const
  */
 QDateTime Document::modDate() const
 {
-	pdf_obj *info = d->info();
-	if (NULL == info) {
+	QString str = d->info("ModDate");
+	if (str.isEmpty()) {
 		return QDateTime();
 	}
-	char *key = (char *)"ModDate";
-	pdf_obj *obj = pdf_dict_gets(info, key);
-	if (NULL == obj) {
-		return QDateTime();
-	}
-	QString str = pdf_to_utf8(d->context, obj);
 	// see pdf_reference_1.7.pdf 2.8.3 Dates
 	return QDateTime::fromString(str.left(16),
 			"'D:'yyyyMMddHHmmss");
+}
+
+/**
+ * @brief Get info of the document
+ *
+ * @param key info key
+ */
+QString DocumentPrivate::info(const char * key)
+{
+	pdf_document *xref = (pdf_document *)document;
+	pdf_obj *info = pdf_dict_gets(xref->trailer, (char *)"Info");
+	if (NULL == info) {
+		return QString();
+	}
+	pdf_obj *obj = pdf_dict_gets(info, (char *)key);
+	if (NULL == obj) {
+		return QString();
+	}
+	char *str = pdf_to_utf8(context, obj);
+	QString ret = QString::fromUtf8(str);
+	free(str);
+	return ret;
 }
 
 } // end namespace MuPDF
