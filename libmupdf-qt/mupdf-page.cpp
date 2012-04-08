@@ -57,7 +57,6 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 		return QImage();
 	}
 
-	fz_pixmap *pixmap = d->pixmap;
 	fz_matrix transform = fz_scale(scaleX, scaleY);
 	transform = fz_concat(transform, fz_rotate(rotate));
 
@@ -65,7 +64,11 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 	rect = fz_transform_rect(transform, rect);
 	fz_bbox bbox = fz_round_rect(rect);
 
-	pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_rgb, bbox);
+	if (d->pixmap) {
+		fz_drop_pixmap(d->context, d->pixmap);
+	}
+	d->pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_rgb, bbox);
+	fz_pixmap *pixmap = d->pixmap;
 	fz_clear_pixmap_with_value(d->context, pixmap, 0xff);
 
 	fz_device *dev = fz_new_draw_device(d->context, pixmap);
