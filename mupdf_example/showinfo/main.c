@@ -8,70 +8,60 @@
 #include <stdlib.h>
 #include "fitz.h"
 #include "mupdf.h"
+#include "mupdf-internal.h"
 
 int main(int argc, char **argv)
 {
-	pdf_xref *xref = NULL;
-	fz_error error;
-	const char *filename = "/home/a/project/mupdf-qt/pdf_files/CJK_fonts_not_embedded.pdf";
+	char *filename = (char *)"/home/a/project/mupdf-qt/pdf_files/pdf_reference_1-7.pdf";
 
 	/* open xref */
-	error = pdf_open_xref(&xref, filename, NULL);
-	if (error) {
+	fz_context *context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
+	pdf_document *xref = (pdf_document *)fz_open_document(context, filename);
+	if (NULL == xref) {
 		printf("can't open document: %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
 
-	/* load page tree */
-	error = pdf_load_page_tree(xref);
-	if (error) {
-		printf("can't load page tree: %s\n", filename);
-		exit(EXIT_FAILURE);
-	}
-
-	/* print page count */
-	int pages = pdf_count_pages(xref);
-	printf("page count: %d\n", pages);
-
 	/* print infomation */
-	fz_obj *info = fz_dict_gets(xref->trailer, "Info");
+	pdf_obj *info = pdf_dict_gets(xref->trailer, "Info");
 	if (info) {
-		fz_obj *obj = NULL;
-		obj = fz_dict_gets(info, "Title"); /* print title */
+		pdf_obj *obj = NULL;
+		obj = pdf_dict_gets(info, (char *)"Title"); /* print title */
 		if (obj) {
-			printf("Title: %s\n", pdf_to_utf8(obj));
+			printf("Title: %s\n", pdf_to_utf8(context, obj));
 		}
-		obj = fz_dict_gets(info, "Subject"); /* print subject */
+		obj = pdf_dict_gets(info, (char *)"Subject"); /* print subject */
 		if (obj) {
-			printf("Subject: %s\n", pdf_to_utf8(obj));
+			printf("Subject: %s\n", pdf_to_utf8(context, obj));
 		}
-		obj = fz_dict_gets(info, "Author"); /* print author */
+		obj = pdf_dict_gets(info, (char *)"Author"); /* print author */
 		if (obj) {
-			printf("Author: %s\n", pdf_to_utf8(obj));
+			printf("Author: %s\n", pdf_to_utf8(context, obj));
 		}
-		obj = fz_dict_gets(info, "Keywords"); /* print keywords */
+		obj = pdf_dict_gets(info, (char *)"Keywords"); /* print keywords */
 		if (obj) {
-			printf("Keywords: %s\n", pdf_to_utf8(obj));
+			printf("Keywords: %s\n", pdf_to_utf8(context, obj));
 		}
-		obj = fz_dict_gets(info, "Creator"); /* print creator */
+		obj = pdf_dict_gets(info, (char *)"Creator"); /* print creator */
 		if (obj) {
-			printf("Creator: %s\n", pdf_to_utf8(obj));
+			printf("Creator: %s\n", pdf_to_utf8(context, obj));
 		}
-		obj = fz_dict_gets(info, "Producer"); /* print producer */
+		obj = pdf_dict_gets(info, (char *)"Producer"); /* print producer */
 		if (obj) {
-			printf("Producer: %s\n", pdf_to_utf8(obj));
+			printf("Producer: %s\n", pdf_to_utf8(context, obj));
 		}
-		obj = fz_dict_gets(info, "CreationDate"); /* print creation date */
+		obj = pdf_dict_gets(info, (char *)"CreationDate"); /* print creation date */
 		if (obj) {
-			printf("CreationDate: %s\n", pdf_to_utf8(obj));
+			printf("CreationDate: %s\n", pdf_to_utf8(context, obj));
 		}
-		obj = fz_dict_gets(info, "ModDate"); /* print mod date */
+		obj = pdf_dict_gets(info, (char *)"ModDate"); /* print mod date */
 		if (obj) {
-			printf("ModDate: %s\n", pdf_to_utf8(obj));
+			printf("ModDate: %s\n", pdf_to_utf8(context, obj));
 		}
 	}
 
 	/* clean */
-	pdf_free_xref(xref);
+	fz_close_document((fz_document *)xref);
+	fz_free_context(context);
 	return 0;
 }
