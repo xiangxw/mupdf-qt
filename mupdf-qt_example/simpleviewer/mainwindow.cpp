@@ -14,6 +14,7 @@
 #include <QtGui/QImage>
 #include <QtGui/QPixmap>
 #include <QtGui/QScrollBar>
+#include <cmath>
 
 MainWindow::MainWindow(QWidget *parent)
 	:QMainWindow(parent)
@@ -99,7 +100,7 @@ void MainWindow::zoomOut()
 	if (NULL == m_doc) {
 		return;
 	}
-	if (m_scale <= 0.1f) {
+	if (m_scale < 0.15f) {
 		return;
 	}
 	m_scale -= 0.1f;
@@ -155,6 +156,6 @@ void MainWindow::showPage(int index)
 	title += "Page " + QString::number(m_index + 1)
 		+ "/" + QString::number(m_numPages);
 	title += " - ";
-	title += "Scale " + QString::number(m_scale * 100) + "%";
+	title += "Scale " + QString::number(round(m_scale * 100)) + "%";
 	this->setWindowTitle(title);
 }
