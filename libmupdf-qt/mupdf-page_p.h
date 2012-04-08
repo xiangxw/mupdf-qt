@@ -23,16 +23,11 @@ public:
 	PagePrivate():
 		context(NULL),
 		document(NULL),
-		page(NULL),
-		pixmap(NULL)
+		page(NULL)
 	{
 	}
 	~PagePrivate()
 	{
-		if (pixmap) {
-			fz_drop_pixmap(context, pixmap);
-			pixmap = NULL;
-		}
 		if (page) {
 			fz_free_page(document, page);
 			page = NULL;
@@ -43,7 +38,6 @@ public:
 	fz_context *context;
 	fz_document *document;
 	fz_page *page;
-	fz_pixmap *pixmap; // page image
 };
 
 } // end namespace MuPDF
