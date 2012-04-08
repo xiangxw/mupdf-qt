@@ -22,7 +22,7 @@ namespace MuPDF
 class DocumentPrivate
 {
 public:
-	DocumentPrivate():context(NULL), document(NULL), numPages(-1)
+	DocumentPrivate():context(NULL), document(NULL)
 	{
 	}
 	~DocumentPrivate()
@@ -40,7 +40,6 @@ public:
 
 	fz_context *context;
 	fz_document *document;
-	int numPages;
 };
 
 } // end namespace MuPDF

@@ -57,15 +57,22 @@ Document::Document(const QString &filePath)
 	if (NULL == d->context) {
 		return;
 	}
+
 	// open document
-	d->document = fz_open_document(d->context,
-			filePath.toLocal8Bit().data());
+	fz_try(d->context)
+	{
+		d->document = fz_open_document(d->context,
+				filePath.toLocal8Bit().data());
+	}
+	fz_catch(d->context)
+	{
+		fz_close_document(d->document);
+		d->document = NULL;
+		fz_free_context(d->context);
+		d->context = NULL;
+	}
 	if (NULL == d->document) {
 		return;
-	}
-	// count pages
-	if (!fz_needs_password(d->document)) {
-		d->numPages = fz_count_pages(d->document);
 	}
 }
 
@@ -99,14 +106,8 @@ bool Document::needsPassword() const
  */
 bool Document::authPassword(const QString &password)
 {
-	bool tmp;
-	tmp = fz_authenticate_password(d->document,
+	return fz_authenticate_password(d->document,
 			password.toLocal8Bit().data());
-	if (tmp) {
-		d->numPages = fz_count_pages(d->document);
-	}
-
-	return tmp;
 }
 
 /**
@@ -114,7 +115,16 @@ bool Document::authPassword(const QString &password)
  */
 int Document::numPages() const
 {
-	return d->numPages;
+	int ret;
+	fz_try(d->context)
+	{
+		ret = fz_count_pages(d->document);
+	}
+	fz_catch(d->context)
+	{
+		ret = -1;
+	}
+	return ret;
 }
 
 /**
