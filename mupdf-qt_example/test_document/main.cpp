@@ -59,10 +59,10 @@ int main(int argc, char **argv)
 			.toString(Qt::SystemLocaleLongDate);
 		qDebug() << "ModDate:" << document->modDate()
 			.toString(Qt::SystemLocaleLongDate);
-		delete document;
 	} else {
 		qDebug() << "not loaded";
 	}
 
+	delete document;
 	return 0;
 }

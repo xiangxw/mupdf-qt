@@ -43,5 +43,7 @@ int main(int argc, char **argv)
 	label.setPixmap(QPixmap::fromImage(image));
 	label.show();
 
+	delete page;
+	delete document;
 	return app.exec();
 }
