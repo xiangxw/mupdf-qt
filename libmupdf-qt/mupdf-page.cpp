@@ -63,24 +63,27 @@ Page::~Page()
  */
 QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 {
-	// apply scale and rotate
-	fz_matrix transform = fz_scale(scaleX, scaleY);
-	transform = fz_concat(transform, fz_rotate(rotate));
+    // apply scale and rotat
+    fz_matrix transform;
+    fz_rotate(&transform, rotate);
+    fz_pre_scale(&transform, scaleX, scaleY);
 
-	// get transformed page size
-	fz_rect rect = fz_bound_page(d->document, d->page);
-	rect = fz_transform_rect(transform, rect);
-	fz_bbox bbox = fz_round_rect(rect);
+    // get transformed page size
+    fz_rect bounds;
+    fz_bound_page(d->document, d->page, &bounds);
+    fz_transform_rect(&bounds, &transform);
+    fz_irect bbox;
+    fz_round_rect(&bbox, &bounds);
 
 	// render to pixmap
 	fz_pixmap *pixmap = NULL;
 	fz_device *dev = NULL;
 	fz_try(d->context)
 	{
-		pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_rgb, bbox);
-		fz_clear_pixmap_with_value(d->context, pixmap, 0xff);
-		dev = fz_new_draw_device(d->context, pixmap);
-		fz_run_page(d->document, d->page, dev, transform, NULL);
+        pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_rgb, &bbox);
+        fz_clear_pixmap_with_value(d->context, pixmap, 0xff);
+        fz_device *dev = fz_new_draw_device(d->context, pixmap);
+        fz_run_page(d->document, d->page, dev, &transform, NULL);
 	}
 	fz_always(d->context)
 	{
@@ -116,9 +119,13 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
  */
 QRect Page::size() const
 {
-	fz_rect rect = fz_bound_page(d->document, d->page);
-	fz_bbox bbox = fz_round_rect(rect);
-	return QRect(bbox.x0, bbox.y0,
+    //fz_rect rect = fz_bound_page(d->document, d->page);
+    fz_rect rect;
+    fz_bound_page(d->document, d->page, &rect);
+    //fz_bbox bbox = fz_round_rect(rect);
+    fz_irect bbox;
+    fz_round_rect(&bbox, &rect);
+    return QRect(bbox.x0, bbox.y0,
 			bbox.x1 - bbox.x0, bbox.y1 - bbox.y0);
 }
 

@@ -19,7 +19,7 @@ typedef struct cbz_page_s cbz_page;
 
 	filename: a path to a file as it would be given to open(2).
 */
-cbz_document *cbz_open_document(fz_context *ctx, char *filename);
+cbz_document *cbz_open_document(fz_context *ctx, const char *filename);
 
 /*
 	cbz_open_document_with_stream: Opens a document.
@@ -30,7 +30,7 @@ cbz_document *cbz_open_document(fz_context *ctx, char *filename);
 	fz_open_file_w or fz_open_fd for opening a stream, and
 	fz_close for closing an open stream.
 */
-cbz_document *cbz_open_document_with_stream(fz_stream *file);
+cbz_document *cbz_open_document_with_stream(fz_context *ctx, fz_stream *file);
 
 /*
 	cbz_close_document: Closes and frees an opened document.
@@ -44,8 +44,8 @@ void cbz_close_document(cbz_document *doc);
 
 int cbz_count_pages(cbz_document *doc);
 cbz_page *cbz_load_page(cbz_document *doc, int number);
-fz_rect cbz_bound_page(cbz_document *doc, cbz_page *page);
+fz_rect *cbz_bound_page(cbz_document *doc, cbz_page *page, fz_rect *rect);
 void cbz_free_page(cbz_document *doc, cbz_page *page);
-void cbz_run_page(cbz_document *doc, cbz_page *page, fz_device *dev, fz_matrix ctm, fz_cookie *cookie);
+void cbz_run_page(cbz_document *doc, cbz_page *page, fz_device *dev, const fz_matrix *ctm, fz_cookie *cookie);
 
 #endif

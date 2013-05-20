@@ -249,7 +249,8 @@ QString DocumentPrivate::info(const char * key)
 	if (NULL == obj) {
 		return QString();
 	}
-	char *str = pdf_to_utf8(context, obj);
+    //char *str = pdf_to_utf8(context, obj);
+    char *str = pdf_to_utf8((pdf_document *)document, obj);
 	QString ret = QString::fromUtf8(str);
 	free(str);
 	return ret;
