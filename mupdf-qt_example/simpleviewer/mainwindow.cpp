@@ -14,6 +14,7 @@
 #include <QtGui/QImage>
 #include <QtGui/QPixmap>
 #include <QtGui/QScrollBar>
+#include <QtGui/QInputDialog>
 #include <cmath>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -41,7 +42,7 @@ MainWindow::~MainWindow()
 void MainWindow::open()
 {
 	QString file = QFileDialog::getOpenFileName(this,
-			tr("Open PDF file"), ".", "PDF (*.pdf)");
+            tr("Open PDF/XPS file"), ".", "PDF (*.pdf);;XPS (*.xps)");
 	if (file.isEmpty()) {
 		return;
 	}
@@ -50,10 +51,23 @@ void MainWindow::open()
 		delete m_doc;
 		m_doc = NULL;
 	}
-	m_doc = MuPDF::loadDocument(file);
-	if (NULL == m_doc) {
+    m_doc = MuPDF::loadDocument(file);
+    if (NULL == m_doc) {
 		return;
 	}
+
+    if (m_doc->needsPassword()) {
+        bool ok;
+        QString password;
+        do {
+            password = QInputDialog::getText(this, tr("Enter password"),
+                                                 tr("Password:"), QLineEdit::Normal,
+                                                 "", &ok);
+            if (!ok)
+                return;
+        } while (!m_doc->authPassword(password));
+    }
+
 	m_title = m_doc->title();
 	m_numPages = m_doc->numPages();
 

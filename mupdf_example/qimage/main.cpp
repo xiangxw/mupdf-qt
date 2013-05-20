@@ -34,17 +34,20 @@ int main(int argc, char **argv)
 	/* load page*/
 	fz_page *page = fz_load_page(document, index - 1);
 
-	/* render page to pixmap */
-	fz_matrix transform = fz_scale(1.0f, 1.0f);
-	transform = fz_concat(transform, fz_rotate(0.0f));
-	fz_rect rect = fz_bound_page(document, page);
-	rect = fz_transform_rect(transform, rect); // fz_rect use float
-	fz_bbox bbox = fz_round_rect(rect); //fz_bbox use int
-	fz_pixmap *pixmap = fz_new_pixmap_with_bbox(context, fz_device_rgb, bbox);
+    /* render page to pixmap */
+    fz_matrix transform;
+    fz_rotate(&transform, 0.0f);
+    fz_pre_scale(&transform, 1.0f, 1.0f);
+    fz_rect bounds;
+    fz_bound_page(document, page, &bounds);
+    fz_transform_rect(&bounds, &transform);
+    fz_irect bbox;
+    fz_round_rect(&bbox, &bounds);
+    fz_pixmap *pixmap = fz_new_pixmap_with_bbox(context, fz_device_rgb, &bbox);
 	fz_clear_pixmap_with_value(context, pixmap, 0xff); // 0xff = 255
 	fz_device *device = fz_new_draw_device(context, pixmap);
-	fz_run_page(document, page, device, transform, NULL);
-	fz_free_device(device);
+    fz_run_page(document, page, device, &transform, NULL);
+    fz_free_device(device);
 
 	/* render as QImage */
 	unsigned char *samples = fz_pixmap_samples(context, pixmap);

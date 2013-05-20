@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 
 	// open document
 	QString file = QFileDialog::getOpenFileName(NULL,
-			"Select PDF file", ".", "PDF (*.pdf)");
+            "Select PDF file", ".", "PDF (*.pdf)");
 	if (file.isEmpty()) {
 		return 0;
 	}
@@ -64,5 +64,5 @@ int main(int argc, char **argv)
 	}
 
 	delete document;
-	return 0;
+    return 0;
 }
