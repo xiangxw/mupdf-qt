@@ -6,12 +6,12 @@
  */
 
 #include "mupdf-qt.h"
-#include <QtGui/QApplication>
-#include <QtGui/QFileDialog>
-#include <QtGui/QLabel>
-#include <QtGui/QPixmap>
-#include <QtGui/QImage>
-#include <QtCore/QDebug>
+#include <QApplication>
+#include <QFileDialog>
+#include <QLabel>
+#include <QPixmap>
+#include <QImage>
+#include <QDebug>
 
 int main(int argc, char **argv)
 {

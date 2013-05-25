@@ -14,8 +14,8 @@ extern "C" {
 #include "mupdf.h"
 #include "mupdf-internal.h"
 }
-#include <QtCore/QString>
-#include <QtCore/QDateTime>
+#include <QString>
+#include <QDateTime>
 
 namespace MuPDF
 {

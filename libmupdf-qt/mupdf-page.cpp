@@ -10,8 +10,8 @@
 extern "C" {
 #include "fitz.h"
 }
-#include <QtGui/QImage>
-#include <QtCore/QRect>
+#include <QImage>
+#include <QRect>
 
 namespace MuPDF
 {

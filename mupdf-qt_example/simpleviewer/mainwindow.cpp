@@ -6,15 +6,15 @@
  */
 
 #include "mainwindow.h"
-#include <QtGui/QScrollArea>
-#include <QtGui/QLabel>
-#include <QtGui/QToolBar>
-#include <QtGui/QAction>
-#include <QtGui/QFileDialog>
-#include <QtGui/QImage>
-#include <QtGui/QPixmap>
-#include <QtGui/QScrollBar>
-#include <QtGui/QInputDialog>
+#include <QScrollArea>
+#include <QLabel>
+#include <QToolBar>
+#include <QAction>
+#include <QFileDialog>
+#include <QImage>
+#include <QPixmap>
+#include <QScrollBar>
+#include <QInputDialog>
 #include <cmath>
 
 MainWindow::MainWindow(QWidget *parent)

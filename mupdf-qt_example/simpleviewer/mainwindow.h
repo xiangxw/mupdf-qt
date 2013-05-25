@@ -9,7 +9,7 @@
 #define MAINWINDOW_H
 
 #include "mupdf-qt.h"
-#include <QtGui/QMainWindow>
+#include <QMainWindow>
 
 class QScrollArea;
 class QLabel;

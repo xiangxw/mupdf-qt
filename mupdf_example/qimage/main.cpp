@@ -8,11 +8,11 @@
 extern "C" {
 #include "fitz.h"
 }
-#include <QtGui/QApplication>
-#include <QtGui/QImage>
-#include <QtGui/QPixmap>
-#include <QtGui/QLabel>
-#include <QtGui/QFileDialog>
+#include <QApplication>
+#include <QImage>
+#include <QPixmap>
+#include <QLabel>
+#include <QFileDialog>
 
 void rgba2bgra(unsigned char *data, int size);
 

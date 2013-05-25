@@ -5,11 +5,11 @@
  * @date 2012-03-28
  */
 
-#include <QtGui/QApplication>
-#include <QtGui/QFileDialog>
-#include <QtGui/QInputDialog>
-#include <QtGui/QLineEdit>
-#include <QtCore/QDateTime>
+#include <QApplication>
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QLineEdit>
+#include <QDateTime>
 #include <QDebug>
 #include "mupdf-qt.h"
 
