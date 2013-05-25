@@ -1,0 +1,19 @@
+language: cpp
+compiler:
+  - gcc
+before_install:
+  - sudo apt-get install cmake libqt4-dev
+script:
+  - git clone --recursive git://git.ghostscript.com/mupdf.git
+  - export MuPDF_SRC=$PWD/mupdf
+  - cd mupdf && git checkout 1.2 && git submodule update && make && cd ..
+  - mkdir build && cd build && cmake .. && make
+branches:
+  only:
+    - master
+notifications:
+  recipients:
+    - xiangxw5689@126.com
+  email:
+    on_success: change
+    on_failure: always
