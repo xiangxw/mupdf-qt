@@ -12,7 +12,7 @@ endif ()
 # Get MuPDF source directory
 if (NOT $ENV{MuPDF_SRC} STREQUAL "")
 	set (MuPDF_SRC $ENV{MuPDF_SRC})
-endif()
+endif ()
 
 if (MuPDF_ROOT) # Using MuPDF root directory
 	# Find include directory
@@ -32,20 +32,24 @@ if (MuPDF_ROOT) # Using MuPDF root directory
 			PATHS ${MuPDF_LIBRARY_HINTS})
 		if (NOT ${COMPONENT}_LIBRARY)
 			message (FATAL_ERROR "Library " ${COMPONENT} " NOT FOUND!")
-		endif()
+		endif ()
 		set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} ${${COMPONENT}_LIBRARY})
-	endforeach()
-elseif (MUPDF_SRC) # Using MuPDF source directory
+	endforeach ()
+elseif (MuPDF_SRC) # Using MuPDF source directory
 	# Find include directory
 	set (MuPDF_INCLUDE_DIRS ${MuPDF_SRC}/fitz ${MuPDF_SRC}/pdf ${MuPDF_SRC}/cbz ${MuPDF_SRC}/xps)
 	# Find library
-	set (MuPDF_LIBRARIES ${MuPDF_SRC}/build/debug/libfitz.a
-		${MuPDF_SRC}/build/debug/libfreetype.a
-		${MuPDF_SRC}/build/debug/libjbig2dec.a
-		${MuPDF_SRC}/build/debug/libjpeg.a
-		${MuPDF_SRC}/build/debug/libopenjpeg.a
-		${MuPDF_SRC}/build/debug/libz.a)
-endif()
+	set (MuPDF_LIBRARY_COMPONENTS fitz freetype jbig2dec jpeg openjpeg z)
+	foreach (COMPONENT ${MuPDF_LIBRARY_COMPONENTS})
+		find_library (${COMPONENT}_LIBRARY
+			NAMES ${COMPONENT}
+			PATHS ${MuPDF_SRC}/build/*)
+		if (NOT ${COMPONENT}_LIBRARY)
+			message (FATAL_ERROR "Library " ${COMPONENT} " NOT FOUND!")
+		endif ()
+		set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} ${${COMPONENT}_LIBRARY})
+	endforeach ()
+endif ()
 
 # Other
 include (FindPackageHandleStandardArgs)
