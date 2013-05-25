@@ -35,6 +35,9 @@ if (MuPDF_ROOT) # Using MuPDF root directory
 		endif ()
 		set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} ${${COMPONENT}_LIBRARY})
 	endforeach ()
+	if (UNIX)
+		set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} -lm)
+	endif ()
 elseif (MuPDF_SRC) # Using MuPDF source directory
 	# Find include directory
 	set (MuPDF_INCLUDE_DIRS ${MuPDF_SRC}/fitz ${MuPDF_SRC}/pdf ${MuPDF_SRC}/cbz ${MuPDF_SRC}/xps)
@@ -49,6 +52,9 @@ elseif (MuPDF_SRC) # Using MuPDF source directory
 		endif ()
 		set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} ${${COMPONENT}_LIBRARY})
 	endforeach ()
+	if (UNIX)
+		set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} -lm)
+	endif ()
 endif ()
 
 # Other
