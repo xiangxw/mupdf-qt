@@ -2,17 +2,19 @@ cmake_minimum_required (VERSION 2.8 FATAL_ERROR)
 project (simpleviewer)
 
 # libmupdf-qt library
-include_directories (${CMAKE_SOURCE_DIR}/../../libmupdf-qt)
-link_directories (${CMAKE_SOURCE_DIR}/../../libmupdf-qt/build)
+include_directories (${CMAKE_SOURCE_DIR}/libmupdf-qt)
+link_directories (${CMAKE_ARCHIVE_OUTPUT_DIRECTORY})
 
-# Qt Library
-find_package (Qt4 REQUIRED)
-include (${QT_USE_FILE})
+aux_source_directory (. project_SOURCES)
 
-set (project_SOURCES main.cpp mainwindow.cpp)
-set (project_HEADERS mainwindow.h)
-QT4_WRAP_CPP (project_MOCS ${project_HEADERS})
-
-add_executable (${PROJECT_NAME} main.cpp mainwindow.cpp ${project_MOCS})
-target_link_libraries (${PROJECT_NAME} mupdf-qt)
-target_link_libraries (${PROJECT_NAME} ${QT_LIBRARIES})
+if (Qt5Widgets_FOUND)
+	add_executable (${PROJECT_NAME} ${project_SOURCES})
+	target_link_libraries (${PROJECT_NAME} mupdf-qt)
+	qt5_use_modules (${PROJECT_NAME} Widgets)
+else (Qt4_FOUND)
+	set (project_HEADERS mainwindow.h)
+	QT4_WRAP_CPP (project_MOCS ${project_HEADERS})
+	add_executable (${PROJECT_NAME} ${project_SOURCES} ${project_MOCS})
+	target_link_libraries (${PROJECT_NAME} mupdf-qt)
+	target_link_libraries (${PROJECT_NAME} ${QT_LIBRARIES})
+endif ()
