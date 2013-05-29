@@ -16,6 +16,24 @@ extern "C" {
 namespace MuPDF
 {
 
+struct info_s
+{
+	fz_context *context;
+	fz_pixmap *pixmap;
+};
+
+/**
+ * @brief Clean up image data when the last copy of the QImage is destoryed.
+ *
+ * @param info Image data.
+ */
+void imageCleanupHandler(void *info)
+{
+	info_s *p = static_cast<info_s *>(info);
+
+	fz_drop_pixmap(p->context, p->pixmap);
+}
+
 /**
  * @brief Constructor
  */
@@ -101,16 +119,27 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 	}
 
 	// render to QImage
+	QImage image;
 	if (NULL == pixmap) {
-		return QImage();
+		return image;
 	}
 	unsigned char *samples = fz_pixmap_samples(d->context, pixmap);
 	int width = fz_pixmap_width(d->context, pixmap);
 	int height = fz_pixmap_height(d->context, pixmap);
 	d->rgba2bgra(samples, width * height * 4);
-	QImage image = QImage(samples, // no deep copy here
+#if (QT_VERSION >= 0x050000)
+	// No copy before return when Qt5 is used
+	info_s *info = new info_s;
+	info->context = d->context;
+	info->pixmap = pixmap;
+	image = QImage(samples, // no deep copy here
+			width, height, QImage::Format_ARGB32, imageCleanupHandler, info);
+#else
+	// Copy before return when Qt4 is used
+	image = QImage(samples, // no deep copy here
 			width, height, QImage::Format_ARGB32).copy();
 	fz_drop_pixmap(d->context, pixmap);
+#endif
 	return image;
 }
 
