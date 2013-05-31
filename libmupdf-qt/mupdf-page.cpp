@@ -99,9 +99,7 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 	fz_try(d->context)
 	{
         pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_rgb, &bbox);
-		if (d->transparent) {
-			fz_clear_pixmap(d->context, pixmap);
-		} else {
+		if (!d->transparent) {
 			fz_clear_pixmap_with_value(d->context, pixmap, 0xff);
 		}
         fz_device *dev = fz_new_draw_device(d->context, pixmap);
