@@ -155,6 +155,7 @@ void MainWindow::showPage(int index)
 	if (NULL == page) {
 		return;
 	}
+	page->setTransparentRendering(true);
 	QImage image = page->renderImage(m_scale, m_scale);
 	label->setPixmap(QPixmap::fromImage(image));
 	delete page;

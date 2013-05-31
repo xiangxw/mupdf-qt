@@ -99,7 +99,11 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 	fz_try(d->context)
 	{
         pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_rgb, &bbox);
-        fz_clear_pixmap_with_value(d->context, pixmap, 0xff);
+		if (d->transparent) {
+			fz_clear_pixmap(d->context, pixmap);
+		} else {
+			fz_clear_pixmap_with_value(d->context, pixmap, 0xff);
+		}
         fz_device *dev = fz_new_draw_device(d->context, pixmap);
         fz_run_page(d->document, d->page, dev, &transform, NULL);
 	}
@@ -156,6 +160,16 @@ QRect Page::size() const
     fz_round_rect(&bbox, &rect);
     return QRect(bbox.x0, bbox.y0,
 			bbox.x1 - bbox.x0, bbox.y1 - bbox.y0);
+}
+
+/**
+ * @brief Whether to do transparent page rendering.
+ *
+ * @param enable True: transparent; False: not transparent.
+ */
+void Page::setTransparentRendering(bool enable)
+{
+	d->transparent = enable;
 }
 
 /**

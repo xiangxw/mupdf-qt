@@ -23,7 +23,8 @@ public:
 	PagePrivate():
 		context(NULL),
 		document(NULL),
-		page(NULL)
+		page(NULL),
+		transparent(false)
 	{
 	}
 	~PagePrivate()
@@ -38,6 +39,7 @@ public:
 	fz_context *context;
 	fz_document *document;
 	fz_page *page;
+	bool transparent;
 };
 
 } // end namespace MuPDF

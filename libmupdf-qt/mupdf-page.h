@@ -25,6 +25,7 @@ public:
 	~Page();
 	QImage renderImage(float scaleX = 1.0f, float scaleY = 1.0f, float rotate = 0.0f);
 	QRect size() const;
+	void setTransparentRendering(bool enable);
 
 private:
 	Page(const Document &document, int index);
