@@ -31,7 +31,10 @@ void imageCleanupHandler(void *info)
 {
 	info_s *p = static_cast<info_s *>(info);
 
-	fz_drop_pixmap(p->context, p->pixmap);
+	if (p) {
+		fz_drop_pixmap(p->context, p->pixmap);
+		delete p;
+	}
 }
 
 /**
