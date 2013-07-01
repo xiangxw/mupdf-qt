@@ -27,21 +27,12 @@ static void clear_samples_with_value(
 	}
 }
 
-namespace MuPDF
-{
-
-struct info_s
-{
-	fz_context *context;
-	fz_pixmap *pixmap;
-};
-
 /**
  * @brief Clean up image data when the last copy of the QImage is destoryed.
  *
  * @param info Image data.
  */
-void imageCleanupHandler(void *info)
+static void imageCleanupHandler(void *info)
 {
 	info_s *p = static_cast<info_s *>(info);
 
@@ -50,6 +41,9 @@ void imageCleanupHandler(void *info)
 		delete p;
 	}
 }
+
+namespace MuPDF
+{
 
 /**
  * @brief Constructor

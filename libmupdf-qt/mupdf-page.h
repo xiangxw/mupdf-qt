@@ -12,11 +12,11 @@
 
 class QImage;
 class QRect;
+class PagePrivate;
 
 namespace MuPDF
 {
 class Page;
-class PagePrivate;
 class Document;
 
 class MUPDF_QT_EXPORT Page

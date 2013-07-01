@@ -14,9 +14,6 @@ extern "C" {
 #include "fitz.h"
 }
 
-namespace MuPDF
-{
-
 class PagePrivate
 {
 public:
@@ -47,6 +44,10 @@ public:
 	int b, g, r, a; // background color
 };
 
-} // end namespace MuPDF
+struct info_s
+{
+	fz_context *context;
+	fz_pixmap *pixmap;
+};
 
 #endif // end MUPDF_PAGE_P_H

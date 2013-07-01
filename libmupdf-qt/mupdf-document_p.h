@@ -16,9 +16,6 @@ extern "C" {
 
 class QString;
 
-namespace MuPDF
-{
-
 class DocumentPrivate
 {
 public:
@@ -41,7 +38,5 @@ public:
 	fz_context *context;
 	fz_document *document;
 };
-
-} // end namespace MuPDF
 
 #endif // end MUPDF_DOCUMENT_P_H

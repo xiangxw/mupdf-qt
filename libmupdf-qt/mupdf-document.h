@@ -13,10 +13,10 @@
 class QString;
 class QDateTime;
 
+class DocumentPrivate;
 namespace MuPDF
 {
 class Document;
-class DocumentPrivate;
 class Page;
 
 Document * MUPDF_QT_EXPORT loadDocument(const QString &filePath);

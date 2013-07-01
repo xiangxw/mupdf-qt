@@ -233,6 +233,8 @@ QDateTime Document::modDate() const
 			"'D:'yyyyMMddHHmmss");
 }
 
+} // end namespace MuPDF
+
 /**
  * @brief Get info of the document
  *
@@ -255,5 +257,3 @@ QString DocumentPrivate::info(const char * key)
 	free(str);
 	return ret;
 }
-
-} // end namespace MuPDF
