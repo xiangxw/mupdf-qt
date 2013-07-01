@@ -13,6 +13,20 @@ extern "C" {
 #include <QImage>
 #include <QRect>
 
+static void clear_samples_with_value(
+		unsigned char *samples, int size,
+		int b, int g, int r, int a)
+{
+	int i = 0;
+
+	while (i < size) {
+		*(samples + i++) = b;
+		*(samples + i++) = g;
+		*(samples + i++) = r;
+		*(samples + i++) = a;
+	}
+}
+
 namespace MuPDF
 {
 
@@ -84,6 +98,12 @@ Page::~Page()
  */
 QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 {
+	fz_pixmap *pixmap = NULL;
+	unsigned char *samples = NULL;
+	int width = 0;
+	int height = 0;
+	int size = 0;
+
     // apply scale and rotat
     fz_matrix transform;
     fz_rotate(&transform, rotate);
@@ -97,13 +117,22 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
     fz_round_rect(&bbox, &bounds);
 
 	// render to pixmap
-	fz_pixmap *pixmap = NULL;
 	fz_device *dev = NULL;
 	fz_try(d->context)
 	{
-        pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_rgb, &bbox);
+		pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_bgr, &bbox);
+		samples = fz_pixmap_samples(d->context, pixmap);
+		width = fz_pixmap_width(d->context, pixmap);
+		height = fz_pixmap_height(d->context, pixmap);
+		size = width * height * 4;
 		if (!d->transparent) {
-			fz_clear_pixmap_with_value(d->context, pixmap, 0xff);
+			if (d->b >= 0 && d->g >= 0 && d->r >= 0 && d->a >= 0) {
+				// with user defined background color
+				clear_samples_with_value(samples, size, d->b, d->g, d->r, d->a);
+			} else {
+				// with white background
+				fz_clear_pixmap_with_value(d->context, pixmap, 0xff);
+			}
 		}
         fz_device *dev = fz_new_draw_device(d->context, pixmap);
         fz_run_page(d->document, d->page, dev, &transform, NULL);
@@ -128,10 +157,6 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 	if (NULL == pixmap) {
 		return image;
 	}
-	unsigned char *samples = fz_pixmap_samples(d->context, pixmap);
-	int width = fz_pixmap_width(d->context, pixmap);
-	int height = fz_pixmap_height(d->context, pixmap);
-	d->rgba2bgra(samples, width * height * 4);
 #if (QT_VERSION >= 0x050000)
 	// No copy before return when Qt5 is used
 	info_s *info = new info_s;
@@ -174,25 +199,19 @@ void Page::setTransparentRendering(bool enable)
 }
 
 /**
- * @brief Transform rgba data to bgra data. fz_pixmap store data as rgba, but QImage store data as bgra.
+ * @brief Set background color.
  *
- * @param data Pointer to fz_pixmap data
- * @param size Size of fz_pixmap data
+ * @param r red channel
+ * @param g green channel
+ * @param b blue channel
+ * @param a alpha channel
  */
-void PagePrivate::rgba2bgra(unsigned char *data, int size)
+void Page::setBackgroundColor(int r, int g, int b, int a)
 {
-	unsigned char r, /* g */, b/* ,a */;
-	for (int i = 0; i < size; i += 4) {
-		r = *(data + i);
-		/* g = *(data + i + 1); */
-		b = *(data + i + 2);
-		/* a = *(data + i + 3); */
-
-		*(data + i) = b;
-		/* *(data + i + 1) = g; */
-		*(data + i + 2) = r;
-		/* *(data + i + 3) = a */
-	}
+	d->r = r;
+	d->g = g;
+	d->b = b;
+	d->a = a;
 }
 
 } // end namespace MuPDF

@@ -20,11 +20,16 @@ namespace MuPDF
 class PagePrivate
 {
 public:
-	PagePrivate():
-		context(NULL),
-		document(NULL),
-		page(NULL),
-		transparent(false)
+	PagePrivate()
+		: context(NULL),
+		  document(NULL),
+		  page(NULL),
+		  transparent(false),
+		  b(-1),
+		  g(-1),
+		  r(-1),
+		  a(-1)
+
 	{
 	}
 	~PagePrivate()
@@ -34,12 +39,12 @@ public:
 			page = NULL;
 		}
 	}
-	void rgba2bgra(unsigned char *data, int size);
 
 	fz_context *context;
 	fz_document *document;
 	fz_page *page;
 	bool transparent;
+	int b, g, r, a; // background color
 };
 
 } // end namespace MuPDF
