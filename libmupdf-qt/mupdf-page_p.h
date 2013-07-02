@@ -20,13 +20,7 @@ public:
 	PagePrivate()
 		: context(NULL),
 		  document(NULL),
-		  page(NULL),
-		  transparent(false),
-		  b(-1),
-		  g(-1),
-		  r(-1),
-		  a(-1)
-
+		  page(NULL)
 	{
 	}
 	~PagePrivate()

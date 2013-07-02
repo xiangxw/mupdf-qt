@@ -19,7 +19,14 @@ class QString;
 class DocumentPrivate
 {
 public:
-	DocumentPrivate():context(NULL), document(NULL)
+	DocumentPrivate()
+		: context(NULL),
+		  document(NULL),
+		  transparent(false),
+		  b(-1),
+		  g(-1),
+		  r(-1),
+		  a(-1)
 	{
 	}
 	~DocumentPrivate()
@@ -37,6 +44,8 @@ public:
 
 	fz_context *context;
 	fz_document *document;
+	bool transparent;
+	int b, g, r, a; // background color
 };
 
 #endif // end MUPDF_DOCUMENT_P_H

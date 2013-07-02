@@ -233,6 +233,38 @@ QDateTime Document::modDate() const
 			"'D:'yyyyMMddHHmmss");
 }
 
+/**
+ * @brief Set transparent rendering for all pages.
+ * For one page transparent rendering setting,
+ * use Page::setTransparentRendering() instead.
+ *
+ * @param enable True: transparent; False: not transparent(default).
+ */
+void Document::setTransparentRendering(bool enable)
+{
+	d->transparent = enable;
+}
+
+/**
+ * @brief Set background color.
+ * This function modify global setting of all pages.
+ * For particular page setting, use Page::setBackgroundColor() instead.
+ *
+ * @note This function will only work when page is not transparent.
+ *
+ * @param r red channel
+ * @param g green channel
+ * @param b blue channel
+ * @param a alpha channel(default with non transparent)
+ */
+void Document::setBackgroundColor(int r, int g, int b, int a)
+{
+	d->r = r;
+	d->g = g;
+	d->b = b;
+	d->a = a;
+}
+
 } // end namespace MuPDF
 
 /**

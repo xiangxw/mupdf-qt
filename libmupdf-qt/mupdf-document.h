@@ -38,6 +38,8 @@ public:
 	QString producer() const;
 	QDateTime creationDate() const;
 	QDateTime modDate() const;
+	void setTransparentRendering(bool enable);
+	void setBackgroundColor(int r, int g, int b, int a = 255);
 
 private:
 	Document(const QString &filePath);

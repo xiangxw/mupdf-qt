@@ -60,6 +60,11 @@ Page::Page(const Document &document, int index)
 	}
 	d->context = document.d->context;
 	d->document = document.d->document;
+	d->transparent = document.d->transparent;
+	d->b = document.d->b;
+	d->g = document.d->g;
+	d->r = document.d->r;
+	d->a = document.d->a;
 
 	// load page
 	fz_try(d->context)
@@ -184,8 +189,10 @@ QRect Page::size() const
 
 /**
  * @brief Whether to do transparent page rendering.
+ * This function modify setting of current page only.
+ * For global setting, use Document::setTransparentRendering() instead.
  *
- * @param enable True: transparent; False: not transparent.
+ * @param enable True: transparent; False: not transparent(default).
  */
 void Page::setTransparentRendering(bool enable)
 {
@@ -194,11 +201,15 @@ void Page::setTransparentRendering(bool enable)
 
 /**
  * @brief Set background color.
+ * This function modify setting of current page only.
+ * For global setting, use Document::setBackgroundColor() instead.
+ *
+ * @note This function will only work when page is not transparent.
  *
  * @param r red channel
  * @param g green channel
  * @param b blue channel
- * @param a alpha channel
+ * @param a alpha channel(default with non transparent)
  */
 void Page::setBackgroundColor(int r, int g, int b, int a)
 {
