@@ -11,6 +11,7 @@ script:
 branches:
   only:
     - master
+    - dev
 notifications:
   recipients:
     - xiangxw5689@126.com
