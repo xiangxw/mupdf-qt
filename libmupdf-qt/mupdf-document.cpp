@@ -251,6 +251,8 @@ void Document::setTransparentRendering(bool enable)
  * For particular page setting, use Page::setBackgroundColor() instead.
  *
  * @note This function will only work when page is not transparent.
+ * This function won't change content of your file, it only change
+ * the way you render the page.
  *
  * @param r red channel
  * @param g green channel
