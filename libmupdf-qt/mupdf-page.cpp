@@ -133,7 +133,7 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 				fz_clear_pixmap_with_value(d->context, pixmap, 0xff);
 			}
 		}
-        fz_device *dev = fz_new_draw_device(d->context, pixmap);
+        dev = fz_new_draw_device(d->context, pixmap);
         fz_run_page(d->document, d->page, dev, &transform, NULL);
 	}
 	fz_always(d->context)
