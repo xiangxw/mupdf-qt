@@ -6,9 +6,8 @@
  */
 
 #include <stdlib.h>
-#include "fitz.h"
-#include "mupdf.h"
-#include "mupdf-internal.h"
+#include <mupdf/fitz.h>
+#include <mupdf/pdf.h>
 
 int main(int argc, char **argv)
 {
@@ -23,7 +22,7 @@ int main(int argc, char **argv)
 	}
 
 	/* print infomation */
-	pdf_obj *info = pdf_dict_gets(xref->trailer, "Info");
+	pdf_obj *info = pdf_dict_gets(pdf_trailer(xref), "Info");
 	if (info) {
 		pdf_obj *obj = NULL;
 		obj = pdf_dict_gets(info, (char *)"Title"); /* print title */

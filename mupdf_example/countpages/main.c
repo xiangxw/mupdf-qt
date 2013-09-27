@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "fitz.h"
+#include <mupdf/fitz.h>
 
 int main(int argc, char **argv)
 {

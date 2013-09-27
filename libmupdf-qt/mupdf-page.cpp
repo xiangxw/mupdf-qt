@@ -8,7 +8,7 @@
 #include "mupdf-page.h"
 #include "mupdf-page_p.h"
 extern "C" {
-#include "fitz.h"
+#include <mupdf/fitz.h>
 }
 #include <QImage>
 #include <QRect>
@@ -119,7 +119,7 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 	fz_device *dev = NULL;
 	fz_try(d->context)
 	{
-		pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_bgr, &bbox);
+		pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_bgr(d->context), &bbox);
 		samples = fz_pixmap_samples(d->context, pixmap);
 		width = fz_pixmap_width(d->context, pixmap);
 		height = fz_pixmap_height(d->context, pixmap);

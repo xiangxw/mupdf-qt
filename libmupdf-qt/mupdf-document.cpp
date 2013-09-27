@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file mupdf-document.cpp
  * @brief class Document
  * @author xiangxw xiangxw5689@126.com
@@ -10,9 +10,7 @@
 #include "mupdf-page.h"
 #include "mupdf-page_p.h"
 extern "C" {
-#include "fitz.h"
-#include "mupdf.h"
-#include "mupdf-internal.h"
+#include <mupdf/fitz.h>
 }
 #include <QString>
 #include <QDateTime>
@@ -277,7 +275,7 @@ void Document::setBackgroundColor(int r, int g, int b, int a)
 QString DocumentPrivate::info(const char * key)
 {
 	pdf_document *xref = (pdf_document *)document;
-	pdf_obj *info = pdf_dict_gets(xref->trailer, (char *)"Info");
+	pdf_obj *info = pdf_dict_gets(pdf_trailer(xref), (char *)"Info");
 	if (NULL == info) {
 		return QString();
 	}

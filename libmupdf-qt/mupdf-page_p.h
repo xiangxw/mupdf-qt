@@ -11,7 +11,7 @@
 #include "mupdf-document.h"
 #include "mupdf-document_p.h"
 extern "C" {
-#include "fitz.h"
+#include <mupdf/fitz.h>
 }
 
 class PagePrivate

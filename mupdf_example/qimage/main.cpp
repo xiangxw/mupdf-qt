@@ -6,7 +6,7 @@
  */
 
 extern "C" {
-#include "fitz.h"
+#include <mupdf/fitz.h>
 }
 #include <QApplication>
 #include <QImage>
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     fz_transform_rect(&bounds, &transform);
     fz_irect bbox;
     fz_round_rect(&bbox, &bounds);
-    fz_pixmap *pixmap = fz_new_pixmap_with_bbox(context, fz_device_rgb, &bbox);
+    fz_pixmap *pixmap = fz_new_pixmap_with_bbox(context, fz_device_rgb(context), &bbox);
 	fz_clear_pixmap_with_value(context, pixmap, 0xff); // 0xff = 255
 	fz_device *device = fz_new_draw_device(context, pixmap);
     fz_run_page(document, page, device, &transform, NULL);

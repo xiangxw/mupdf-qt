@@ -3,79 +3,42 @@
 #	MuPDF_INCLUDE_DIRS
 #	MuPDF_LIBRARIES
 
-
-# Get MuPDF root directory
-if (NOT $ENV{MuPDF_ROOT} STREQUAL "")
-	set (MuPDF_ROOT $ENV{MuPDF_ROOT})
+# Find MuPDF source directory
+set (MuPDF_SOURCE "mupdf-1.3-source")
+set (MuPDF_SOURCE_DIR ${CMAKE_SOURCE_DIR}/${MuPDF_SOURCE})
+if (NOT EXISTS ${MuPDF_SOURCE_DIR})
+	message (FATAL_ERROR ${MuPDF_SOURCE_DIR} " not found! ")
 endif ()
 
-# Get MuPDF source directory
-if (NOT $ENV{MuPDF_SRC} STREQUAL "")
-	set (MuPDF_SRC $ENV{MuPDF_SRC})
-endif ()
+# Find include directory
+set (MuPDF_INCLUDE_DIRS ${MuPDF_SOURCE_DIR}/include)
 
-if (MuPDF_ROOT) # Using MuPDF root directory
-	# Find include directory
-	set (MuPDF_INCLUDE_DIRS_HINTS ${MuPDF_ROOT}/include /usr/local/mupdf/include /usr/local/include)
-	find_path (MuPDF_INCLUDE_DIRS
-		NAMES fitz.h fitz-internal.h memento.h
-			mupdf.h mupdf-internal.h
-			mucbz.h
-			muxps.h muxps-internal.h
-		PATHS ${MuPDF_INCLUDE_DIRS_HINTS})
-	# Find library
-	set (MuPDF_LIBRARY_HINTS ${MuPDF_ROOT}/lib /usr/local/mupdf/lib /usr/local/lib)
-	if (UNIX)
-		set (MuPDF_LIBRARY_COMPONENTS fitz jbig2dec jpeg openjpeg z)
-	else ()
-		set (MuPDF_LIBRARY_COMPONENTS fitz freetype jbig2dec jpeg openjpeg z)
-	endif ()
-	foreach (COMPONENT ${MuPDF_LIBRARY_COMPONENTS})
-		find_library (${COMPONENT}_LIBRARY
-			NAMES ${COMPONENT}
-			PATHS ${MuPDF_LIBRARY_HINTS}
-			NO_DEFAULT_PATH)
-		if (NOT ${COMPONENT}_LIBRARY)
-			message (FATAL_ERROR "Library " ${COMPONENT} " NOT FOUND!")
-		endif ()
-		set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} ${${COMPONENT}_LIBRARY})
-	endforeach ()
-	if (UNIX)
-		# System provided freetype library should used in Linux.
-		# If you use a different VERSION of freetype library with Qt used,
-		# applications using libmupdf-qt may encounter some problems.
-		find_library (freetype_LIBRARY freetype)
-		set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} ${freetype_LIBRARY})
-		set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} -lm)
-	endif ()
-elseif (MuPDF_SRC) # Using MuPDF source directory
-	# Find include directory
-	set (MuPDF_INCLUDE_DIRS ${MuPDF_SRC}/fitz ${MuPDF_SRC}/pdf ${MuPDF_SRC}/cbz ${MuPDF_SRC}/xps)
-	# Find library
-	if (UNIX)
-		set (MuPDF_LIBRARY_COMPONENTS fitz jbig2dec jpeg openjpeg z)
-	else ()
-		set (MuPDF_LIBRARY_COMPONENTS fitz freetype jbig2dec jpeg openjpeg z)
-	endif ()
-	foreach (COMPONENT ${MuPDF_LIBRARY_COMPONENTS})
-		find_library (${COMPONENT}_LIBRARY
-			NAMES ${COMPONENT}
-			PATHS ${MuPDF_SRC}/build/*
-			NO_DEFAULT_PATH)
-		if (NOT ${COMPONENT}_LIBRARY)
-			message (FATAL_ERROR "Library " ${COMPONENT} " NOT FOUND!")
-		endif ()
-		set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} ${${COMPONENT}_LIBRARY})
-	endforeach ()
-	if (UNIX)
-		# System provided freetype library should used in Linux.
-		# If you use a different VERSION of freetype library with Qt used,
-		# applications using libmupdf-qt may encounter some problems.
-		find_library (freetype_LIBRARY freetype)
-		set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} ${freetype_LIBRARY})
-		set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} -lm)
+# Find libraries
+if (CMAKE_BUILD_TYPE)
+	string (TOUPPER ${CMAKE_BUILD_TYPE} MuPDF_BUILD_TYPE)
+endif ()
+set (MuPDF_LIBRARY_COMPONENTS mupdf mupdf-js-none freetype jbig2dec jpeg openjpeg z)
+set (MuPDF_LIBRARY_PATH ${MuPDF_SOURCE_DIR}/build/debug)
+if (MuPDF_BUILD_TYPE)
+	if (${MuPDF_BUILD_TYPE} STREQUAL "RELEASE") # release build
+		set (MuPDF_LIBRARY_PATH ${MuPDF_SOURCE_DIR}/build/release)
 	endif ()
 endif ()
+if (NOT EXISTS ${MuPDF_LIBRARY_PATH})
+	message (FATAL_ERROR "MuPDF library path not found: " ${MuPDF_LIBRARY_PATH}
+		"\n Please build MuPDF library first.")
+endif ()
+foreach (MuPDF_LIBRARY_COMPONENT ${MuPDF_LIBRARY_COMPONENTS})
+	find_library (${MuPDF_LIBRARY_COMPONENT}_LIB
+		${MuPDF_LIBRARY_COMPONENT}
+		PATHS ${MuPDF_LIBRARY_PATH}
+		NO_DEFAULT_PATH)
+	if (NOT ${MuPDF_LIBRARY_COMPONENT}_LIB)
+		message (FATAL_ERROR "Library " ${MuPDF_LIBRARY_COMPONENT} " not found in " ${MuPDF_LIBRARY_PATH})
+	endif ()
+	set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} ${${MuPDF_LIBRARY_COMPONENT}_LIB})
+	message (STATUS ${MuPDF_LIBRARIES})
+endforeach ()
 
 # Other
 include (FindPackageHandleStandardArgs)

@@ -9,9 +9,8 @@
 #define MUPDF_DOCUMENT_P_H
 
 extern "C" {
-#include "fitz.h"
-#include "mupdf.h"
-#include "mupdf-internal.h"
+#include <mupdf/fitz.h>
+#include <mupdf/pdf.h>
 }
 
 class QString;
