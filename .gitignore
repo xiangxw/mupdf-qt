@@ -1,4 +1,4 @@
-build/
+build*
 tags
 .gitmodules
 mupdf-*-source
