@@ -14,24 +14,17 @@ endif ()
 set (MuPDF_INCLUDE_DIRS ${MuPDF_SOURCE_DIR}/include)
 
 # Find libraries
-if (CMAKE_BUILD_TYPE)
-	string (TOUPPER ${CMAKE_BUILD_TYPE} MuPDF_BUILD_TYPE)
-endif ()
-set (MuPDF_LIBRARY_COMPONENTS mupdf mupdf-js-none freetype jbig2dec jpeg openjpeg z)
-set (MuPDF_LIBRARY_PATH ${MuPDF_SOURCE_DIR}/build/debug)
-if (MuPDF_BUILD_TYPE)
-	if (${MuPDF_BUILD_TYPE} STREQUAL "RELEASE") # release build
-		set (MuPDF_LIBRARY_PATH ${MuPDF_SOURCE_DIR}/build/release)
-	endif ()
-endif ()
-if (NOT EXISTS ${MuPDF_LIBRARY_PATH})
-	message (FATAL_ERROR "MuPDF library path not found: " ${MuPDF_LIBRARY_PATH}
-		"\n Please build MuPDF library first.")
+if (MSVC)
+	set (MuPDF_LIBRARY_COMPONENTS mupdf mupdf-js-none thirdparty)
+	set (MuPDF_LIBRARY_PATHS ${MuPDF_SOURCE_DIR}/platform/win32/*)
+else ()
+	set (MuPDF_LIBRARY_COMPONENTS mupdf mupdf-js-none freetype jbig2dec jpeg openjpeg z)
+	set (MuPDF_LIBRARY_PATHS ${MuPDF_SOURCE_DIR}/build/*)
 endif ()
 foreach (MuPDF_LIBRARY_COMPONENT ${MuPDF_LIBRARY_COMPONENTS})
 	find_library (${MuPDF_LIBRARY_COMPONENT}_LIB
 		${MuPDF_LIBRARY_COMPONENT}
-		PATHS ${MuPDF_LIBRARY_PATH}
+		PATHS ${MuPDF_LIBRARY_PATHS}
 		NO_DEFAULT_PATH)
 	if (NOT ${MuPDF_LIBRARY_COMPONENT}_LIB)
 		message (FATAL_ERROR "Library " ${MuPDF_LIBRARY_COMPONENT} " not found in " ${MuPDF_LIBRARY_PATH})
