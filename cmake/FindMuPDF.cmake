@@ -30,7 +30,10 @@ foreach (MuPDF_LIBRARY_COMPONENT ${MuPDF_LIBRARY_COMPONENTS})
 		message (FATAL_ERROR "Library " ${MuPDF_LIBRARY_COMPONENT} " not found in " ${MuPDF_LIBRARY_PATH})
 	endif ()
 	set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} ${${MuPDF_LIBRARY_COMPONENT}_LIB})
-endforeach ()
+endforeach () 
+if (UNIX)
+	set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} -lm)
+endif ()
 
 # Other
 include (FindPackageHandleStandardArgs)
