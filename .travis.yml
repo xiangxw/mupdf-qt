@@ -4,9 +4,10 @@ compiler:
 before_install:
   - sudo apt-get install cmake libqt4-dev
 script:
-  - git clone --recursive git://git.ghostscript.com/mupdf.git
-  - export MuPDF_SRC=$PWD/mupdf
-  - cd mupdf && git checkout 1.2 && git submodule update && make && cd ..
+  - wget http://mupdf.googlecode.com/files/mupdf-1.3-source.tar.gz
+  - tar -xvf mupdf-1.3-source.tar.gz
+  - awk '{if (NR==173) {print "struct pdf_obj_read_state_s"} else if (NR==180) {} else if (NR==181) {print "};"} else {print $0}}' mupdf-1.3-source/include/mupdf/pdf/document.h > tmp; mv tmp mupdf-1.3-source/include/mupdf/pdf/document.h
+  - cd mupdf-1.3-source && make && cd ..
   - mkdir build && cd build && cmake .. && make
 branches:
   only:
