@@ -18,7 +18,10 @@ if (MSVC)
 	set (MuPDF_LIBRARY_COMPONENTS mupdf mupdf-js-none thirdparty)
 	set (MuPDF_LIBRARY_PATHS ${MuPDF_SOURCE_DIR}/platform/win32/*)
 else ()
-	set (MuPDF_LIBRARY_COMPONENTS mupdf mupdf-js-none freetype jbig2dec jpeg openjpeg z)
+	set (MuPDF_LIBRARY_COMPONENTS mupdf mupdf-js-none jbig2dec jpeg openjpeg z)
+	if (NOT UNIX) # Use provided freetype library
+		set (MuPDF_LIBRARY_COMPONENTS ${MuPDF_LIBRARY_COMPONENTS} freetype)
+	endif ()
 	set (MuPDF_LIBRARY_PATHS ${MuPDF_SOURCE_DIR}/build/*)
 endif ()
 foreach (MuPDF_LIBRARY_COMPONENT ${MuPDF_LIBRARY_COMPONENTS})
@@ -32,7 +35,8 @@ foreach (MuPDF_LIBRARY_COMPONENT ${MuPDF_LIBRARY_COMPONENTS})
 	set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} ${${MuPDF_LIBRARY_COMPONENT}_LIB})
 endforeach () 
 if (UNIX)
-	set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} -lm)
+	# Use system freetype library in Linux, it's more compatiable with Qt library
+	set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} -lm -lfreetype)
 endif ()
 
 # Other
