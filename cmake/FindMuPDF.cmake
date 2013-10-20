@@ -36,7 +36,8 @@ foreach (MuPDF_LIBRARY_COMPONENT ${MuPDF_LIBRARY_COMPONENTS})
 endforeach () 
 if (UNIX)
 	# Use system freetype library in Linux, it's more compatiable with Qt library
-	set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} -lm -lfreetype)
+	find_package (Freetype REQUIRED)
+	set (MuPDF_LIBRARIES ${MuPDF_LIBRARIES} ${FREETYPE_LIBRARIES} -lm)
 endif ()
 
 # Other
