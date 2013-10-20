@@ -11,14 +11,9 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 find_package (MuPDF REQUIRED)
 include_directories (${MuPDF_INCLUDE_DIRS})
 
-# Qt library
-find_package (Qt5Widgets) # Use Qt5 by default
-if (Qt5Widgets_FOUND)
-	set (CMAKE_AUTOMOC ON)
-else () # Use Qt4 when Qt5 is not found
-	find_package (Qt4 REQUIRED)
-	include (${QT_USE_FILE})
-endif ()
+# Qt5 library
+set (CMAKE_AUTOMOC ON)
+find_package (Qt5Widgets)
 
 # Add directories
 add_subdirectory (libmupdf-qt)

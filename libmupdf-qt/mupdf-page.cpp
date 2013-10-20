@@ -156,19 +156,12 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 	if (NULL == pixmap) {
 		return image;
 	}
-#if (QT_VERSION >= 0x050000)
-	// No copy before return when Qt5 is used
+	// No copy before return
 	info_s *info = new info_s;
 	info->context = d->context;
 	info->pixmap = pixmap;
 	image = QImage(samples, // no deep copy here
 			width, height, QImage::Format_ARGB32, imageCleanupHandler, info);
-#else
-	// Copy before return when Qt4 is used
-	image = QImage(samples, // no deep copy here
-			width, height, QImage::Format_ARGB32).copy();
-	fz_drop_pixmap(d->context, pixmap);
-#endif
 	return image;
 }
 
