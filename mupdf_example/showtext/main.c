@@ -28,20 +28,20 @@ int main(int argc, char **argv)
 	fz_page *page = fz_load_page(document, index - 1);
 
 	/* create transform and bounds*/
-    fz_matrix transform;
-    fz_rect bounds;
-    fz_rotate(&transform, 0.0f);
-    fz_pre_scale(&transform, 1.0f, 1.0f);
-    fz_bound_page(document, page, &bounds);
-    fz_transform_rect(&bounds, &transform);
+	fz_matrix transform;
+	fz_rect bounds;
+	fz_rotate(&transform, 0.0f);
+	fz_pre_scale(&transform, 1.0f, 1.0f);
+	fz_bound_page(document, page, &bounds);
+	fz_transform_rect(&bounds, &transform);
 
 	/* run display list */
 	fz_display_list *display_list;
 	fz_device *list_device;
 	display_list = fz_new_display_list(context);
 	list_device = fz_new_list_device(context, display_list);
-    fz_run_page(document, page, list_device, &transform, NULL);
-    fz_free_device(list_device);
+	fz_run_page(document, page, list_device, &transform, NULL);
+	fz_free_device(list_device);
 
 	/* run text page */
 	fz_text_sheet *text_sheet;
