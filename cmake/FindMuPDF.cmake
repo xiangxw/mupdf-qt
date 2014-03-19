@@ -4,10 +4,14 @@
 #	MuPDF_LIBRARIES
 
 # Find MuPDF source directory
-set (MuPDF_SOURCE "mupdf-1.3-source")
-set (MuPDF_SOURCE_DIR ${CMAKE_SOURCE_DIR}/${MuPDF_SOURCE})
+set (MuPDF_SOURCE_NAME "mupdf-1.3-source")
+set (MuPDF_SOURCE_DIR ${CMAKE_SOURCE_DIR}/${MuPDF_SOURCE_NAME})
 if (NOT EXISTS ${MuPDF_SOURCE_DIR})
-	message (FATAL_ERROR ${MuPDF_SOURCE_DIR} " not found! ")
+	set (MuPDF_SOURCE_NAME "mupdf")
+	set (MuPDF_SOURCE_DIR ${CMAKE_SOURCE_DIR}/${MuPDF_SOURCE_NAME})
+	if (NOT EXISTS ${MuPDF_SOURCE_DIR})
+		message (FATAL_ERROR "MuPDF source code not found!")
+	endif ()
 endif ()
 
 # Find include directory
