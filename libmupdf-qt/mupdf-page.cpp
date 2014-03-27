@@ -43,15 +43,23 @@ static void imageCleanupHandler(void *info)
 }
 
 /**
- * @brief Update display list.
+ * @brief Update page data.
  */
-void PagePrivate::updateDisplayList()
+void PagePrivate::updatePageData()
 {
 	fz_matrix transform;
-
+	fz_rect bounds;
+	
 	fz_rotate(&transform, rotation);
 	fz_pre_scale(&transform, 1.0f, 1.0f);
+	fz_bound_page(document, page, &bounds);
+	fz_transform_rect(&bounds, &transform);
+
+	// update display list
 	fz_run_page(document, page, list_device, &transform, NULL);
+
+	// update text
+	fz_run_display_list(display_list, text_device, &transform, &bounds, NULL);
 }
 
 namespace MuPDF
@@ -86,25 +94,21 @@ Page::Page(const Document &document, int index, float scaleX, float scaleY, floa
 		// load page
 		d->page = fz_load_page(d->document, index);
 
-		// run display list
+		// create display list
 		d->display_list = fz_new_display_list(d->context);
 		d->list_device = fz_new_list_device(d->context, d->display_list);
-		d->updateDisplayList();
+
+		// create text sheet and text page
+		d->text_sheet = fz_new_text_sheet(d->context);
+		d->text_page = fz_new_text_page(d->context);
+		d->text_device = fz_new_text_device(d->context, d->text_sheet, d->text_page);
+
+		// update page data
+		d->updatePageData();
 	}
 	fz_catch(d->context)
 	{
-		if (d->page) {
-			fz_free_page(d->document, d->page);
-			d->page = NULL;
-		}
-		if (d->display_list) {
-			fz_drop_display_list(d->context, d->display_list);
-			d->display_list = NULL;
-		}
-		if (d->list_device) {
-			fz_free_device(d->list_device);
-			d->list_device = NULL;
-		}
+		d->deleteData();
 	}
 }
 
@@ -114,6 +118,14 @@ Page::~Page()
 		delete d;
 		d = NULL;
 	}
+}
+
+/**
+ * @brief Check whether this page object is valid.
+ */
+bool Page::isValid() const
+{
+	return (d && d->page) ? true : false;
 }
 	
 /**
@@ -256,7 +268,37 @@ void Page::setTransform(float scaleX, float scaleY, float rotation)
 	d->scaleY = scaleY;
 	d->rotation = rotation;
 
-	d->updateDisplayList();
+	d->updatePageData();
+}
+
+/**
+ * @brief Return the text in a rect.
+ *
+ * @param x0 X coordinate of top left corner.
+ * @param y0 Y coordinate of top left corner.
+ * @param x1 X coordinate of bottom right corner.
+ * @param y1 Y coordinate of bottom right corner.
+ */
+QString Page::text(float x0, float y0, float x1, float y1) const
+{
+	QString ret;
+	char *str;
+	fz_rect rect;
+
+	// build fz_rect
+	rect.x0 = x0;
+	rect.y0 = y0;
+	rect.x1 = x1;
+	rect.y1 = y1;
+	
+	// get text
+	if (!fz_is_infinite_rect(&rect)) {
+		str = fz_copy_selection(d->context, d->text_page, rect);
+		ret = QString::fromUtf8(str);
+		free(str);
+	}
+
+	return ret;
 }
 
 } // end namespace MuPDF

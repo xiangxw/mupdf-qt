@@ -10,11 +10,12 @@
 
 #include "mupdf-qt.h"
 #include <QMainWindow>
+#include <QLabel>
 
 class QScrollArea;
-class QLabel;
 class QToolBar;
 class QAction;
+class Page;
 
 class MainWindow : public QMainWindow
 {
@@ -25,7 +26,7 @@ public:
 	~MainWindow();
 
 private slots:
-	void open();
+	void openDocument();
 	void previousPage();
 	void nextPage();
 	void zoomIn();
@@ -34,10 +35,10 @@ private slots:
 private:
 	void createActions();
 	void createToolBars();
-	void showPage(int index);
+	void openPage(int index);
 
 	QScrollArea *scrollArea;
-	QLabel *label;
+	Page *label;
 	QToolBar *toolBar;
 	QAction *openAction;
 	QAction *previousPageAction;
@@ -45,10 +46,30 @@ private:
 	QAction *zoomInAction;
 	QAction *zoomOutAction;
 	MuPDF::Document *m_doc;
+	MuPDF::Page *m_page;
 	QString m_title;
 	int m_numPages;
 	int m_index;
 	float m_scale;
+};
+
+class Page : public QLabel
+{
+public:
+	Page(QWidget *parent = 0);
+	void setPage(MuPDF::Page *page, float scale = 1.0f);
+	void setScale(float scale);
+
+protected:
+	virtual void mousePressEvent(QMouseEvent *event);
+	virtual void mouseReleaseEvent(QMouseEvent *event);
+
+private:
+	void updatePage();
+
+	MuPDF::Page *m_page;
+	float m_scale;
+	QPointF m_pressPoint;
 };
 
 #endif // end MAINWINDOW_H

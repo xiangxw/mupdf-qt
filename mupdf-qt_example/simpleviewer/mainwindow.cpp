@@ -7,7 +7,6 @@
 
 #include "mainwindow.h"
 #include <QScrollArea>
-#include <QLabel>
 #include <QToolBar>
 #include <QAction>
 #include <QFileDialog>
@@ -15,15 +14,17 @@
 #include <QPixmap>
 #include <QScrollBar>
 #include <QInputDialog>
+#include <QMouseEvent>
 #include <cmath>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
 	:QMainWindow(parent)
-	 , m_doc(NULL), m_index(0), m_scale(1.0f)
+	 , m_doc(NULL), m_page(NULL), m_index(0), m_scale(1.0f)
 {
 	scrollArea = new QScrollArea;
 	scrollArea->setAlignment(Qt::AlignCenter);
-	label = new QLabel;
+	label = new Page;
 	scrollArea->setWidget(label);
 	this->setCentralWidget(scrollArea);
 	this->setWindowState(Qt::WindowMaximized);
@@ -34,12 +35,15 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+	if (m_page) {
+		delete m_page;
+	}
 	if (m_doc) {
 		delete m_doc;
 	}
 }
 
-void MainWindow::open()
+void MainWindow::openDocument()
 {
 	QString file = QFileDialog::getOpenFileName(this,
             tr("Open PDF/XPS file"), ".", "PDF (*.pdf);;XPS (*.xps)");
@@ -72,7 +76,7 @@ void MainWindow::open()
 	m_numPages = m_doc->numPages();
 
 	m_index = 0;
-	showPage(0);
+	openPage(0);
 }
 
 void MainWindow::previousPage()
@@ -83,7 +87,7 @@ void MainWindow::previousPage()
 	if (m_index > 0) {
 		--m_index;
 	}
-	showPage(m_index);
+	openPage(m_index);
 }
 
 void MainWindow::nextPage()
@@ -94,7 +98,7 @@ void MainWindow::nextPage()
 	if (m_index < m_numPages - 1) {
 		++m_index;
 	}
-	showPage(m_index);
+	openPage(m_index);
 }
 
 void MainWindow::zoomIn()
@@ -106,7 +110,7 @@ void MainWindow::zoomIn()
 		return;
 	}
 	m_scale += 0.1f;
-	showPage(m_index);
+	label->setScale(m_scale);
 }
 
 void MainWindow::zoomOut()
@@ -118,13 +122,13 @@ void MainWindow::zoomOut()
 		return;
 	}
 	m_scale -= 0.1f;
-	showPage(m_index);
+	label->setScale(m_scale);
 }
 
 void MainWindow::createActions()
 {
 	openAction = new QAction(tr("Open"), this);
-	connect(openAction, SIGNAL(triggered()), this, SLOT(open()));
+	connect(openAction, SIGNAL(triggered()), this, SLOT(openDocument()));
 
 	previousPageAction = new QAction(tr("Previous"), this);
 	connect(previousPageAction, SIGNAL(triggered()), this, SLOT(previousPage()));
@@ -149,17 +153,17 @@ void MainWindow::createToolBars()
 	toolBar->addAction(zoomOutAction);
 }
 
-void MainWindow::showPage(int index)
+void MainWindow::openPage(int index)
 {
-	MuPDF::Page *page = m_doc->page(index, m_scale, m_scale);
-	if (NULL == page) {
+	if (m_page) {
+		delete m_page;
+	}
+	m_page = m_doc->page(index, m_scale, m_scale);
+	if (NULL == m_page) {
 		return;
 	}
-//	page->setTransparentRendering(true);
-	QImage image = page->renderImage();
-	label->setPixmap(QPixmap::fromImage(image));
-	delete page;
-	label->resize(label->sizeHint());
+
+	label->setPage(m_page, m_scale);
 	scrollArea->verticalScrollBar()->setValue(0);
 
 	QString title;
@@ -173,4 +177,73 @@ void MainWindow::showPage(int index)
 	title += " - ";
 	title += "Scale " + QString::number(round(m_scale * 100)) + "%";
 	this->setWindowTitle(title);
+}
+
+Page::Page(QWidget *parent)
+	: QLabel(parent),
+	  m_page(NULL),
+	  m_scale(1.0f)
+{
+
+}
+
+void Page::setPage(MuPDF::Page *page, float scale)
+{
+	m_page = page;
+	m_scale = scale;
+	updatePage();
+}
+
+void Page::setScale(float scale)
+{
+	m_scale = scale;
+	updatePage();
+}
+
+void Page::mousePressEvent(QMouseEvent *event)
+{
+	m_pressPoint = event->localPos();
+}
+
+void Page::mouseReleaseEvent(QMouseEvent *event)
+{
+	QPointF point;
+	float x0, y0, x1, y1;
+
+	if (!m_page) {
+		return;
+	}
+
+	point = event->localPos();
+	if (point != m_pressPoint) {
+		if (m_pressPoint.x() > point.x()) {
+			x0 = point.x();
+			x1 = m_pressPoint.x();
+		} else {
+			x0 = m_pressPoint.x();
+			x1 = point.x();
+		}
+		if (m_pressPoint.y() > point.y()) {
+			y0 = point.y();
+			y1 = m_pressPoint.y();
+		} else {
+			y0 = m_pressPoint.y();
+			y1 = point.y();
+		}
+		qDebug() << m_page->text(x0, y0, x1, y1);
+	}
+}
+
+void Page::updatePage()
+{
+	QImage image;
+
+	if (!m_page) {
+		return;
+	}
+
+	m_page->setTransform(m_scale, m_scale);
+	image = m_page->renderImage();
+	this->setPixmap(QPixmap::fromImage(image));
+	this->resize(this->sizeHint());
 }
