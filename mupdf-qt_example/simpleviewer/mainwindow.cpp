@@ -151,12 +151,12 @@ void MainWindow::createToolBars()
 
 void MainWindow::showPage(int index)
 {
-	MuPDF::Page *page = m_doc->page(index);
+	MuPDF::Page *page = m_doc->page(index, m_scale, m_scale);
 	if (NULL == page) {
 		return;
 	}
 //	page->setTransparentRendering(true);
-	QImage image = page->renderImage(m_scale, m_scale);
+	QImage image = page->renderImage();
 	label->setPixmap(QPixmap::fromImage(image));
 	delete page;
 	label->resize(label->sizeHint());

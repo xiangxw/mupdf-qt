@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 	}
 
 	// load page
-	MuPDF::Page *page = document->page(0);
+	MuPDF::Page *page = document->page(0, 1.0f, 1.0f, 90.0f);
 	if (NULL == page) {
 		delete document;
 		return -1;
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	qDebug() << page->size();
 
 	// test Page::renderImage()
-	QImage image = page->renderImage(1.0f, 1.0f, 90.0f);
+	QImage image = page->renderImage();
 	QLabel label;
 	label.setPixmap(QPixmap::fromImage(image));
 	label.show();

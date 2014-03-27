@@ -28,7 +28,7 @@ public:
 	bool needsPassword() const;
 	bool authPassword(const QString &password);
 	int numPages() const;
-	Page *page(int index) const;
+	Page *page(int index, float scaleX = 1.0f, float scaleY = 1.0f, float rotation = 0.0f) const;
 	QString pdfVersion() const;
 	QString title() const;
 	QString author() const;

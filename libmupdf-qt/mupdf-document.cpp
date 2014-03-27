@@ -129,12 +129,17 @@ int Document::numPages() const
  * @brief Get page
  *
  * @param index Page index, begin with 0
+ * @param scaleX Scale for X direction.
+ *               Default value: 1.0f; >1.0f: zoom in; <1.0f: zoom out.
+ * @param scaleY Scale for Y direction.
+ *               Default value: 1.0f; >1.0f: zoom in; <1.0f: zoom out.
+ * @param rotation Degree of clockwise rotation. Range: [0.0f, 360.0f).
  *
  * @return Note: you need delete this manually before document is deleted
  */
-Page *Document::page(int index) const
+Page *Document::page(int index, float scaleX, float scaleY, float rotation) const
 {
-	Page *page = new Page(*this, index);
+	Page *page = new Page(*this, index, scaleX, scaleY, rotation);
 	if (NULL == page) {
 		return NULL;
 	}

@@ -42,13 +42,25 @@ static void imageCleanupHandler(void *info)
 	}
 }
 
+/**
+ * @brief Update display list.
+ */
+void PagePrivate::updateDisplayList()
+{
+	fz_matrix transform;
+
+	fz_rotate(&transform, rotation);
+	fz_pre_scale(&transform, 1.0f, 1.0f);
+	fz_run_page(document, page, list_device, &transform, NULL);
+}
+
 namespace MuPDF
 {
 
 /**
  * @brief Constructor
  */
-Page::Page(const Document &document, int index)
+Page::Page(const Document &document, int index, float scaleX, float scaleY, float rotation)
 {
 	if (document.d->document == NULL || index < 0) {
 		return;
@@ -65,16 +77,34 @@ Page::Page(const Document &document, int index)
 	d->g = document.d->g;
 	d->r = document.d->r;
 	d->a = document.d->a;
+	d->scaleX = scaleX;
+	d->scaleY = scaleY;
+	d->rotation = rotation;
 
-	// load page
 	fz_try(d->context)
 	{
+		// load page
 		d->page = fz_load_page(d->document, index);
+
+		// run display list
+		d->display_list = fz_new_display_list(d->context);
+		d->list_device = fz_new_list_device(d->context, d->display_list);
+		d->updateDisplayList();
 	}
 	fz_catch(d->context)
 	{
-		fz_free_page(d->document, d->page);
-		d->page = NULL;
+		if (d->page) {
+			fz_free_page(d->document, d->page);
+			d->page = NULL;
+		}
+		if (d->display_list) {
+			fz_drop_display_list(d->context, d->display_list);
+			d->display_list = NULL;
+		}
+		if (d->list_device) {
+			fz_free_device(d->list_device);
+			d->list_device = NULL;
+		}
 	}
 }
 
@@ -89,13 +119,10 @@ Page::~Page()
 /**
  * @brief Render page to QImage
  *
- * @param scaleX Scale for X
- * @param scaleY Scale for Y
- * @param rotate Degrees of clockwise rotation. Values less than zero and greater than 360 are handled as expected.
- *
- * @return QImage use implicit data share, so there is no deep copy here
+ * @return QImage use implicit data share, so there is no deep copy here.
+ *         This function will return a empty QImage if failed.
  */
-QImage Page::renderImage(float scaleX, float scaleY, float rotate)
+QImage Page::renderImage() const
 {
 	fz_pixmap *pixmap = NULL;
 	unsigned char *samples = NULL;
@@ -103,10 +130,10 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 	int height = 0;
 	int size = 0;
 
-    // apply scale and rotat
+    // apply scale and rotate
     fz_matrix transform;
-    fz_rotate(&transform, rotate);
-    fz_pre_scale(&transform, scaleX, scaleY);
+    fz_rotate(&transform, d->rotation);
+    fz_pre_scale(&transform, d->scaleX, d->scaleY);
 
     // get transformed page size
     fz_rect bounds;
@@ -133,8 +160,8 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotate)
 				fz_clear_pixmap_with_value(d->context, pixmap, 0xff);
 			}
 		}
-        dev = fz_new_draw_device(d->context, pixmap);
-        fz_run_page(d->document, d->page, dev, &transform, NULL);
+		dev = fz_new_draw_device(d->context, pixmap);
+		fz_run_display_list(d->display_list, dev, &transform, &bounds, NULL);
 	}
 	fz_always(d->context)
 	{
@@ -212,6 +239,24 @@ void Page::setBackgroundColor(int r, int g, int b, int a)
 	d->g = g;
 	d->b = b;
 	d->a = a;
+}
+
+/**
+ * @brief Set scale and rotation.
+ *
+ * @param scaleX Scale for X direction.
+ *               Default value: 1.0f; >1.0f: zoom in; <1.0f: zoom out.
+ * @param scaleY Scale for Y direction.
+ *               Default value: 1.0f; >1.0f: zoom in; <1.0f: zoom out.
+ * @param rotation Degree of clockwise rotation. Range: [0.0f, 360.0f).
+ */
+void Page::setTransform(float scaleX, float scaleY, float rotation)
+{
+	d->scaleX = scaleX;
+	d->scaleY = scaleY;
+	d->rotation = rotation;
+
+	d->updateDisplayList();
 }
 
 } // end namespace MuPDF
