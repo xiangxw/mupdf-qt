@@ -13,8 +13,6 @@
 class QImage;
 class QString;
 class QRect;
-class QRectF
-class QString;
 class PagePrivate;
 
 namespace MuPDF
