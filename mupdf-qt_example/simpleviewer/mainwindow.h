@@ -36,6 +36,7 @@ private:
 	void createActions();
 	void createToolBars();
 	void openPage(int index);
+	void updateTitle();
 
 	QScrollArea *scrollArea;
 	Page *label;

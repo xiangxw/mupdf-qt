@@ -117,6 +117,8 @@ void MainWindow::zoomIn()
 	}
 	m_scale += 0.1f;
 	label->setScale(m_scale);
+
+	updateTitle();
 }
 
 void MainWindow::zoomOut()
@@ -129,6 +131,8 @@ void MainWindow::zoomOut()
 	}
 	m_scale -= 0.1f;
 	label->setScale(m_scale);
+
+	updateTitle();
 }
 
 void MainWindow::createActions()
@@ -173,6 +177,11 @@ void MainWindow::openPage(int index)
 	label->setPage(m_page, m_scale);
 	scrollArea->verticalScrollBar()->setValue(0);
 
+	updateTitle();
+}
+
+void MainWindow::updateTitle()
+{
 	QString title;
 	if (m_title.isEmpty()) {
 		title = "No Title - ";
