@@ -37,9 +37,11 @@ MainWindow::~MainWindow()
 {
 	if (m_page) {
 		delete m_page;
+		m_page = NULL;
 	}
 	if (m_doc) {
 		delete m_doc;
+		m_doc = NULL;
 	}
 }
 
@@ -51,6 +53,10 @@ void MainWindow::openDocument()
 		return;
 	}
 
+	if (m_page) {
+		delete m_page;
+		m_page = NULL;
+	}
 	if (m_doc) {
 		delete m_doc;
 		m_doc = NULL;
@@ -157,6 +163,7 @@ void MainWindow::openPage(int index)
 {
 	if (m_page) {
 		delete m_page;
+		m_page = NULL;
 	}
 	m_page = m_doc->page(index, m_scale, m_scale);
 	if (NULL == m_page) {
@@ -185,6 +192,10 @@ Page::Page(QWidget *parent)
 	  m_scale(1.0f)
 {
 
+}
+
+Page::~Page()
+{
 }
 
 void Page::setPage(MuPDF::Page *page, float scale)

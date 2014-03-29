@@ -57,6 +57,7 @@ class Page : public QLabel
 {
 public:
 	Page(QWidget *parent = 0);
+	~Page();
 	void setPage(MuPDF::Page *page, float scale = 1.0f);
 	void setScale(float scale);
 
