@@ -49,17 +49,40 @@ void PagePrivate::updatePageData()
 {
 	fz_matrix transform;
 	fz_rect bounds;
+	fz_device *list_device;
+	fz_device *text_device;
 	
+	// build transform and bounds
 	fz_rotate(&transform, rotation);
 	fz_pre_scale(&transform, 1.0f, 1.0f);
 	fz_bound_page(document, page, &bounds);
 	fz_transform_rect(&bounds, &transform);
 
+	// create display list
+	if (display_list) {
+		fz_drop_display_list(context, display_list);
+	}
+	display_list = fz_new_display_list(context);
+	list_device = fz_new_list_device(context, display_list);
+
+	// create text sheet and text page
+	if (text_sheet) {
+		fz_free_text_sheet(context, text_sheet);
+	}
+	if (text_page) {
+		fz_free_text_page(context, text_page);
+	}
+	text_sheet = fz_new_text_sheet(context);
+	text_page = fz_new_text_page(context);
+	text_device = fz_new_text_device(context, text_sheet, text_page);
+
 	// update display list
 	fz_run_page(document, page, list_device, &transform, NULL);
+	fz_free_device(list_device);
 
 	// update text
 	fz_run_display_list(display_list, text_device, &transform, &bounds, NULL);
+	fz_free_device(text_device);
 }
 
 namespace MuPDF
@@ -93,15 +116,6 @@ Page::Page(const Document &document, int index, float scaleX, float scaleY, floa
 	{
 		// load page
 		d->page = fz_load_page(d->document, index);
-
-		// create display list
-		d->display_list = fz_new_display_list(d->context);
-		d->list_device = fz_new_list_device(d->context, d->display_list);
-
-		// create text sheet and text page
-		d->text_sheet = fz_new_text_sheet(d->context);
-		d->text_page = fz_new_text_page(d->context);
-		d->text_device = fz_new_text_device(d->context, d->text_sheet, d->text_page);
 
 		// update page data
 		d->updatePageData();

@@ -22,10 +22,8 @@ public:
 		  document(NULL),
 		  page(NULL),
 		  display_list(NULL),
-		  list_device(NULL),
 		  text_sheet(NULL),
 		  text_page(NULL),
-		  text_device(NULL),
 		  scaleX(1.0f),
 		  scaleY(1.0f),
 		  rotation(0.0f)
@@ -38,17 +36,9 @@ public:
 
 	inline void deleteData()
 	{
-		if (page) {
-			fz_free_page(document, page);
-			page = NULL;
-		}
 		if (display_list) {
 			fz_drop_display_list(context, display_list);
 			display_list = NULL;
-		}
-		if (list_device) {
-			fz_free_device(list_device);
-			list_device = NULL;
 		}
 		if (text_sheet) {
 			fz_free_text_sheet(context, text_sheet);
@@ -58,9 +48,9 @@ public:
 			fz_free_text_page(context, text_page);
 			text_page = NULL;
 		}
-		if (text_device) {
-			fz_free_device(text_device);
-			text_device = NULL;
+		if (page) {
+			fz_free_page(document, page);
+			page = NULL;
 		}
 	}
 
@@ -70,10 +60,8 @@ public:
 	fz_document *document;
 	fz_page *page;
 	fz_display_list *display_list;
-	fz_device *list_device;
 	fz_text_sheet *text_sheet;
 	fz_text_page *text_page;
-	fz_device *text_device;
 	float scaleX, scaleY, rotation;
 	bool transparent;
 	int b, g, r, a; // background color
