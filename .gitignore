@@ -1,0 +1,5 @@
+build*
+tags
+.gitmodules
+mupdf-*-source
+mupdf
