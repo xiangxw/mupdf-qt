@@ -56,6 +56,9 @@ Document::Document(const QString &filePath)
 		return;
 	}
 
+	// register the default file types
+	fz_register_document_handlers(d->context);
+
 	// open document
 	fz_try(d->context)
 	{

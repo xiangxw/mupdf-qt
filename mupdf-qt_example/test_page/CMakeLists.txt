@@ -1,5 +1,7 @@
-cmake_minimum_required (VERSION 2.8 FATAL_ERROR)
 project (test_page)
+
+# Qt5 library
+find_package (Qt5Widgets)
 
 # libmupdf-qt library
 include_directories (${CMAKE_SOURCE_DIR}/libmupdf-qt)

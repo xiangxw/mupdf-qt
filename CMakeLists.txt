@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required (VERSION 2.8.11 FATAL_ERROR)
 project (mupdf-qt)
 
 # Settings
@@ -10,10 +10,6 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 # Mupdf library
 find_package (MuPDF REQUIRED)
 include_directories (${MuPDF_INCLUDE_DIRS})
-
-# Qt5 library
-set (CMAKE_AUTOMOC ON)
-find_package (Qt5Widgets)
 
 # Add directories
 add_subdirectory (libmupdf-qt)

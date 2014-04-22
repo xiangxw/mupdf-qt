@@ -191,7 +191,7 @@ void MainWindow::updateTitle()
 	title += "Page " + QString::number(m_index + 1)
 		+ "/" + QString::number(m_numPages);
 	title += " - ";
-	title += "Scale " + QString::number(round(m_scale * 100)) + "%";
+	title += "Scale " + QString::number(qRound(m_scale * 100)) + "%";
 	this->setWindowTitle(title);
 }
 

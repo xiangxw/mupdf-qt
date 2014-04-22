@@ -8,8 +8,6 @@
 #ifndef MUPDF_DOCUMENT_H
 #define MUPDF_DOCUMENT_H
 
-#include "mupdf-global.h"
-
 class QString;
 class QDateTime;
 
@@ -19,9 +17,9 @@ namespace MuPDF
 class Document;
 class Page;
 
-Document * MUPDF_QT_EXPORT loadDocument(const QString &filePath);
+Document * loadDocument(const QString &filePath);
 
-class MUPDF_QT_EXPORT Document
+class Document
 {
 public:
 	~Document();
