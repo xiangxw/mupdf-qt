@@ -76,7 +76,7 @@ int main(int argc, char **argv)
  */
 void rgba2bgra(unsigned char *data, int size)
 {
-	unsigned char r, g, b/* ,a */;
+	unsigned char r, /* g, */ b/* ,a */;
 	for (int i = 0; i < size; i += 4) {
 		r = *(data + i);
 		/* g = *(data + i + 1); */
