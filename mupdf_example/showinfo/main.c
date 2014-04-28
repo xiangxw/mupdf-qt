@@ -11,18 +11,21 @@
 
 int main(int argc, char **argv)
 {
-    char *filename = (char *)"/home/a/project/mupdf-qt/pdf_files/pdf_reference_1-7.pdf";
+	char *filename = (char *)"/home/a/project/mupdf-qt/pdf_files/pdf_reference_1-7.pdf";
+	fz_context *context;
+	pdf_document *xref;
+	pdf_obj *info;
 
 	/* open xref */
-	fz_context *context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
-    pdf_document *xref = (pdf_document *)fz_open_document(context, filename);
+	context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
+	xref = (pdf_document *)fz_open_document(context, filename);
 	if (NULL == xref) {
 		printf("can't open document: %s\n", filename);
         exit(EXIT_FAILURE);
 	}
 
 	/* print infomation */
-	pdf_obj *info = pdf_dict_gets(pdf_trailer(xref), "Info");
+	info = pdf_dict_gets(pdf_trailer(xref), "Info");
 	if (info) {
 		pdf_obj *obj = NULL;
 		obj = pdf_dict_gets(info, (char *)"Title"); /* print title */

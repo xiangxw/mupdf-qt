@@ -8,8 +8,6 @@
 #ifndef MUPDF_PAGE_H
 #define MUPDF_PAGE_H
 
-#include "mupdf-global.h"
-
 class QImage;
 class QString;
 class QRect;
@@ -20,7 +18,7 @@ namespace MuPDF
 class Page;
 class Document;
 
-class MUPDF_QT_EXPORT Page
+class Page
 {
 public:
 	~Page();

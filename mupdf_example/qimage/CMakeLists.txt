@@ -1,5 +1,7 @@
-cmake_minimum_required (VERSION 2.8 FATAL_ERROR)
 project (qimage)
+
+# Qt5 library
+find_package (Qt5Widgets)
 
 add_executable (${PROJECT_NAME} main.cpp)
 target_link_libraries (${PROJECT_NAME} ${MuPDF_LIBRARIES})
