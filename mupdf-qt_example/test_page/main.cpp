@@ -38,9 +38,12 @@ int main(int argc, char **argv)
 	qDebug() << page->size();
 
 	// test Page::renderImage()
-	QImage image = page->renderImage();
-	QLabel label;
-	label.setPixmap(QPixmap::fromImage(image));
+	QLabel label("what");
+	{
+		// image should be deleted before document is deleted
+		QImage image = page->renderImage();
+		label.setPixmap(QPixmap::fromImage(image));
+	}
 	label.show();
 
 	delete page;

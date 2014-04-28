@@ -147,6 +147,7 @@ bool Page::isValid() const
  *
  * @return QImage use implicit data share, so there is no deep copy here.
  *         This function will return a empty QImage if failed.
+ *         The returned QImage should be deleted before Document object is deleted.
  */
 QImage Page::renderImage() const
 {

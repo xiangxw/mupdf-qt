@@ -29,6 +29,7 @@ int main(int argc, char **argv)
 
 	/* open document */
 	fz_context *context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
+	fz_register_document_handlers(context);
 	fz_document *document = fz_open_document(context, str.toLocal8Bit().data());
 
 	/* load page*/
