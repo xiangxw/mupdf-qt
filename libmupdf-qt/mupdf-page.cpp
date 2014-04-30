@@ -42,56 +42,13 @@ static void imageCleanupHandler(void *info)
 	}
 }
 
-/**
- * @brief Update page data.
- */
-void PagePrivate::updatePageData()
-{
-	fz_matrix transform;
-	fz_rect bounds;
-	fz_device *list_device;
-	fz_device *text_device;
-	
-	// build transform and bounds
-	fz_rotate(&transform, rotation);
-	fz_pre_scale(&transform, 1.0f, 1.0f);
-	fz_bound_page(document, page, &bounds);
-	fz_transform_rect(&bounds, &transform);
-
-	// create display list
-	if (display_list) {
-		fz_drop_display_list(context, display_list);
-	}
-	display_list = fz_new_display_list(context);
-	list_device = fz_new_list_device(context, display_list);
-
-	// create text sheet and text page
-	if (text_sheet) {
-		fz_free_text_sheet(context, text_sheet);
-	}
-	if (text_page) {
-		fz_free_text_page(context, text_page);
-	}
-	text_sheet = fz_new_text_sheet(context);
-	text_page = fz_new_text_page(context);
-	text_device = fz_new_text_device(context, text_sheet, text_page);
-
-	// update display list
-	fz_run_page(document, page, list_device, &transform, NULL);
-	fz_free_device(list_device);
-
-	// update text
-	fz_run_display_list(display_list, text_device, &transform, &bounds, NULL);
-	fz_free_device(text_device);
-}
-
 namespace MuPDF
 {
 
 /**
  * @brief Constructor
  */
-Page::Page(const Document &document, int index, float scaleX, float scaleY, float rotation)
+Page::Page(const Document &document, int index)
 {
 	if (document.d->document == NULL || index < 0) {
 		return;
@@ -108,17 +65,29 @@ Page::Page(const Document &document, int index, float scaleX, float scaleY, floa
 	d->g = document.d->g;
 	d->r = document.d->r;
 	d->a = document.d->a;
-	d->scaleX = scaleX;
-	d->scaleY = scaleY;
-	d->rotation = rotation;
 
 	fz_try(d->context)
 	{
+		fz_rect bounds;
+		fz_device *list_device;
+		fz_device *text_device;
+
 		// load page
 		d->page = fz_load_page(d->document, index);
+		
+		// display list
+		d->display_list = fz_new_display_list(d->context);
+		list_device = fz_new_list_device(d->context, d->display_list);
+		fz_run_page(d->document, d->page, list_device, &fz_identity, NULL);
+		fz_free_device(list_device);
 
-		// update page data
-		d->updatePageData();
+		// create text sheet and text page
+		d->text_sheet = fz_new_text_sheet(d->context);
+		d->text_page = fz_new_text_page(d->context);
+		text_device = fz_new_text_device(d->context, d->text_sheet, d->text_page);
+		fz_bound_page(d->document, d->page, &bounds);
+		fz_run_display_list(d->display_list, text_device, &fz_identity, &bounds, NULL);
+		fz_free_device(text_device);
 	}
 	fz_catch(d->context)
 	{
@@ -157,15 +126,10 @@ QImage Page::renderImage() const
 	int height = 0;
 	int size = 0;
 
-    // apply scale and rotate
-    fz_matrix transform;
-    fz_rotate(&transform, d->rotation);
-    fz_pre_scale(&transform, d->scaleX, d->scaleY);
-
     // get transformed page size
     fz_rect bounds;
     fz_bound_page(d->document, d->page, &bounds);
-    fz_transform_rect(&bounds, &transform);
+    fz_transform_rect(&bounds, &(d->transform));
     fz_irect bbox;
     fz_round_rect(&bbox, &bounds);
 
@@ -188,7 +152,7 @@ QImage Page::renderImage() const
 			}
 		}
 		dev = fz_new_draw_device(d->context, pixmap);
-		fz_run_display_list(d->display_list, dev, &transform, &bounds, NULL);
+		fz_run_display_list(d->display_list, dev, &(d->transform), &bounds, NULL);
 	}
 	fz_always(d->context)
 	{
@@ -282,8 +246,8 @@ void Page::setTransform(float scaleX, float scaleY, float rotation)
 	d->scaleX = scaleX;
 	d->scaleY = scaleY;
 	d->rotation = rotation;
-
-	d->updatePageData();
+	fz_rotate(&(d->transform), rotation);
+	fz_pre_scale(&(d->transform), scaleX, scaleY);
 }
 
 /**
@@ -299,12 +263,15 @@ QString Page::text(float x0, float y0, float x1, float y1) const
 	QString ret;
 	char *str;
 	fz_rect rect;
+	fz_matrix transform;
 
 	// build fz_rect
 	rect.x0 = x0;
 	rect.y0 = y0;
 	rect.x1 = x1;
 	rect.y1 = y1;
+	fz_invert_matrix(&transform, &(d->transform));
+	fz_transform_rect(&rect, &transform);
 	
 	// get text
 	if (!fz_is_infinite_rect(&rect)) {

@@ -31,7 +31,7 @@ public:
 	QString text(float x0, float y0, float x1, float y1) const;
 
 private:
-	Page(const Document &document, int index, float scaleX = 1.0f, float scaleY = 1.0f, float rotation = 0.0f);
+	Page(const Document &document, int index);
 	PagePrivate *d;
 
 friend class Document;
