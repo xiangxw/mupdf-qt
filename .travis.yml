@@ -10,6 +10,14 @@ script:
   - git submodule update --init --recursive
   - cd mupdf && make && cd ..
   - mkdir build && cd build && cmake .. && make
+  - wget http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/pdf_reference_1-7.pdf
+  - ./bin/countpages pdf_reference_1-7.pdf
+  - ./bin/exportpage pdf_reference_1-7.pdf 1
+  - ./bin/qimage pdf_reference_1-7.pdf
+  - ./bin/showinfo pdf_reference_1-7.pdf
+  - ./bin/showtext pdf_reference_1-7.pdf 1
+  - ./bin/test_document pdf_reference_1-7.pdf
+  - ./bin/test_page pdf_reference_1-7.pdf
 branches:
   only:
     - master
