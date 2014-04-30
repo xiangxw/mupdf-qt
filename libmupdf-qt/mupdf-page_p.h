@@ -26,7 +26,8 @@ public:
 		  text_page(NULL),
 		  scaleX(1.0f),
 		  scaleY(1.0f),
-		  rotation(0.0f)
+		  rotation(0.0f),
+		  transform(fz_identity)
 	{
 	}
 	~PagePrivate()
@@ -54,8 +55,6 @@ public:
 		}
 	}
 
-	void updatePageData();
-
 	fz_context *context;
 	fz_document *document;
 	fz_page *page;
@@ -63,6 +62,7 @@ public:
 	fz_text_sheet *text_sheet;
 	fz_text_page *text_page;
 	float scaleX, scaleY, rotation;
+	fz_matrix transform;
 	bool transparent;
 	int b, g, r, a; // background color
 };

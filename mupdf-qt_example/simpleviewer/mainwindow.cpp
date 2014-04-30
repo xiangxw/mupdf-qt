@@ -169,10 +169,11 @@ void MainWindow::openPage(int index)
 		delete m_page;
 		m_page = NULL;
 	}
-	m_page = m_doc->page(index, m_scale, m_scale);
+	m_page = m_doc->page(index);
 	if (NULL == m_page) {
 		return;
 	}
+	m_page->setTransform(m_scale, m_scale);
 
 	label->setPage(m_page, m_scale);
 	scrollArea->verticalScrollBar()->setValue(0);

@@ -28,11 +28,12 @@ int main(int argc, char **argv)
 	}
 
 	// load page
-	MuPDF::Page *page = document->page(0, 1.0f, 1.0f, 90.0f);
+	MuPDF::Page *page = document->page(0);
 	if (NULL == page) {
 		delete document;
 		return -1;
 	}
+	page->setTransform(1.0f, 1.0f, 90.0f);
 
 	// test Page::size()
 	qDebug() << page->size();
