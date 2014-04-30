@@ -6,21 +6,15 @@
  */
 
 #include "mupdf-qt.h"
-#include <QApplication>
-#include <QFileDialog>
-#include <QLabel>
-#include <QPixmap>
 #include <QImage>
 #include <QDebug>
 
 int main(int argc, char **argv)
 {
-	QApplication app(argc, argv);
-
 	// open document
-	QString file = QFileDialog::getOpenFileName(NULL, "Select PDF file", ".", "PDF (*.pdf)");
+	QString file = argv[1];
 	if (file.isEmpty()) {
-		return 0;
+		return 1;
 	}
 	MuPDF::Document *document = MuPDF::loadDocument(file);
 	if (NULL == document) {
@@ -39,15 +33,15 @@ int main(int argc, char **argv)
 	qDebug() << page->size();
 
 	// test Page::renderImage()
-	QLabel label("what");
 	{
 		// image should be deleted before document is deleted
 		QImage image = page->renderImage();
-		label.setPixmap(QPixmap::fromImage(image));
+		if (!image.save("a.png")) {
+			return 1;
+		}
 	}
-	label.show();
 
 	delete page;
 	delete document;
-	return app.exec();
+	return 0;
 }

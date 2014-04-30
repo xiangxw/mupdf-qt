@@ -8,23 +8,18 @@
 extern "C" {
 #include <mupdf/fitz.h>
 }
-#include <QApplication>
 #include <QImage>
-#include <QPixmap>
-#include <QLabel>
-#include <QFileDialog>
 
 void rgba2bgra(unsigned char *data, int size);
 
 int main(int argc, char **argv)
 {
-	QApplication app(argc, argv);
 	int index = 1;
 
 	/* get filename */
-	QString str = QFileDialog::getOpenFileName(0, "Select PDF file", ".", "PDF (*.pdf)");
+	QString str = argv[1];
 	if (str.isEmpty()) {
-		return 0;
+		return 1;
 	}
 
 	/* open document */
@@ -56,17 +51,17 @@ int main(int argc, char **argv)
 	int height = fz_pixmap_height(context, pixmap);
 	rgba2bgra(samples, width * height * 4);
 	QImage image(samples, width, height, QImage::Format_ARGB32);
-	QLabel label;
-	label.setPixmap(QPixmap::fromImage(image));
-	label.show();
-	fz_drop_pixmap(context, pixmap);
+	if (!image.save("a.png")) {
+		return 1;
+	}
 
 	/* clean up */
+	fz_drop_pixmap(context, pixmap);
 	fz_free_page(document, page);
 	fz_close_document(document);
 	fz_free_context(context);
 
-	return app.exec();
+	return 0;
 }
 
 /**

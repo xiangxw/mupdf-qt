@@ -11,13 +11,14 @@
 
 int main(int argc, char **argv)
 {
-	char *filename = (char *)"/home/a/project/mupdf-qt/pdf_files/pdf_reference_1-7.pdf";
+	char *filename = argv[1];
 	fz_context *context;
 	pdf_document *xref;
 	pdf_obj *info;
 
 	/* open xref */
 	context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
+	fz_register_document_handlers(context);
 	xref = (pdf_document *)fz_open_document(context, filename);
 	if (NULL == xref) {
 		printf("can't open document: %s\n", filename);

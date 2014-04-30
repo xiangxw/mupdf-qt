@@ -28,6 +28,7 @@ int main(int argc, char **argv)
 
 	/* open document */
 	context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
+	fz_register_document_handlers(context);
 	document = fz_open_document(context, filename);
 
 	/* print page count */
