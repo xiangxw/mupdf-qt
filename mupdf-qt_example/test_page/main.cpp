@@ -33,12 +33,9 @@ int main(int argc, char **argv)
 	qDebug() << page->size();
 
 	// test Page::renderImage()
-	{
-		// image should be deleted before document is deleted
-		QImage image = page->renderImage();
-		if (!image.save("a.png")) {
-			return 1;
-		}
+	QImage image = page->renderImage();
+	if (!image.save("a.png")) {
+		return 1;
 	}
 
 	delete page;
