@@ -56,7 +56,7 @@ Document::Document(const QString &filePath)
 	fz_try(d->context)
 	{
 		d->document = fz_open_document(d->context,
-				filePath.toLocal8Bit().data());
+				filePath.toUtf8().data());
 	}
 	fz_catch(d->context)
 	{
