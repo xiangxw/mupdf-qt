@@ -1,10 +1,3 @@
-/**
- * @file mupdf-document.h
- * @brief class Document
- * @author xiangxw xiangxw5689@126.com
- * @date 2012-04-03
- */
-
 #ifndef MUPDF_DOCUMENT_H
 #define MUPDF_DOCUMENT_H
 

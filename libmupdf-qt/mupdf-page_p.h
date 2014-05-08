@@ -1,10 +1,3 @@
-/**
- * @file mupdf-page_p.h
- * @brief class PagePrivate
- * @author xiangxw xiangxw5689@126.com
- * @date 2012-04-03
- */
-
 #ifndef MUPDF_PAGE_P_H
 #define MUPDF_PAGE_P_H
 

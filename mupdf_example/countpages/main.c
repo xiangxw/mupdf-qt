@@ -1,9 +1,4 @@
-/**
- * @file main.c
- * @brief print page count of a pdf file(based on mupdf/doc/example.c)
- * @author xiangxw xiangxw5689@126.com
- * @date 2011-12-15
- */
+/* print page count of a pdf file(based on mupdf/doc/example.c) */
 
 #include <stdlib.h>
 #include <string.h>

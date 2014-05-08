@@ -1,10 +1,3 @@
-/**
- * @file main.c
- * @brief show text
- * @author xiangxw xiangxw5689@126.com
- * @date 2014-03-19
- */
-
 #include <mupdf/fitz.h>
 #include <stdio.h>
 

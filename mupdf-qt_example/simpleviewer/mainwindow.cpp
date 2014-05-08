@@ -1,10 +1,3 @@
-/**
- * @file mainwindow.cpp
- * @brief class MainWindow
- * @author xiangxw xiangxw5689@126.com
- * @date 2012-04-01
- */
-
 #include "mainwindow.h"
 #include <QScrollArea>
 #include <QToolBar>

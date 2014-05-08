@@ -1,10 +1,3 @@
-/**
- * @file main.cpp
- * @brief simple PDF viewer
- * @author xiangxw xiangxw5689@126.com
- * @date 2012-04-01
- */
-
 #include "mainwindow.h"
 #include <QApplication>
 

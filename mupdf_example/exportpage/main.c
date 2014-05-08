@@ -1,9 +1,4 @@
-/**
- * @file main.c
- * @brief export page(based on mupdf/doc/example.c)
- * @author xiangxw xiangxw5689@126.com
- * @date 2012-02-20
- */
+/* export page(based on mupdf/doc/example.c) */
 
 #include <mupdf/fitz.h>
 

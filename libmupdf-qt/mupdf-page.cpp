@@ -1,10 +1,3 @@
-/**
- * @file mupdf-page.cpp
- * @brief class Page
- * @author xiangxw xiangxw5689@126.com
- * @date 2012-04-03
- */
-
 #include "mupdf-page.h"
 #include "mupdf-page_p.h"
 extern "C" {

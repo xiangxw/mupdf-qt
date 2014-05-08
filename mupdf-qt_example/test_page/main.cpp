@@ -1,10 +1,3 @@
-/**
- * @file main.cpp
- * @brief test function Page::renderImage
- * @author xiangxw xiangxw5689@126.com
- * @date 2012-03-31
- */
-
 #include "mupdf-qt.h"
 #include <QImage>
 #include <QDebug>

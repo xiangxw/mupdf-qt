@@ -1,9 +1,4 @@
-/**
- * @file main.cpp
- * @brief render as QImage(based on mupdf/doc/examples)
- * @author xiangxw xiangxw5689@126.com
- * @date 2012-02-20
- */
+// render as QImage(based on mupdf/doc/examples)
 
 extern "C" {
 #include <mupdf/fitz.h>

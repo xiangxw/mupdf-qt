@@ -1,11 +1,4 @@
-﻿/**
- * @file mupdf-document.cpp
- * @brief class Document
- * @author xiangxw xiangxw5689@126.com
- * @date 2012-04-03
- */
-
-#include "mupdf-document.h"
+﻿#include "mupdf-document.h"
 #include "mupdf-document_p.h"
 #include "mupdf-page.h"
 #include "mupdf-page_p.h"

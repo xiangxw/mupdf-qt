@@ -1,10 +1,3 @@
-/**
- * @file main.cpp
- * @brief test class Document
- * @author xiangxw xiangxw5689@126.com
- * @date 2012-03-28
- */
-
 #include <QDateTime>
 #include <QDebug>
 #include "mupdf-qt.h"

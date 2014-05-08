@@ -1,10 +1,3 @@
-/**
- * @file mainwindow.h
- * @brief class MainWindow
- * @author xiangxw xiangxw5689@126.com
- * @date 2012-04-01
- */
-
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
