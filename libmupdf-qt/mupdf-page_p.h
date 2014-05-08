@@ -67,10 +67,4 @@ public:
 	int b, g, r, a; // background color
 };
 
-struct info_s
-{
-	fz_context *context;
-	fz_pixmap *pixmap;
-};
-
 #endif // end MUPDF_PAGE_P_H

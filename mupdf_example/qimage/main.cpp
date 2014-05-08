@@ -10,8 +10,6 @@ extern "C" {
 }
 #include <QImage>
 
-void rgba2bgra(unsigned char *data, int size);
-
 int main(int argc, char **argv)
 {
 	int index = 1;
@@ -39,7 +37,12 @@ int main(int argc, char **argv)
     fz_transform_rect(&bounds, &transform);
     fz_irect bbox;
     fz_round_rect(&bbox, &bounds);
+	// fz_pixmap will always include a separate alpha channel
+#if QT_VERSION < 0x050200
+    fz_pixmap *pixmap = fz_new_pixmap_with_bbox(context, fz_device_bgr(context), &bbox);
+#else
     fz_pixmap *pixmap = fz_new_pixmap_with_bbox(context, fz_device_rgb(context), &bbox);
+#endif
 	fz_clear_pixmap_with_value(context, pixmap, 0xff); // 0xff = 255
 	fz_device *device = fz_new_draw_device(context, pixmap);
     fz_run_page(document, page, device, &transform, NULL);
@@ -49,8 +52,14 @@ int main(int argc, char **argv)
 	unsigned char *samples = fz_pixmap_samples(context, pixmap);
 	int width = fz_pixmap_width(context, pixmap);
 	int height = fz_pixmap_height(context, pixmap);
-	rgba2bgra(samples, width * height * 4);
+#if QT_VERSION < 0x050200
+	// most computers use little endian, so Format_ARGB32 means bgra order
+	// note: this is not correct for computers with big endian architecture
 	QImage image(samples, width, height, QImage::Format_ARGB32);
+#else
+	// with Qt 5.2, Format_RGBA8888 is correct for any architecture
+	QImage image(samples, width, height, QImage::Format_RGBA8888);
+#endif
 	if (!image.save("a.png")) {
 		return 1;
 	}
@@ -62,26 +71,4 @@ int main(int argc, char **argv)
 	fz_free_context(context);
 
 	return 0;
-}
-
-/**
- * @brief transform rgba data to bgra data. fz_pixmap store data as rgba, but QImage store data as bgra.
- *
- * @param data pointer to fz_pixmap data
- * @param size size of fz_pixmap data
- */
-void rgba2bgra(unsigned char *data, int size)
-{
-	unsigned char r, /* g, */ b/* ,a */;
-	for (int i = 0; i < size; i += 4) {
-		r = *(data + i);
-		/* g = *(data + i + 1); */
-		b = *(data + i + 2);
-		/* a = *(data + i + 3); */
-
-		*(data + i) = b;
-		/* *(data + i + 1) = g; */
-		*(data + i + 2) = r;
-		/* *(data + i + 3) = a */
-	}
 }

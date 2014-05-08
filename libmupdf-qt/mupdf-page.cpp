@@ -13,7 +13,7 @@ extern "C" {
 #include <QImage>
 #include <QRect>
 
-static void clear_samples_with_value(
+static void clear_bgr_samples_with_value(
 		unsigned char *samples, int size,
 		int b, int g, int r, int a)
 {
@@ -27,18 +27,29 @@ static void clear_samples_with_value(
 	}
 }
 
+static void clear_rgb_samples_with_value(
+		unsigned char *samples, int size,
+		int b, int g, int r, int a)
+{
+	int i = 0;
+
+	while (i < size) {
+		*(samples + i++) = r;
+		*(samples + i++) = g;
+		*(samples + i++) = b;
+		*(samples + i++) = a;
+	}
+}
+
 /**
  * @brief Clean up image data when the last copy of the QImage is destoryed.
- *
- * @param info Image data.
  */
-static void imageCleanupHandler(void *info)
+static inline void imageCleanupHandler(void *data)
 {
-	info_s *p = static_cast<info_s *>(info);
+	unsigned char *samples = static_cast<unsigned char *>(data);
 
-	if (p) {
-		fz_drop_pixmap(p->context, p->pixmap);
-		delete p;
+	if (samples) {
+		delete samples;
 	}
 }
 
@@ -114,14 +125,13 @@ bool Page::isValid() const
 /**
  * @brief Render page to QImage
  *
- * @return QImage use implicit data share, so there is no deep copy here.
- *         This function will return a empty QImage if failed.
- *         The returned QImage should be deleted before Document object is deleted.
+ * @return This function will return a empty QImage if failed.
  */
 QImage Page::renderImage() const
 {
 	fz_pixmap *pixmap = NULL;
 	unsigned char *samples = NULL;
+	unsigned char *copyed_samples = NULL;
 	int width = 0;
 	int height = 0;
 	int size = 0;
@@ -137,7 +147,13 @@ QImage Page::renderImage() const
 	fz_device *dev = NULL;
 	fz_try(d->context)
 	{
+		// fz_pixmap will always include a separate alpha channel
+#if QT_VERSION < 0x050200
 		pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_bgr(d->context), &bbox);
+#else
+		// use rgba for Qt5.2
+		pixmap = fz_new_pixmap_with_bbox(d->context, fz_device_rgb(d->context), &bbox);
+#endif
 		samples = fz_pixmap_samples(d->context, pixmap);
 		width = fz_pixmap_width(d->context, pixmap);
 		height = fz_pixmap_height(d->context, pixmap);
@@ -145,7 +161,12 @@ QImage Page::renderImage() const
 		if (!d->transparent) {
 			if (d->b >= 0 && d->g >= 0 && d->r >= 0 && d->a >= 0) {
 				// with user defined background color
-				clear_samples_with_value(samples, size, d->b, d->g, d->r, d->a);
+#if QT_VERSION < 0x050200
+				clear_bgr_samples_with_value(samples, size, d->b, d->g, d->r, d->a);
+#else
+				// use rgba for Qt5.2
+				clear_rgb_samples_with_value(samples, size, d->b, d->g, d->r, d->a);
+#endif
 			} else {
 				// with white background
 				fz_clear_pixmap_with_value(d->context, pixmap, 0xff);
@@ -174,12 +195,19 @@ QImage Page::renderImage() const
 	if (NULL == pixmap) {
 		return image;
 	}
-	// No copy before return
-	info_s *info = new info_s;
-	info->context = d->context;
-	info->pixmap = pixmap;
-	image = QImage(samples, // no deep copy here
-			width, height, QImage::Format_ARGB32, imageCleanupHandler, info);
+	copyed_samples = new unsigned char[size];
+	memcpy(copyed_samples, samples, size);
+	fz_drop_pixmap(d->context, pixmap);
+#if QT_VERSION < 0x050200
+	// most computers use little endian, so Format_ARGB32 means bgra order
+	// note: this is not correct for computers with big endian architecture
+	image = QImage(copyed_samples,
+			width, height, QImage::Format_ARGB32, imageCleanupHandler, copyed_samples);
+#else
+	// with Qt 5.2, Format_RGBA8888 is correct for any architecture
+	image = QImage(copyed_samples,
+			width, height, QImage::Format_RGBA8888, imageCleanupHandler, copyed_samples);
+#endif
 	return image;
 }
 
