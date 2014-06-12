@@ -13,5 +13,5 @@ include_directories (${MuPDF_INCLUDE_DIRS})
 
 # Add directories
 add_subdirectory (libmupdf-qt)
-#add_subdirectory (mupdf_example)
-#add_subdirectory (mupdf-qt_example)
+add_subdirectory (mupdf_example)
+add_subdirectory (mupdf-qt_example)
