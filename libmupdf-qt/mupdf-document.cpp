@@ -31,6 +31,20 @@ Document *loadDocument(const QString &filePath)
 	return NULL;
 }
 
+Document *loadDocument(const QByteArray &bytes)
+{
+    Document *doc = new Document((unsigned char*) bytes.data(), bytes.length());
+    if (NULL == doc) {
+        return NULL;
+    }
+    if (doc->d->context && doc->d->document) {
+        return doc;
+    }
+    delete doc; doc = NULL;
+    return NULL;
+}
+
+
 /**
  * @brief Constructor
  *
@@ -68,6 +82,43 @@ Document::Document(const QString &filePath)
 	if (NULL == d->document) {
 		return;
 	}
+}
+
+Document::Document(unsigned char *bytes, int len)
+{
+    d = new DocumentPrivate();
+    if (NULL == d) {
+        return;
+    }
+
+    // create context
+    d->context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
+    if (NULL == d->context) {
+        return;
+    }
+
+    // register the default file types
+    fz_register_document_handlers(d->context);
+
+
+    // open document
+    fz_try(d->context)
+    {
+        // access to the bytes stream
+        fz_stream* stream = fz_open_memory(d->context, bytes, len);
+
+        d->document = fz_open_document_with_stream(d->context, ".pdf", stream);
+    }
+    fz_catch(d->context)
+    {
+        fz_close_document(d->document);
+        d->document = NULL;
+        fz_free_context(d->context);
+        d->context = NULL;
+    }
+    if (NULL == d->document) {
+        return;
+    }
 }
 
 /**
@@ -258,7 +309,7 @@ void Document::setBackgroundColor(int r, int g, int b, int a)
 	d->r = r;
 	d->g = g;
 	d->b = b;
-	d->a = a;
+    d->a = a;
 }
 
 } // end namespace MuPDF
