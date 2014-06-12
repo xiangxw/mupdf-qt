@@ -1,6 +1,8 @@
 #ifndef MUPDF_DOCUMENT_H
 #define MUPDF_DOCUMENT_H
 
+#include <QByteArray>
+
 class QString;
 class QDateTime;
 
@@ -11,6 +13,7 @@ class Document;
 class Page;
 
 Document * loadDocument(const QString &filePath);
+Document * loadDocument(const QByteArray &bytes);
 
 class Document
 {
@@ -34,6 +37,7 @@ public:
 
 private:
 	Document(const QString &filePath);
+    Document(unsigned char* bytes, int len);
 	// disable copy
 	Document(const Document &);
 	Document &operator=(const Document &);
@@ -42,6 +46,7 @@ private:
 
 friend class Page;
 friend Document *loadDocument(const QString &filePath);
+friend Document *loadDocument(const QByteArray &bytes);
 };
 
 } // end namespace MuPDF
