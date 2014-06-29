@@ -5,5 +5,6 @@
 #include "mupdf-page.h"
 #include "mupdf-link.h"
 #include "mupdf-outline.h"
+#include "mupdf-textbox.h"
 
 #endif // end MUPDF_QT_H

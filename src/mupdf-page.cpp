@@ -2,6 +2,8 @@
 #include "mupdf-page_p.h"
 #include "mupdf-document.h"
 #include "mupdf-document_p.h"
+#include "mupdf-textbox.h"
+#include "mupdf-textbox_p.h"
 extern "C" {
 #include <mupdf/fitz.h>
 }
@@ -301,6 +303,40 @@ QString Page::text(float x0, float y0, float x1, float y1) const
         str = fz_copy_selection(d->context, d->text_page, rect);
         ret = QString::fromUtf8(str);
         free(str);
+    }
+
+    return ret;
+}
+
+/**
+ * @brief Return all text boxes of the page.
+ *
+ * @note The returned text boxes should be deleted when they are no longer used.
+ * @note Sizes of the returned text boxes are at 72 dpi, so they won't change when setTransform() is called.
+ */
+QList<TextBox *> Page::textList() const
+{
+    QList<TextBox *> ret;
+    TextBox *box;
+    TextBoxPrivate *boxp;
+    fz_text_block *block;
+    fz_text_line *line;
+    fz_text_span *span;
+
+    for (int block_num = 0; block_num < d->text_page->len; ++block_num) {
+        // get block
+        if (d->text_page->blocks[block_num].type != FZ_PAGE_BLOCK_TEXT) {
+            continue;
+        }
+        block = d->text_page->blocks[block_num].u.text;
+
+        for (line = block->lines; line < block->lines + block->len; ++line) { // lines
+            for (span = line->first_span; span; span = span->next) { // spans
+                boxp = new TextBoxPrivate(span);
+                box = new TextBox(boxp);
+                ret << box;
+            }
+        }
     }
 
     return ret;

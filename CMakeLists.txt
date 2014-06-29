@@ -19,7 +19,9 @@ include_directories (${CMAKE_SOURCE_DIR}/src/private)
 set (LIBMUPDF_SOURCES src/mupdf-document.cpp
                       src/mupdf-page.cpp
                       src/mupdf-link.cpp
-                      src/mupdf-outline.cpp)
+                      src/mupdf-outline.cpp
+                      src/mupdf-textbox.cpp
+                      )
 add_library (${LIBMUPDF} STATIC ${LIBMUPDF_SOURCES})
 target_link_libraries (${LIBMUPDF} ${MuPDF_LIBRARIES})
 qt5_use_modules (${LIBMUPDF} Gui)

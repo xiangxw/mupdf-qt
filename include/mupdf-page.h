@@ -1,6 +1,8 @@
 #ifndef MUPDF_PAGE_H
 #define MUPDF_PAGE_H
 
+#include <QList>
+
 class QImage;
 class QString;
 class QRect;
@@ -10,6 +12,7 @@ namespace MuPDF
 class Page;
 class PagePrivate;
 class Document;
+class TextBox;
 
 class Page
 {
@@ -22,6 +25,7 @@ public:
     void setBackgroundColor(int r, int g, int b, int a = 255);
     void setTransform(float scaleX, float scaleY, float rotation = 0.0f);
     QString text(float x0, float y0, float x1, float y1) const;
+    QList<TextBox *> textList() const;
 
 private:
     Page(const Document &document, int index);
