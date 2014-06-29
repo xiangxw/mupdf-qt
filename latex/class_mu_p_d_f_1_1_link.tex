@@ -1,0 +1,168 @@
+\hypertarget{class_mu_p_d_f_1_1_link}{\section{Mu\-P\-D\-F\-:\-:Link Class Reference}
+\label{class_mu_p_d_f_1_1_link}\index{Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}}
+}
+
+
+{\ttfamily \#include $<$mupdf-\/link.\-h$>$}
+
+Inheritance diagram for Mu\-P\-D\-F\-:\-:Link\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_mu_p_d_f_1_1_link}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6}{Link\-Type} \{ \\*
+\hyperlink{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a60f06bd9a99b996b6f05f15076814c8e}{None} = 0, 
+\hyperlink{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a8e8dbec5daeb07d386fe261d877639fb}{Goto}, 
+\hyperlink{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6af19bc40abcfe48b5816df0cb96ee025f}{U\-R\-I}, 
+\hyperlink{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a2d292d251eaa8666035d5648a24522c8}{Launch}, 
+\\*
+\hyperlink{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a64bad01bb17f65698146da642da33983}{Named}, 
+\hyperlink{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a53227a954ff1d67fe8669a282ae68f63}{Goto\-R}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{class_mu_p_d_f_1_1_link_a67672eaaa9b132b64d78079f96f016d7}{$\sim$\-Link} ()
+\item 
+virtual \hyperlink{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6}{Link\-Type} \hyperlink{class_mu_p_d_f_1_1_link_afe7888c7db760b5a77040cd075911c15}{link\-Type} () const 
+\item 
+virtual Q\-Rect\-F \hyperlink{class_mu_p_d_f_1_1_link_a09ef952d535704b060e253e869b4c060}{link\-Area} () const 
+\begin{DoxyCompactList}\small\item\em Rect area of the link. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_mu_p_d_f_1_1_link_aafae45b17498aa5b4ddb284563e19bc7}{Link} (Link\-Private $\ast$linkp)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Link\-Private $\ast$ \hyperlink{class_mu_p_d_f_1_1_link_a5723c1b46286b89fd7a8fccfa3dc05d2}{d}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_mu_p_d_f_1_1_link_ab008ed670017e41b6e6bba8707c775d2}{Outline\-Item\-Private}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 12 of file mupdf-\/link.\-h.
+
+
+
+\subsection{Member Enumeration Documentation}
+\hypertarget{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6}{\index{Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}!Link\-Type@{Link\-Type}}
+\index{Link\-Type@{Link\-Type}!MuPDF::Link@{Mu\-P\-D\-F\-::\-Link}}
+\subsubsection[{Link\-Type}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Mu\-P\-D\-F\-::\-Link\-::\-Link\-Type}}}\label{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{None@{None}!Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}}\index{Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}!None@{None}}\item[{\em 
+\hypertarget{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a60f06bd9a99b996b6f05f15076814c8e}{None}\label{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a60f06bd9a99b996b6f05f15076814c8e}
+}]\index{Goto@{Goto}!Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}}\index{Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}!Goto@{Goto}}\item[{\em 
+\hypertarget{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a8e8dbec5daeb07d386fe261d877639fb}{Goto}\label{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a8e8dbec5daeb07d386fe261d877639fb}
+}]Goto a position in current file. \index{U\-R\-I@{U\-R\-I}!Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}}\index{Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}!U\-R\-I@{U\-R\-I}}\item[{\em 
+\hypertarget{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6af19bc40abcfe48b5816df0cb96ee025f}{U\-R\-I}\label{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6af19bc40abcfe48b5816df0cb96ee025f}
+}]A U\-R\-I link. \index{Launch@{Launch}!Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}}\index{Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}!Launch@{Launch}}\item[{\em 
+\hypertarget{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a2d292d251eaa8666035d5648a24522c8}{Launch}\label{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a2d292d251eaa8666035d5648a24522c8}
+}]Launch a file (a document or a executable) \index{Named@{Named}!Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}}\index{Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}!Named@{Named}}\item[{\em 
+\hypertarget{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a64bad01bb17f65698146da642da33983}{Named}\label{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a64bad01bb17f65698146da642da33983}
+}]Named action to perform. \index{Goto\-R@{Goto\-R}!Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}}\index{Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}!Goto\-R@{Goto\-R}}\item[{\em 
+\hypertarget{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a53227a954ff1d67fe8669a282ae68f63}{Goto\-R}\label{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6a53227a954ff1d67fe8669a282ae68f63}
+}]Goto a position in another file. \end{description}
+\end{Desc}
+
+
+Definition at line 15 of file mupdf-\/link.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_mu_p_d_f_1_1_link_a67672eaaa9b132b64d78079f96f016d7}{\index{Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}!$\sim$\-Link@{$\sim$\-Link}}
+\index{$\sim$\-Link@{$\sim$\-Link}!MuPDF::Link@{Mu\-P\-D\-F\-::\-Link}}
+\subsubsection[{$\sim$\-Link}]{\setlength{\rightskip}{0pt plus 5cm}Mu\-P\-D\-F\-::\-Link\-::$\sim$\-Link (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_mu_p_d_f_1_1_link_a67672eaaa9b132b64d78079f96f016d7}
+
+
+Definition at line 12 of file mupdf-\/link.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_link_aafae45b17498aa5b4ddb284563e19bc7}{\index{Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}!Link@{Link}}
+\index{Link@{Link}!MuPDF::Link@{Mu\-P\-D\-F\-::\-Link}}
+\subsubsection[{Link}]{\setlength{\rightskip}{0pt plus 5cm}Mu\-P\-D\-F\-::\-Link\-::\-Link (
+\begin{DoxyParamCaption}
+\item[{Link\-Private $\ast$}]{linkp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}}\label{class_mu_p_d_f_1_1_link_aafae45b17498aa5b4ddb284563e19bc7}
+
+
+Definition at line 31 of file mupdf-\/link.\-h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_mu_p_d_f_1_1_link_a09ef952d535704b060e253e869b4c060}{\index{Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}!link\-Area@{link\-Area}}
+\index{link\-Area@{link\-Area}!MuPDF::Link@{Mu\-P\-D\-F\-::\-Link}}
+\subsubsection[{link\-Area}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Rect\-F Mu\-P\-D\-F\-::\-Link\-::link\-Area (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_mu_p_d_f_1_1_link_a09ef952d535704b060e253e869b4c060}
+
+
+Rect area of the link. 
+
+
+
+Definition at line 20 of file mupdf-\/link.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_link_afe7888c7db760b5a77040cd075911c15}{\index{Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}!link\-Type@{link\-Type}}
+\index{link\-Type@{link\-Type}!MuPDF::Link@{Mu\-P\-D\-F\-::\-Link}}
+\subsubsection[{link\-Type}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf Link\-Type} Mu\-P\-D\-F\-::\-Link\-::link\-Type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_mu_p_d_f_1_1_link_afe7888c7db760b5a77040cd075911c15}
+
+
+Reimplemented in \hyperlink{class_mu_p_d_f_1_1_link_goto_r_a0528b0bb75308cbad4c1ad6936daa48c}{Mu\-P\-D\-F\-::\-Link\-Goto\-R}, \hyperlink{class_mu_p_d_f_1_1_link_named_af1037fb72e88df68b918b6f46a948ee1}{Mu\-P\-D\-F\-::\-Link\-Named}, \hyperlink{class_mu_p_d_f_1_1_link_launch_aea60c0a000b7ce966097714e83fb68f8}{Mu\-P\-D\-F\-::\-Link\-Launch}, \hyperlink{class_mu_p_d_f_1_1_link_u_r_i_a32a9aea97620ed712100859e877597fe}{Mu\-P\-D\-F\-::\-Link\-U\-R\-I}, and \hyperlink{class_mu_p_d_f_1_1_link_goto_a057e2224fc0495b171d097f5886ae40a}{Mu\-P\-D\-F\-::\-Link\-Goto}.
+
+
+
+Definition at line 27 of file mupdf-\/link.\-h.
+
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_mu_p_d_f_1_1_link_ab008ed670017e41b6e6bba8707c775d2}{\index{Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}!Outline\-Item\-Private@{Outline\-Item\-Private}}
+\index{Outline\-Item\-Private@{Outline\-Item\-Private}!MuPDF::Link@{Mu\-P\-D\-F\-::\-Link}}
+\subsubsection[{Outline\-Item\-Private}]{\setlength{\rightskip}{0pt plus 5cm}friend class Outline\-Item\-Private\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_mu_p_d_f_1_1_link_ab008ed670017e41b6e6bba8707c775d2}
+
+
+Definition at line 35 of file mupdf-\/link.\-h.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_mu_p_d_f_1_1_link_a5723c1b46286b89fd7a8fccfa3dc05d2}{\index{Mu\-P\-D\-F\-::\-Link@{Mu\-P\-D\-F\-::\-Link}!d@{d}}
+\index{d@{d}!MuPDF::Link@{Mu\-P\-D\-F\-::\-Link}}
+\subsubsection[{d}]{\setlength{\rightskip}{0pt plus 5cm}Link\-Private$\ast$ Mu\-P\-D\-F\-::\-Link\-::d\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_mu_p_d_f_1_1_link_a5723c1b46286b89fd7a8fccfa3dc05d2}
+
+
+Definition at line 33 of file mupdf-\/link.\-h.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+libmupdf-\/qt/\hyperlink{mupdf-link_8h}{mupdf-\/link.\-h}\item 
+libmupdf-\/qt/\hyperlink{mupdf-link_8cpp}{mupdf-\/link.\-cpp}\end{DoxyCompactItemize}

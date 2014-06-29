@@ -1,0 +1,144 @@
+\hypertarget{class_mu_p_d_f_1_1_link_goto_r}{\section{Mu\-P\-D\-F\-:\-:Link\-Goto\-R Class Reference}
+\label{class_mu_p_d_f_1_1_link_goto_r}\index{Mu\-P\-D\-F\-::\-Link\-Goto\-R@{Mu\-P\-D\-F\-::\-Link\-Goto\-R}}
+}
+
+
+Goto a position in another file.  
+
+
+
+
+{\ttfamily \#include $<$mupdf-\/link.\-h$>$}
+
+Inheritance diagram for Mu\-P\-D\-F\-:\-:Link\-Goto\-R\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_mu_p_d_f_1_1_link_goto_r}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_mu_p_d_f_1_1_link_afdc6828b6e00f323b53d6ae36d0d06b6}{Link\-Type} \hyperlink{class_mu_p_d_f_1_1_link_goto_r_a0528b0bb75308cbad4c1ad6936daa48c}{link\-Type} () const 
+\item 
+int \hyperlink{class_mu_p_d_f_1_1_link_goto_r_a506a78720f51b9928517273c63470a81}{page} () const 
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_mu_p_d_f_1_1_page}{Page} number(start from 0). \end{DoxyCompactList}\item 
+Q\-String \hyperlink{class_mu_p_d_f_1_1_link_goto_r_ab5ff953c35930b5ff57740decee8c61b}{destination} () const 
+\begin{DoxyCompactList}\small\item\em The target destination name to be resolved in the \hyperlink{class_mu_p_d_f_1_1_link_goto_r_aeef07c41fa5450bf6358406011402ccd}{file()}. \end{DoxyCompactList}\item 
+Q\-String \hyperlink{class_mu_p_d_f_1_1_link_goto_r_aeef07c41fa5450bf6358406011402ccd}{file} () const 
+\begin{DoxyCompactList}\small\item\em A pointer to a remote file specification (U\-T\-F-\/8). If set, this destination should cause a new file to be opened. \end{DoxyCompactList}\item 
+bool \hyperlink{class_mu_p_d_f_1_1_link_goto_r_a588e406a62ba86fffcc907f890342196}{new\-Window} () const 
+\begin{DoxyCompactList}\small\item\em If true, the destination should open in a new window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_mu_p_d_f_1_1_link_goto_r_ab008ed670017e41b6e6bba8707c775d2}{Outline\-Item\-Private}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Goto a position in another file. 
+
+Definition at line 107 of file mupdf-\/link.\-h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_mu_p_d_f_1_1_link_goto_r_ab5ff953c35930b5ff57740decee8c61b}{\index{Mu\-P\-D\-F\-::\-Link\-Goto\-R@{Mu\-P\-D\-F\-::\-Link\-Goto\-R}!destination@{destination}}
+\index{destination@{destination}!MuPDF::LinkGotoR@{Mu\-P\-D\-F\-::\-Link\-Goto\-R}}
+\subsubsection[{destination}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String Mu\-P\-D\-F\-::\-Link\-Goto\-R\-::destination (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_link_goto_r_ab5ff953c35930b5ff57740decee8c61b}
+
+
+The target destination name to be resolved in the \hyperlink{class_mu_p_d_f_1_1_link_goto_r_aeef07c41fa5450bf6358406011402ccd}{file()}. 
+
+\begin{DoxyReturn}{Returns}
+Maybe empty. 
+\end{DoxyReturn}
+
+
+Definition at line 128 of file mupdf-\/link.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_link_goto_r_aeef07c41fa5450bf6358406011402ccd}{\index{Mu\-P\-D\-F\-::\-Link\-Goto\-R@{Mu\-P\-D\-F\-::\-Link\-Goto\-R}!file@{file}}
+\index{file@{file}!MuPDF::LinkGotoR@{Mu\-P\-D\-F\-::\-Link\-Goto\-R}}
+\subsubsection[{file}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String Mu\-P\-D\-F\-::\-Link\-Goto\-R\-::file (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_link_goto_r_aeef07c41fa5450bf6358406011402ccd}
+
+
+A pointer to a remote file specification (U\-T\-F-\/8). If set, this destination should cause a new file to be opened. 
+
+
+
+Definition at line 137 of file mupdf-\/link.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_link_goto_r_a0528b0bb75308cbad4c1ad6936daa48c}{\index{Mu\-P\-D\-F\-::\-Link\-Goto\-R@{Mu\-P\-D\-F\-::\-Link\-Goto\-R}!link\-Type@{link\-Type}}
+\index{link\-Type@{link\-Type}!MuPDF::LinkGotoR@{Mu\-P\-D\-F\-::\-Link\-Goto\-R}}
+\subsubsection[{link\-Type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Link\-Type} Mu\-P\-D\-F\-::\-Link\-Goto\-R\-::link\-Type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_mu_p_d_f_1_1_link_goto_r_a0528b0bb75308cbad4c1ad6936daa48c}
+
+
+Reimplemented from \hyperlink{class_mu_p_d_f_1_1_link_goto_a057e2224fc0495b171d097f5886ae40a}{Mu\-P\-D\-F\-::\-Link\-Goto}.
+
+
+
+Definition at line 110 of file mupdf-\/link.\-h.
+
+\hypertarget{class_mu_p_d_f_1_1_link_goto_r_a588e406a62ba86fffcc907f890342196}{\index{Mu\-P\-D\-F\-::\-Link\-Goto\-R@{Mu\-P\-D\-F\-::\-Link\-Goto\-R}!new\-Window@{new\-Window}}
+\index{new\-Window@{new\-Window}!MuPDF::LinkGotoR@{Mu\-P\-D\-F\-::\-Link\-Goto\-R}}
+\subsubsection[{new\-Window}]{\setlength{\rightskip}{0pt plus 5cm}bool Mu\-P\-D\-F\-::\-Link\-Goto\-R\-::new\-Window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_link_goto_r_a588e406a62ba86fffcc907f890342196}
+
+
+If true, the destination should open in a new window. 
+
+
+
+Definition at line 145 of file mupdf-\/link.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_link_goto_r_a506a78720f51b9928517273c63470a81}{\index{Mu\-P\-D\-F\-::\-Link\-Goto\-R@{Mu\-P\-D\-F\-::\-Link\-Goto\-R}!page@{page}}
+\index{page@{page}!MuPDF::LinkGotoR@{Mu\-P\-D\-F\-::\-Link\-Goto\-R}}
+\subsubsection[{page}]{\setlength{\rightskip}{0pt plus 5cm}int Mu\-P\-D\-F\-::\-Link\-Goto\-R\-::page (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_link_goto_r_a506a78720f51b9928517273c63470a81}
+
+
+\hyperlink{class_mu_p_d_f_1_1_page}{Page} number(start from 0). 
+
+\begin{DoxyReturn}{Returns}
+-\/1 suggesting that destination is given by \hyperlink{class_mu_p_d_f_1_1_link_goto_r_ab5ff953c35930b5ff57740decee8c61b}{destination()}. 
+\end{DoxyReturn}
+
+
+Definition at line 118 of file mupdf-\/link.\-cpp.
+
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_mu_p_d_f_1_1_link_goto_r_ab008ed670017e41b6e6bba8707c775d2}{\index{Mu\-P\-D\-F\-::\-Link\-Goto\-R@{Mu\-P\-D\-F\-::\-Link\-Goto\-R}!Outline\-Item\-Private@{Outline\-Item\-Private}}
+\index{Outline\-Item\-Private@{Outline\-Item\-Private}!MuPDF::LinkGotoR@{Mu\-P\-D\-F\-::\-Link\-Goto\-R}}
+\subsubsection[{Outline\-Item\-Private}]{\setlength{\rightskip}{0pt plus 5cm}friend class Outline\-Item\-Private\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_mu_p_d_f_1_1_link_goto_r_ab008ed670017e41b6e6bba8707c775d2}
+
+
+Definition at line 119 of file mupdf-\/link.\-h.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+libmupdf-\/qt/\hyperlink{mupdf-link_8h}{mupdf-\/link.\-h}\item 
+libmupdf-\/qt/\hyperlink{mupdf-link_8cpp}{mupdf-\/link.\-cpp}\end{DoxyCompactItemize}

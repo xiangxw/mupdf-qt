@@ -23,7 +23,6 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">mupdf-qt
-   &#160;<span id="projectnumber">0.1</span>
    </div>
    <div id="projectbrief">Qt interface for the popular PDF library MuPDF</div>
   </td>
@@ -39,6 +38,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -63,6 +63,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -71,7 +72,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -82,7 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>MuPDF</b></li><li class="navelem"><a class="el" href="class_mu_p_d_f_1_1_document.html">Document</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_mu_p_d_f.html">MuPDF</a></li><li class="navelem"><a class="el" href="class_mu_p_d_f_1_1_document.html">Document</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -94,6 +95,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">MuPDF::Document Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="mupdf-document_8h_source.html">mupdf-document.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -109,9 +112,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa45c6ede18c2d65cd151ba2759732c60"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_document.html#aa45c6ede18c2d65cd151ba2759732c60">numPages</a> () const </td></tr>
 <tr class="memdesc:aa45c6ede18c2d65cd151ba2759732c60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of pages. Return -1 when error occurs.  <a href="#aa45c6ede18c2d65cd151ba2759732c60">More...</a><br/></td></tr>
 <tr class="separator:aa45c6ede18c2d65cd151ba2759732c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92f25089362cdca59453c6086019de58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_mu_p_d_f_1_1_page.html">Page</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_document.html#a92f25089362cdca59453c6086019de58">page</a> (int index, float scaleX=1.0f, float scaleY=1.0f, float rotation=0.0f) const </td></tr>
-<tr class="memdesc:a92f25089362cdca59453c6086019de58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get page.  <a href="#a92f25089362cdca59453c6086019de58">More...</a><br/></td></tr>
-<tr class="separator:a92f25089362cdca59453c6086019de58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab54358660c0054f821728d32fa9fb1ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_mu_p_d_f_1_1_page.html">Page</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_document.html#ab54358660c0054f821728d32fa9fb1ad">page</a> (int index) const </td></tr>
+<tr class="memdesc:ab54358660c0054f821728d32fa9fb1ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get page.  <a href="#ab54358660c0054f821728d32fa9fb1ad">More...</a><br/></td></tr>
+<tr class="separator:ab54358660c0054f821728d32fa9fb1ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ea90d9e549fafa6b33dd6d1eca603e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_mu_p_d_f_1_1_outline.html">Outline</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_document.html#a0ea90d9e549fafa6b33dd6d1eca603e6">outline</a> () const </td></tr>
+<tr class="memdesc:a0ea90d9e549fafa6b33dd6d1eca603e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The root outline of the document.  <a href="#a0ea90d9e549fafa6b33dd6d1eca603e6">More...</a><br/></td></tr>
+<tr class="separator:a0ea90d9e549fafa6b33dd6d1eca603e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3635f7be582da314499899a699a2fd75"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_document.html#a3635f7be582da314499899a699a2fd75">pdfVersion</a> () const </td></tr>
 <tr class="memdesc:a3635f7be582da314499899a699a2fd75"><td class="mdescLeft">&#160;</td><td class="mdescRight">PDF version number, for example: 1.7.  <a href="#a3635f7be582da314499899a699a2fd75">More...</a><br/></td></tr>
 <tr class="separator:a3635f7be582da314499899a699a2fd75"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,16 +154,17 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:a66d145c56e1747e0aecb5309042ab183"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66d145c56e1747e0aecb5309042ab183"></a>
-class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
+<tr class="memitem:a66d145c56e1747e0aecb5309042ab183"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_document.html#a66d145c56e1747e0aecb5309042ab183">Page</a></td></tr>
 <tr class="separator:a66d145c56e1747e0aecb5309042ab183"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53633060a54b1ea2e825efc33e28e430"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_mu_p_d_f_1_1_document.html">Document</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_document.html#a53633060a54b1ea2e825efc33e28e430">loadDocument</a> (const QString &amp;filePath)</td></tr>
 <tr class="memdesc:a53633060a54b1ea2e825efc33e28e430"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load document.  <a href="#a53633060a54b1ea2e825efc33e28e430">More...</a><br/></td></tr>
 <tr class="separator:a53633060a54b1ea2e825efc33e28e430"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7d0fa252e5f6a44715bf31a91a0fdf9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_mu_p_d_f_1_1_document.html">Document</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_document.html#af7d0fa252e5f6a44715bf31a91a0fdf9">loadDocument</a> (const QByteArray &amp;bytes)</td></tr>
+<tr class="separator:af7d0fa252e5f6a44715bf31a91a0fdf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="mupdf-document_8h_source.html#l00024">24</a> of file <a class="el" href="mupdf-document_8h_source.html">mupdf-document.h</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8h_source.html#l00019">19</a> of file <a class="el" href="mupdf-document_8h_source.html">mupdf-document.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a5fc2b6668a9809a9e97fc84d1820117b"></a>
 <div class="memitem">
@@ -174,7 +181,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 
 <p>Destructor. </p>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00080">80</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00129">129</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -194,7 +201,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 
 <p>Author of the document. </p>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00174">174</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00240">240</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -221,7 +228,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if succeed, false if failed </dd></dl>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00105">105</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00154">154</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -240,7 +247,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 
 <p>The date and time the document was created. </p>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00214">214</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00280">280</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -259,7 +266,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 
 <p>If the document was converted to PDF from another format, the name of the application (for example, Adobe FrameMaker®) that created the original document from which it was converted. </p>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00198">198</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00264">264</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -278,7 +285,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 
 <p>Keywords associated with the document. </p>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00190">190</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00256">256</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -297,7 +304,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 
 <p>The date and time the document was most recently modified. </p>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00228">228</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00294">294</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -316,7 +323,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 
 <p>Whether the document needs password. </p>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00091">91</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00140">140</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -335,11 +342,32 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 
 <p>Get number of pages. Return -1 when error occurs. </p>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00114">114</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00163">163</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a92f25089362cdca59453c6086019de58"></a>
+<a class="anchor" id="a0ea90d9e549fafa6b33dd6d1eca603e6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_mu_p_d_f_1_1_outline.html">Outline</a> * MuPDF::Document::outline </td>
+          <td>(</td>
+          <td class="paramname">)</td><td></td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The root outline of the document. </p>
+<dl class="section return"><dt>Returns</dt><dd>Return NULL if there is no outline.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Delete the returned pointer when it's useless. </dd></dl>
+
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00205">205</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab54358660c0054f821728d32fa9fb1ad"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -347,30 +375,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
           <td class="memname"><a class="el" href="class_mu_p_d_f_1_1_page.html">Page</a> * MuPDF::Document::page </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>scaleX</em> = <code>1.0f</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>scaleY</em> = <code>1.0f</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>rotation</em> = <code>0.0f</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="paramname"><em>index</em>)</td><td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -378,16 +384,13 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 <p>Get page. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">index</td><td><a class="el" href="class_mu_p_d_f_1_1_page.html">Page</a> index, begin with 0 </td></tr>
-    <tr><td class="paramname">scaleX</td><td>Scale for X direction. Default value: 1.0f; &gt;1.0f: zoom in; &lt;1.0f: zoom out. </td></tr>
-    <tr><td class="paramname">scaleY</td><td>Scale for Y direction. Default value: 1.0f; &gt;1.0f: zoom in; &lt;1.0f: zoom out. </td></tr>
-    <tr><td class="paramname">rotation</td><td>Degree of clockwise rotation. Range: [0.0f, 360.0f).</td></tr>
+    <tr><td class="paramname">index</td><td><a class="el" href="class_mu_p_d_f_1_1_page.html">Page</a> index, begin with 0</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Note: you need delete this manually before document is deleted </dd></dl>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00140">140</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00184">184</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -406,7 +409,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 
 <p>PDF version number, for example: 1.7. </p>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00157">157</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00223">223</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -425,7 +428,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 
 <p>If the document was converted to PDF from another format, the name of the application (for example, Acrobat Distiller) that converted it to PDF. </p>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00206">206</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00272">272</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -477,7 +480,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00265">265</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00331">331</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -503,7 +506,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00246">246</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00312">312</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -522,7 +525,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 
 <p>The subject of the document. </p>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00182">182</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00248">248</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -541,7 +544,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 
 <p>PDF title. </p>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00166">166</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00232">232</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
 
 </div>
 </div>
@@ -577,18 +580,66 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Page</b></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Return NULL if failed.(Note: you need delete manually when it's useless) </dd></dl>
 
-<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00028">28</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00023">23</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af7d0fa252e5f6a44715bf31a91a0fdf9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_mu_p_d_f_1_1_document.html">Document</a>* loadDocument </td>
+          <td>(</td>
+          <td class="paramtype">const QByteArray &amp;&#160;</td>
+          <td class="paramname"><em>bytes</em>)</td><td></td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="mupdf-document_8cpp_source.html#l00036">36</a> of file <a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a66d145c56e1747e0aecb5309042ab183"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="class_mu_p_d_f_1_1_page.html">Page</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="mupdf-document_8h_source.html#l00050">50</a> of file <a class="el" href="mupdf-document_8h_source.html">mupdf-document.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/a/project/mupdf-qt/libmupdf-qt/<a class="el" href="mupdf-document_8h_source.html">mupdf-document.h</a></li>
-<li>/home/a/project/mupdf-qt/libmupdf-qt/<a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a></li>
+<li>libmupdf-qt/<a class="el" href="mupdf-document_8h_source.html">mupdf-document.h</a></li>
+<li>libmupdf-qt/<a class="el" href="mupdf-document_8cpp_source.html">mupdf-document.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 30 2014 14:42:56 for mupdf-qt by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 29 2014 14:07:52 for mupdf-qt by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

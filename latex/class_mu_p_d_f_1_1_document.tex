@@ -1,0 +1,415 @@
+\hypertarget{class_mu_p_d_f_1_1_document}{\section{Mu\-P\-D\-F\-:\-:Document Class Reference}
+\label{class_mu_p_d_f_1_1_document}\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}}
+}
+
+
+{\ttfamily \#include $<$mupdf-\/document.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_mu_p_d_f_1_1_document_a5fc2b6668a9809a9e97fc84d1820117b}{$\sim$\-Document} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+bool \hyperlink{class_mu_p_d_f_1_1_document_a1a13ec739fa4ead2caeb317c433c1756}{needs\-Password} () const 
+\begin{DoxyCompactList}\small\item\em Whether the document needs password. \end{DoxyCompactList}\item 
+bool \hyperlink{class_mu_p_d_f_1_1_document_a5d447dc019e82e7d6c55ee3d55a1a496}{auth\-Password} (const Q\-String \&password)
+\begin{DoxyCompactList}\small\item\em Authenticate password. \end{DoxyCompactList}\item 
+int \hyperlink{class_mu_p_d_f_1_1_document_aa45c6ede18c2d65cd151ba2759732c60}{num\-Pages} () const 
+\begin{DoxyCompactList}\small\item\em Get number of pages. Return -\/1 when error occurs. \end{DoxyCompactList}\item 
+\hyperlink{class_mu_p_d_f_1_1_page}{Page} $\ast$ \hyperlink{class_mu_p_d_f_1_1_document_ab54358660c0054f821728d32fa9fb1ad}{page} (int index) const 
+\begin{DoxyCompactList}\small\item\em Get page. \end{DoxyCompactList}\item 
+\hyperlink{class_mu_p_d_f_1_1_outline}{Outline} $\ast$ \hyperlink{class_mu_p_d_f_1_1_document_a0ea90d9e549fafa6b33dd6d1eca603e6}{outline} () const 
+\begin{DoxyCompactList}\small\item\em The root outline of the document. \end{DoxyCompactList}\item 
+Q\-String \hyperlink{class_mu_p_d_f_1_1_document_a3635f7be582da314499899a699a2fd75}{pdf\-Version} () const 
+\begin{DoxyCompactList}\small\item\em P\-D\-F version number, for example\-: 1.\-7. \end{DoxyCompactList}\item 
+Q\-String \hyperlink{class_mu_p_d_f_1_1_document_a5823c559c6c48febeeb3eb1d7d83e10d}{title} () const 
+\begin{DoxyCompactList}\small\item\em P\-D\-F title. \end{DoxyCompactList}\item 
+Q\-String \hyperlink{class_mu_p_d_f_1_1_document_a7f5a23afec90fffc45c1dc093aa025fd}{author} () const 
+\begin{DoxyCompactList}\small\item\em Author of the document. \end{DoxyCompactList}\item 
+Q\-String \hyperlink{class_mu_p_d_f_1_1_document_ae784415521f4ed962da82018bbcc7f2f}{subject} () const 
+\begin{DoxyCompactList}\small\item\em The subject of the document. \end{DoxyCompactList}\item 
+Q\-String \hyperlink{class_mu_p_d_f_1_1_document_a751dc7e3ed070eff251713c070a1f6e3}{keywords} () const 
+\begin{DoxyCompactList}\small\item\em Keywords associated with the document. \end{DoxyCompactList}\item 
+Q\-String \hyperlink{class_mu_p_d_f_1_1_document_a1d44b5bc59d43c1138a4b4afbb245c01}{creator} () const 
+\begin{DoxyCompactList}\small\item\em If the document was converted to P\-D\-F from another format, the name of the application (for example, Adobe Frame\-Maker®) that created the original document from which it was converted. \end{DoxyCompactList}\item 
+Q\-String \hyperlink{class_mu_p_d_f_1_1_document_a4b609a777fa9939843a2922f9a292882}{producer} () const 
+\begin{DoxyCompactList}\small\item\em If the document was converted to P\-D\-F from another format, the name of the application (for example, Acrobat Distiller) that converted it to P\-D\-F. \end{DoxyCompactList}\item 
+Q\-Date\-Time \hyperlink{class_mu_p_d_f_1_1_document_ac741bca965122fbd83c87ce21e28baf1}{creation\-Date} () const 
+\begin{DoxyCompactList}\small\item\em The date and time the document was created. \end{DoxyCompactList}\item 
+Q\-Date\-Time \hyperlink{class_mu_p_d_f_1_1_document_a9a84e656e58c556a61fe228ccdc3f643}{mod\-Date} () const 
+\begin{DoxyCompactList}\small\item\em The date and time the document was most recently modified. \end{DoxyCompactList}\item 
+void \hyperlink{class_mu_p_d_f_1_1_document_a8df89d0517437182406e2ba766402a3c}{set\-Transparent\-Rendering} (bool enable)
+\begin{DoxyCompactList}\small\item\em Set transparent rendering for all pages. For one page transparent rendering setting, use \hyperlink{class_mu_p_d_f_1_1_page_ac6768d64b88de1ccdd1fa0abb2724db0}{Page\-::set\-Transparent\-Rendering()} instead. \end{DoxyCompactList}\item 
+void \hyperlink{class_mu_p_d_f_1_1_document_a0b9669def894d9164543e3367ae11d21}{set\-Background\-Color} (int r, int g, int b, int a=255)
+\begin{DoxyCompactList}\small\item\em Set background color. This function modify global setting of all pages. For particular page setting, use \hyperlink{class_mu_p_d_f_1_1_page_a4f16778c9c61692834644d298b6ee77f}{Page\-::set\-Background\-Color()} instead. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_mu_p_d_f_1_1_document_a66d145c56e1747e0aecb5309042ab183}{Page}
+\item 
+\hyperlink{class_mu_p_d_f_1_1_document}{Document} $\ast$ \hyperlink{class_mu_p_d_f_1_1_document_a53633060a54b1ea2e825efc33e28e430}{load\-Document} (const Q\-String \&file\-Path)
+\begin{DoxyCompactList}\small\item\em Load document. \end{DoxyCompactList}\item 
+\hyperlink{class_mu_p_d_f_1_1_document}{Document} $\ast$ \hyperlink{class_mu_p_d_f_1_1_document_af7d0fa252e5f6a44715bf31a91a0fdf9}{load\-Document} (const Q\-Byte\-Array \&bytes)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 19 of file mupdf-\/document.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_mu_p_d_f_1_1_document_a5fc2b6668a9809a9e97fc84d1820117b}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!$\sim$\-Document@{$\sim$\-Document}}
+\index{$\sim$\-Document@{$\sim$\-Document}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{$\sim$\-Document}]{\setlength{\rightskip}{0pt plus 5cm}Mu\-P\-D\-F\-::\-Document\-::$\sim$\-Document (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_mu_p_d_f_1_1_document_a5fc2b6668a9809a9e97fc84d1820117b}
+
+
+Destructor. 
+
+
+
+Definition at line 129 of file mupdf-\/document.\-cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_mu_p_d_f_1_1_document_a7f5a23afec90fffc45c1dc093aa025fd}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!author@{author}}
+\index{author@{author}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{author}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String Mu\-P\-D\-F\-::\-Document\-::author (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_document_a7f5a23afec90fffc45c1dc093aa025fd}
+
+
+Author of the document. 
+
+
+
+Definition at line 240 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_a5d447dc019e82e7d6c55ee3d55a1a496}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!auth\-Password@{auth\-Password}}
+\index{auth\-Password@{auth\-Password}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{auth\-Password}]{\setlength{\rightskip}{0pt plus 5cm}bool Mu\-P\-D\-F\-::\-Document\-::auth\-Password (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{password}
+\end{DoxyParamCaption}
+)}}\label{class_mu_p_d_f_1_1_document_a5d447dc019e82e7d6c55ee3d55a1a496}
+
+
+Authenticate password. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em password} & User password or owner password This will first try user password and then owner password. Owner have full access to the document while user don't\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if succeed, false if failed 
+\end{DoxyReturn}
+
+
+Definition at line 154 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_ac741bca965122fbd83c87ce21e28baf1}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!creation\-Date@{creation\-Date}}
+\index{creation\-Date@{creation\-Date}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{creation\-Date}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Date\-Time Mu\-P\-D\-F\-::\-Document\-::creation\-Date (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_document_ac741bca965122fbd83c87ce21e28baf1}
+
+
+The date and time the document was created. 
+
+
+
+Definition at line 280 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_a1d44b5bc59d43c1138a4b4afbb245c01}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!creator@{creator}}
+\index{creator@{creator}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{creator}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String Mu\-P\-D\-F\-::\-Document\-::creator (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_document_a1d44b5bc59d43c1138a4b4afbb245c01}
+
+
+If the document was converted to P\-D\-F from another format, the name of the application (for example, Adobe Frame\-Maker®) that created the original document from which it was converted. 
+
+
+
+Definition at line 264 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_a751dc7e3ed070eff251713c070a1f6e3}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!keywords@{keywords}}
+\index{keywords@{keywords}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{keywords}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String Mu\-P\-D\-F\-::\-Document\-::keywords (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_document_a751dc7e3ed070eff251713c070a1f6e3}
+
+
+Keywords associated with the document. 
+
+
+
+Definition at line 256 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_a9a84e656e58c556a61fe228ccdc3f643}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!mod\-Date@{mod\-Date}}
+\index{mod\-Date@{mod\-Date}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{mod\-Date}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Date\-Time Mu\-P\-D\-F\-::\-Document\-::mod\-Date (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_document_a9a84e656e58c556a61fe228ccdc3f643}
+
+
+The date and time the document was most recently modified. 
+
+
+
+Definition at line 294 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_a1a13ec739fa4ead2caeb317c433c1756}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!needs\-Password@{needs\-Password}}
+\index{needs\-Password@{needs\-Password}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{needs\-Password}]{\setlength{\rightskip}{0pt plus 5cm}bool Mu\-P\-D\-F\-::\-Document\-::needs\-Password (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_document_a1a13ec739fa4ead2caeb317c433c1756}
+
+
+Whether the document needs password. 
+
+
+
+Definition at line 140 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_aa45c6ede18c2d65cd151ba2759732c60}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!num\-Pages@{num\-Pages}}
+\index{num\-Pages@{num\-Pages}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{num\-Pages}]{\setlength{\rightskip}{0pt plus 5cm}int Mu\-P\-D\-F\-::\-Document\-::num\-Pages (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_document_aa45c6ede18c2d65cd151ba2759732c60}
+
+
+Get number of pages. Return -\/1 when error occurs. 
+
+
+
+Definition at line 163 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_a0ea90d9e549fafa6b33dd6d1eca603e6}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!outline@{outline}}
+\index{outline@{outline}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{outline}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Outline} $\ast$ Mu\-P\-D\-F\-::\-Document\-::outline (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_document_a0ea90d9e549fafa6b33dd6d1eca603e6}
+
+
+The root outline of the document. 
+
+\begin{DoxyReturn}{Returns}
+Return N\-U\-L\-L if there is no outline.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Delete the returned pointer when it's useless. 
+\end{DoxyNote}
+
+
+Definition at line 205 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_ab54358660c0054f821728d32fa9fb1ad}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!page@{page}}
+\index{page@{page}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{page}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Page} $\ast$ Mu\-P\-D\-F\-::\-Document\-::page (
+\begin{DoxyParamCaption}
+\item[{int}]{index}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_document_ab54358660c0054f821728d32fa9fb1ad}
+
+
+Get page. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & \hyperlink{class_mu_p_d_f_1_1_page}{Page} index, begin with 0\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Note\-: you need delete this manually before document is deleted 
+\end{DoxyReturn}
+
+
+Definition at line 184 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_a3635f7be582da314499899a699a2fd75}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!pdf\-Version@{pdf\-Version}}
+\index{pdf\-Version@{pdf\-Version}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{pdf\-Version}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String Mu\-P\-D\-F\-::\-Document\-::pdf\-Version (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_document_a3635f7be582da314499899a699a2fd75}
+
+
+P\-D\-F version number, for example\-: 1.\-7. 
+
+
+
+Definition at line 223 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_a4b609a777fa9939843a2922f9a292882}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!producer@{producer}}
+\index{producer@{producer}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{producer}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String Mu\-P\-D\-F\-::\-Document\-::producer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_document_a4b609a777fa9939843a2922f9a292882}
+
+
+If the document was converted to P\-D\-F from another format, the name of the application (for example, Acrobat Distiller) that converted it to P\-D\-F. 
+
+
+
+Definition at line 272 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_a0b9669def894d9164543e3367ae11d21}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!set\-Background\-Color@{set\-Background\-Color}}
+\index{set\-Background\-Color@{set\-Background\-Color}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{set\-Background\-Color}]{\setlength{\rightskip}{0pt plus 5cm}void Mu\-P\-D\-F\-::\-Document\-::set\-Background\-Color (
+\begin{DoxyParamCaption}
+\item[{int}]{r, }
+\item[{int}]{g, }
+\item[{int}]{b, }
+\item[{int}]{a = {\ttfamily 255}}
+\end{DoxyParamCaption}
+)}}\label{class_mu_p_d_f_1_1_document_a0b9669def894d9164543e3367ae11d21}
+
+
+Set background color. This function modify global setting of all pages. For particular page setting, use \hyperlink{class_mu_p_d_f_1_1_page_a4f16778c9c61692834644d298b6ee77f}{Page\-::set\-Background\-Color()} instead. 
+
+\begin{DoxyNote}{Note}
+This function will only work when page is not transparent. This function won't change content of your file, it only change the way you render the page.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em r} & red channel \\
+\hline
+{\em g} & green channel \\
+\hline
+{\em b} & blue channel \\
+\hline
+{\em a} & alpha channel(default with non transparent) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 331 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_a8df89d0517437182406e2ba766402a3c}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!set\-Transparent\-Rendering@{set\-Transparent\-Rendering}}
+\index{set\-Transparent\-Rendering@{set\-Transparent\-Rendering}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{set\-Transparent\-Rendering}]{\setlength{\rightskip}{0pt plus 5cm}void Mu\-P\-D\-F\-::\-Document\-::set\-Transparent\-Rendering (
+\begin{DoxyParamCaption}
+\item[{bool}]{enable}
+\end{DoxyParamCaption}
+)}}\label{class_mu_p_d_f_1_1_document_a8df89d0517437182406e2ba766402a3c}
+
+
+Set transparent rendering for all pages. For one page transparent rendering setting, use \hyperlink{class_mu_p_d_f_1_1_page_ac6768d64b88de1ccdd1fa0abb2724db0}{Page\-::set\-Transparent\-Rendering()} instead. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em enable} & True\-: transparent; False\-: not transparent(default). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 312 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_ae784415521f4ed962da82018bbcc7f2f}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!subject@{subject}}
+\index{subject@{subject}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{subject}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String Mu\-P\-D\-F\-::\-Document\-::subject (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_document_ae784415521f4ed962da82018bbcc7f2f}
+
+
+The subject of the document. 
+
+
+
+Definition at line 248 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_a5823c559c6c48febeeb3eb1d7d83e10d}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!title@{title}}
+\index{title@{title}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{title}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String Mu\-P\-D\-F\-::\-Document\-::title (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_document_a5823c559c6c48febeeb3eb1d7d83e10d}
+
+
+P\-D\-F title. 
+
+
+
+Definition at line 232 of file mupdf-\/document.\-cpp.
+
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_mu_p_d_f_1_1_document_a53633060a54b1ea2e825efc33e28e430}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!load\-Document@{load\-Document}}
+\index{load\-Document@{load\-Document}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{load\-Document}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Document}$\ast$ load\-Document (
+\begin{DoxyParamCaption}
+\item[{const Q\-String \&}]{file\-Path}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_mu_p_d_f_1_1_document_a53633060a54b1ea2e825efc33e28e430}
+
+
+Load document. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\-Path} & \hyperlink{class_mu_p_d_f_1_1_document}{Document} path\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return N\-U\-L\-L if failed.(Note\-: you need delete manually when it's useless) 
+\end{DoxyReturn}
+
+
+Definition at line 23 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_af7d0fa252e5f6a44715bf31a91a0fdf9}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!load\-Document@{load\-Document}}
+\index{load\-Document@{load\-Document}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{load\-Document}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Document}$\ast$ load\-Document (
+\begin{DoxyParamCaption}
+\item[{const Q\-Byte\-Array \&}]{bytes}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_mu_p_d_f_1_1_document_af7d0fa252e5f6a44715bf31a91a0fdf9}
+
+
+Definition at line 36 of file mupdf-\/document.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_document_a66d145c56e1747e0aecb5309042ab183}{\index{Mu\-P\-D\-F\-::\-Document@{Mu\-P\-D\-F\-::\-Document}!Page@{Page}}
+\index{Page@{Page}!MuPDF::Document@{Mu\-P\-D\-F\-::\-Document}}
+\subsubsection[{Page}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Page}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_mu_p_d_f_1_1_document_a66d145c56e1747e0aecb5309042ab183}
+
+
+Definition at line 50 of file mupdf-\/document.\-h.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+libmupdf-\/qt/\hyperlink{mupdf-document_8h}{mupdf-\/document.\-h}\item 
+libmupdf-\/qt/\hyperlink{mupdf-document_8cpp}{mupdf-\/document.\-cpp}\end{DoxyCompactItemize}

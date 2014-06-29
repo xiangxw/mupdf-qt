@@ -1,0 +1,226 @@
+\hypertarget{class_mu_p_d_f_1_1_page}{\section{Mu\-P\-D\-F\-:\-:Page Class Reference}
+\label{class_mu_p_d_f_1_1_page}\index{Mu\-P\-D\-F\-::\-Page@{Mu\-P\-D\-F\-::\-Page}}
+}
+
+
+{\ttfamily \#include $<$mupdf-\/page.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_mu_p_d_f_1_1_page_af319e925b5460b6b09a40aacd1d68347}{$\sim$\-Page} ()
+\item 
+bool \hyperlink{class_mu_p_d_f_1_1_page_a1f60d3a284731ac220a8717eb6a93167}{is\-Valid} () const 
+\begin{DoxyCompactList}\small\item\em Check whether this page object is valid. \end{DoxyCompactList}\item 
+Q\-Image \hyperlink{class_mu_p_d_f_1_1_page_a50c32d7917fe979dcf5404d378852556}{render\-Image} () const 
+\begin{DoxyCompactList}\small\item\em Render page to Q\-Image. \end{DoxyCompactList}\item 
+Q\-Rect \hyperlink{class_mu_p_d_f_1_1_page_afd724fcf89232f953315c76ec5a134b0}{size} () const 
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_mu_p_d_f_1_1_page}{Page} size at 72 dpi. \end{DoxyCompactList}\item 
+void \hyperlink{class_mu_p_d_f_1_1_page_ac6768d64b88de1ccdd1fa0abb2724db0}{set\-Transparent\-Rendering} (bool enable)
+\begin{DoxyCompactList}\small\item\em Whether to do transparent page rendering. This function modify setting of current page only. For global setting, use \hyperlink{class_mu_p_d_f_1_1_document_a8df89d0517437182406e2ba766402a3c}{Document\-::set\-Transparent\-Rendering()} instead. \end{DoxyCompactList}\item 
+void \hyperlink{class_mu_p_d_f_1_1_page_a4f16778c9c61692834644d298b6ee77f}{set\-Background\-Color} (int r, int g, int b, int a=255)
+\begin{DoxyCompactList}\small\item\em Set background color. This function modify setting of current page only. For global setting, use \hyperlink{class_mu_p_d_f_1_1_document_a0b9669def894d9164543e3367ae11d21}{Document\-::set\-Background\-Color()} instead. \end{DoxyCompactList}\item 
+void \hyperlink{class_mu_p_d_f_1_1_page_a366b4f46b6f83a45afda029c81ca4d15}{set\-Transform} (float scale\-X, float scale\-Y, float rotation=0.\-0f)
+\begin{DoxyCompactList}\small\item\em Set scale and rotation. \end{DoxyCompactList}\item 
+Q\-String \hyperlink{class_mu_p_d_f_1_1_page_a40d3c45ab4ad02a07c9af726f14c97f3}{text} (float x0, float y0, float x1, float y1) const 
+\begin{DoxyCompactList}\small\item\em Return the text in a rect. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_mu_p_d_f_1_1_page_a883538034e58fc5c0de7d4e4cab3cef7}{Document}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 14 of file mupdf-\/page.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_mu_p_d_f_1_1_page_af319e925b5460b6b09a40aacd1d68347}{\index{Mu\-P\-D\-F\-::\-Page@{Mu\-P\-D\-F\-::\-Page}!$\sim$\-Page@{$\sim$\-Page}}
+\index{$\sim$\-Page@{$\sim$\-Page}!MuPDF::Page@{Mu\-P\-D\-F\-::\-Page}}
+\subsubsection[{$\sim$\-Page}]{\setlength{\rightskip}{0pt plus 5cm}Mu\-P\-D\-F\-::\-Page\-::$\sim$\-Page (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_mu_p_d_f_1_1_page_af319e925b5460b6b09a40aacd1d68347}
+
+
+Definition at line 102 of file mupdf-\/page.\-cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_mu_p_d_f_1_1_page_a1f60d3a284731ac220a8717eb6a93167}{\index{Mu\-P\-D\-F\-::\-Page@{Mu\-P\-D\-F\-::\-Page}!is\-Valid@{is\-Valid}}
+\index{is\-Valid@{is\-Valid}!MuPDF::Page@{Mu\-P\-D\-F\-::\-Page}}
+\subsubsection[{is\-Valid}]{\setlength{\rightskip}{0pt plus 5cm}bool Mu\-P\-D\-F\-::\-Page\-::is\-Valid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_page_a1f60d3a284731ac220a8717eb6a93167}
+
+
+Check whether this page object is valid. 
+
+
+
+Definition at line 113 of file mupdf-\/page.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_page_a50c32d7917fe979dcf5404d378852556}{\index{Mu\-P\-D\-F\-::\-Page@{Mu\-P\-D\-F\-::\-Page}!render\-Image@{render\-Image}}
+\index{render\-Image@{render\-Image}!MuPDF::Page@{Mu\-P\-D\-F\-::\-Page}}
+\subsubsection[{render\-Image}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Image Mu\-P\-D\-F\-::\-Page\-::render\-Image (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_page_a50c32d7917fe979dcf5404d378852556}
+
+
+Render page to Q\-Image. 
+
+\begin{DoxyReturn}{Returns}
+This function will return a empty Q\-Image if failed. 
+\end{DoxyReturn}
+
+
+Definition at line 123 of file mupdf-\/page.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_page_a4f16778c9c61692834644d298b6ee77f}{\index{Mu\-P\-D\-F\-::\-Page@{Mu\-P\-D\-F\-::\-Page}!set\-Background\-Color@{set\-Background\-Color}}
+\index{set\-Background\-Color@{set\-Background\-Color}!MuPDF::Page@{Mu\-P\-D\-F\-::\-Page}}
+\subsubsection[{set\-Background\-Color}]{\setlength{\rightskip}{0pt plus 5cm}void Mu\-P\-D\-F\-::\-Page\-::set\-Background\-Color (
+\begin{DoxyParamCaption}
+\item[{int}]{r, }
+\item[{int}]{g, }
+\item[{int}]{b, }
+\item[{int}]{a = {\ttfamily 255}}
+\end{DoxyParamCaption}
+)}}\label{class_mu_p_d_f_1_1_page_a4f16778c9c61692834644d298b6ee77f}
+
+
+Set background color. This function modify setting of current page only. For global setting, use \hyperlink{class_mu_p_d_f_1_1_document_a0b9669def894d9164543e3367ae11d21}{Document\-::set\-Background\-Color()} instead. 
+
+\begin{DoxyNote}{Note}
+This function will only work when page is not transparent. This function won't change content of your file, it only change the way you render the page.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em r} & red channel \\
+\hline
+{\em g} & green channel \\
+\hline
+{\em b} & blue channel \\
+\hline
+{\em a} & alpha channel(default with non transparent) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 248 of file mupdf-\/page.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_page_a366b4f46b6f83a45afda029c81ca4d15}{\index{Mu\-P\-D\-F\-::\-Page@{Mu\-P\-D\-F\-::\-Page}!set\-Transform@{set\-Transform}}
+\index{set\-Transform@{set\-Transform}!MuPDF::Page@{Mu\-P\-D\-F\-::\-Page}}
+\subsubsection[{set\-Transform}]{\setlength{\rightskip}{0pt plus 5cm}void Mu\-P\-D\-F\-::\-Page\-::set\-Transform (
+\begin{DoxyParamCaption}
+\item[{float}]{scale\-X, }
+\item[{float}]{scale\-Y, }
+\item[{float}]{rotation = {\ttfamily 0.0f}}
+\end{DoxyParamCaption}
+)}}\label{class_mu_p_d_f_1_1_page_a366b4f46b6f83a45afda029c81ca4d15}
+
+
+Set scale and rotation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scale\-X} & Scale for X direction. Default value\-: 1.\-0f; $>$1.\-0f\-: zoom in; $<$1.\-0f\-: zoom out. \\
+\hline
+{\em scale\-Y} & Scale for Y direction. Default value\-: 1.\-0f; $>$1.\-0f\-: zoom in; $<$1.\-0f\-: zoom out. \\
+\hline
+{\em rotation} & Degree of clockwise rotation. Range\-: \mbox{[}0.\-0f, 360.\-0f). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 265 of file mupdf-\/page.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_page_ac6768d64b88de1ccdd1fa0abb2724db0}{\index{Mu\-P\-D\-F\-::\-Page@{Mu\-P\-D\-F\-::\-Page}!set\-Transparent\-Rendering@{set\-Transparent\-Rendering}}
+\index{set\-Transparent\-Rendering@{set\-Transparent\-Rendering}!MuPDF::Page@{Mu\-P\-D\-F\-::\-Page}}
+\subsubsection[{set\-Transparent\-Rendering}]{\setlength{\rightskip}{0pt plus 5cm}void Mu\-P\-D\-F\-::\-Page\-::set\-Transparent\-Rendering (
+\begin{DoxyParamCaption}
+\item[{bool}]{enable}
+\end{DoxyParamCaption}
+)}}\label{class_mu_p_d_f_1_1_page_ac6768d64b88de1ccdd1fa0abb2724db0}
+
+
+Whether to do transparent page rendering. This function modify setting of current page only. For global setting, use \hyperlink{class_mu_p_d_f_1_1_document_a8df89d0517437182406e2ba766402a3c}{Document\-::set\-Transparent\-Rendering()} instead. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em enable} & True\-: transparent; False\-: not transparent(default). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 229 of file mupdf-\/page.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_page_afd724fcf89232f953315c76ec5a134b0}{\index{Mu\-P\-D\-F\-::\-Page@{Mu\-P\-D\-F\-::\-Page}!size@{size}}
+\index{size@{size}!MuPDF::Page@{Mu\-P\-D\-F\-::\-Page}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Rect Mu\-P\-D\-F\-::\-Page\-::size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_page_afd724fcf89232f953315c76ec5a134b0}
+
+
+\hyperlink{class_mu_p_d_f_1_1_page}{Page} size at 72 dpi. 
+
+
+
+Definition at line 210 of file mupdf-\/page.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_page_a40d3c45ab4ad02a07c9af726f14c97f3}{\index{Mu\-P\-D\-F\-::\-Page@{Mu\-P\-D\-F\-::\-Page}!text@{text}}
+\index{text@{text}!MuPDF::Page@{Mu\-P\-D\-F\-::\-Page}}
+\subsubsection[{text}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String Mu\-P\-D\-F\-::\-Page\-::text (
+\begin{DoxyParamCaption}
+\item[{float}]{x0, }
+\item[{float}]{y0, }
+\item[{float}]{x1, }
+\item[{float}]{y1}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_page_a40d3c45ab4ad02a07c9af726f14c97f3}
+
+
+Return the text in a rect. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x0} & X coordinate of top left corner. \\
+\hline
+{\em y0} & Y coordinate of top left corner. \\
+\hline
+{\em x1} & X coordinate of bottom right corner. \\
+\hline
+{\em y1} & Y coordinate of bottom right corner. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 282 of file mupdf-\/page.\-cpp.
+
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_mu_p_d_f_1_1_page_a883538034e58fc5c0de7d4e4cab3cef7}{\index{Mu\-P\-D\-F\-::\-Page@{Mu\-P\-D\-F\-::\-Page}!Document@{Document}}
+\index{Document@{Document}!MuPDF::Page@{Mu\-P\-D\-F\-::\-Page}}
+\subsubsection[{Document}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Document}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_mu_p_d_f_1_1_page_a883538034e58fc5c0de7d4e4cab3cef7}
+
+
+Definition at line 30 of file mupdf-\/page.\-h.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+libmupdf-\/qt/\hyperlink{mupdf-page_8h}{mupdf-\/page.\-h}\item 
+libmupdf-\/qt/\hyperlink{mupdf-page_8cpp}{mupdf-\/page.\-cpp}\end{DoxyCompactItemize}
