@@ -16,6 +16,7 @@ script:
   - ./bin/qimage pdf_reference_1-7.pdf
   - ./bin/showinfo pdf_reference_1-7.pdf
   - ./bin/showtext pdf_reference_1-7.pdf 1
+  - ./bin/outline pdf_reference_1-7.pdf
   - ./bin/test_document pdf_reference_1-7.pdf
   - ./bin/test_page pdf_reference_1-7.pdf
 branches:
