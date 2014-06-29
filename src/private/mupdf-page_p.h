@@ -1,8 +1,6 @@
 #ifndef MUPDF_PAGE_P_H
 #define MUPDF_PAGE_P_H
 
-#include "mupdf-document.h"
-#include "mupdf-document_p.h"
 extern "C" {
 #include <mupdf/fitz.h>
 }

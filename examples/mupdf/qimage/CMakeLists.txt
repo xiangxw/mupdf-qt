@@ -1,4 +1,4 @@
-project (qimage)
+project (qimage_c)
 
 # Qt5 library
 find_package (Qt5Gui)

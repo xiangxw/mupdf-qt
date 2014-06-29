@@ -7,11 +7,22 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-# Mupdf library
+# MuPDF library
 find_package (MuPDF REQUIRED)
 include_directories (${MuPDF_INCLUDE_DIRS})
 
-# Add directories
-add_subdirectory (libmupdf-qt)
-add_subdirectory (mupdf_example)
-add_subdirectory (mupdf-qt_example)
+# mupdf-qt library
+set (LIBMUPDF mupdf-qt)
+find_package (Qt5Gui)
+include_directories (${CMAKE_SOURCE_DIR}/include)
+include_directories (${CMAKE_SOURCE_DIR}/src/private)
+set (LIBMUPDF_SOURCES src/mupdf-document.cpp
+                      src/mupdf-page.cpp
+                      src/mupdf-link.cpp
+                      src/mupdf-outline.cpp)
+add_library (${LIBMUPDF} STATIC ${LIBMUPDF_SOURCES})
+target_link_libraries (${LIBMUPDF} ${MuPDF_LIBRARIES})
+qt5_use_modules (${LIBMUPDF} Gui)
+
+# Examples
+add_subdirectory (examples)

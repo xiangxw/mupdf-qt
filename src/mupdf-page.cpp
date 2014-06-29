@@ -1,5 +1,7 @@
 #include "mupdf-page.h"
 #include "mupdf-page_p.h"
+#include "mupdf-document.h"
+#include "mupdf-document_p.h"
 extern "C" {
 #include <mupdf/fitz.h>
 }
