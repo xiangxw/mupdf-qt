@@ -23,8 +23,9 @@ script:
   - ./bin/showtext_c pdf_reference_1-7.pdf 1
   - ./bin/outline_c pdf_reference_1-7.pdf
   - ./bin/test_document pdf_reference_1-7.pdf
-  - ./bin/test_page pdf_reference_1-7.pdf
   - ./bin/test_outline pdf_reference_1-7.pdf
+  - ./bin/test_page pdf_reference_1-7.pdf
+  - ./bin/test_text pdf_reference_1-7.pdf 1
 branches:
   only:
     - master
