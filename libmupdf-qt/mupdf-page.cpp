@@ -42,7 +42,7 @@ static inline void imageCleanupHandler(void *data)
 	unsigned char *samples = static_cast<unsigned char *>(data);
 
 	if (samples) {
-		delete samples;
+        delete []samples;
 	}
 }
 
