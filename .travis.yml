@@ -16,12 +16,12 @@ script:
   - cd mupdf && make build=$MUPDF_BUILD_TYPE && cd ..
   - mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=$MUPDF_QT_BUILD_TYPE .. && make
   - wget http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/pdf_reference_1-7.pdf
-  - ./bin/countpages pdf_reference_1-7.pdf
-  - ./bin/exportpage pdf_reference_1-7.pdf 1
-  - ./bin/qimage pdf_reference_1-7.pdf
-  - ./bin/showinfo pdf_reference_1-7.pdf
-  - ./bin/showtext pdf_reference_1-7.pdf 1
-  - ./bin/outline pdf_reference_1-7.pdf
+  - ./bin/countpages_c pdf_reference_1-7.pdf
+  - ./bin/exportpage_c pdf_reference_1-7.pdf 1
+  - ./bin/qimage_c pdf_reference_1-7.pdf
+  - ./bin/showinfo_c pdf_reference_1-7.pdf
+  - ./bin/showtext_c pdf_reference_1-7.pdf 1
+  - ./bin/outline_c pdf_reference_1-7.pdf
   - ./bin/test_document pdf_reference_1-7.pdf
   - ./bin/test_page pdf_reference_1-7.pdf
   - ./bin/test_outline pdf_reference_1-7.pdf
