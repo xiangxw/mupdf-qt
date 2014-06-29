@@ -2,6 +2,8 @@
 #include "mupdf-document_p.h"
 #include "mupdf-page.h"
 #include "mupdf-page_p.h"
+#include "mupdf-outline.h"
+#include "mupdf-outline_p.h"
 extern "C" {
 #include <mupdf/fitz.h>
 }
@@ -128,7 +130,7 @@ int Document::numPages() const
  *
  * @return Note: you need delete this manually before document is deleted
  */
-Page *Document::page(int index) const
+Page * Document::page(int index) const
 {
 	Page *page = new Page(*this, index);
 	if (NULL == page) {
@@ -140,6 +142,28 @@ Page *Document::page(int index) const
 		return NULL;
 	}
 	return page;
+}
+
+/**
+ * @brief The root outline of the document.
+ *
+ * @return Return NULL if there is no outline.
+ *
+ * @note Delete the returned pointer when it's useless.
+ */
+Outline * Document::outline() const
+{
+	fz_outline *o;
+	OutlinePrivate *outlinep;
+	
+	o = fz_load_outline(d->document);
+	if (o) {
+		outlinep = new OutlinePrivate(d, o);
+		d->outlines << outlinep;
+		return new Outline(outlinep);
+	}
+
+	return NULL;
 }
 
 /**
@@ -261,7 +285,21 @@ void Document::setBackgroundColor(int r, int g, int b, int a)
 	d->a = a;
 }
 
-} // end namespace MuPDF
+DocumentPrivate::~DocumentPrivate()
+{
+	foreach (OutlinePrivate *outlinep, outlines) {
+		fz_free_outline(context, outlinep->outline);
+		outlinep->outline = NULL;
+	}
+	if (document) {
+		fz_close_document(document);
+		document = NULL;
+	}
+	if (context) {
+		fz_free_context(context);
+		context = NULL;
+	}
+}
 
 /**
  * @brief Get info of the document
@@ -285,3 +323,5 @@ QString DocumentPrivate::info(const char * key)
 	free(str);
 	return ret;
 }
+
+} // end namespace MuPDF

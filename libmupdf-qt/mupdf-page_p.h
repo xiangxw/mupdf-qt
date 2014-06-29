@@ -7,6 +7,9 @@ extern "C" {
 #include <mupdf/fitz.h>
 }
 
+namespace MuPDF
+{
+
 class PagePrivate
 {
 public:
@@ -59,5 +62,7 @@ public:
 	bool transparent;
 	int b, g, r, a; // background color
 };
+
+}
 
 #endif // end MUPDF_PAGE_P_H
