@@ -28,11 +28,11 @@ public:
 class OutlineItemPrivate
 {
 public:
-	OutlineItemPrivate(fz_outline *o);
-	~OutlineItemPrivate();
+    OutlineItemPrivate(fz_outline *o);
+    ~OutlineItemPrivate();
 
-	fz_outline *outline;
-	Link *link;
+    fz_outline *outline;
+    Link *link;
 };
 
 }

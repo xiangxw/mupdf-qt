@@ -22,15 +22,15 @@ namespace MuPDF
  */
 Document *loadDocument(const QString &filePath)
 {
-	Document *doc = new Document(filePath);
-	if (NULL == doc) {
-		return NULL;
-	}
-	if (doc->d->context && doc->d->document) {
-		return doc;
-	}
-	delete doc; doc = NULL;
-	return NULL;
+    Document *doc = new Document(filePath);
+    if (NULL == doc) {
+        return NULL;
+    }
+    if (doc->d->context && doc->d->document) {
+        return doc;
+    }
+    delete doc; doc = NULL;
+    return NULL;
 }
 
 Document *loadDocument(const QByteArray &bytes)
@@ -54,36 +54,36 @@ Document *loadDocument(const QByteArray &bytes)
  */
 Document::Document(const QString &filePath)
 {
-	d = new DocumentPrivate();
-	if (NULL == d) {
-		return;
-	}
-	
-	// create context
-	d->context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
-	if (NULL == d->context) {
-		return;
-	}
+    d = new DocumentPrivate();
+    if (NULL == d) {
+        return;
+    }
+    
+    // create context
+    d->context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
+    if (NULL == d->context) {
+        return;
+    }
 
-	// register the default file types
-	fz_register_document_handlers(d->context);
+    // register the default file types
+    fz_register_document_handlers(d->context);
 
-	// open document
-	fz_try(d->context)
-	{
-		d->document = fz_open_document(d->context,
-				filePath.toUtf8().data());
-	}
-	fz_catch(d->context)
-	{
-		fz_close_document(d->document);
-		d->document = NULL;
-		fz_free_context(d->context);
-		d->context = NULL;
-	}
-	if (NULL == d->document) {
-		return;
-	}
+    // open document
+    fz_try(d->context)
+    {
+        d->document = fz_open_document(d->context,
+                filePath.toUtf8().data());
+    }
+    fz_catch(d->context)
+    {
+        fz_close_document(d->document);
+        d->document = NULL;
+        fz_free_context(d->context);
+        d->context = NULL;
+    }
+    if (NULL == d->document) {
+        return;
+    }
 }
 
 Document::Document(unsigned char *bytes, int len)
@@ -128,10 +128,10 @@ Document::Document(unsigned char *bytes, int len)
  */
 Document::~Document()
 {
-	if (d) {
-		delete d;
-		d = NULL;
-	}
+    if (d) {
+        delete d;
+        d = NULL;
+    }
 }
 
 /**
@@ -139,7 +139,7 @@ Document::~Document()
  */
 bool Document::needsPassword() const
 {
-	return fz_needs_password(d->document);
+    return fz_needs_password(d->document);
 }
 
 /**
@@ -153,8 +153,8 @@ bool Document::needsPassword() const
  */
 bool Document::authPassword(const QString &password)
 {
-	return fz_authenticate_password(d->document,
-			password.toLocal8Bit().data());
+    return fz_authenticate_password(d->document,
+            password.toLocal8Bit().data());
 }
 
 /**
@@ -162,16 +162,16 @@ bool Document::authPassword(const QString &password)
  */
 int Document::numPages() const
 {
-	int ret;
-	fz_try(d->context)
-	{
-		ret = fz_count_pages(d->document);
-	}
-	fz_catch(d->context)
-	{
-		ret = -1;
-	}
-	return ret;
+    int ret;
+    fz_try(d->context)
+    {
+        ret = fz_count_pages(d->document);
+    }
+    fz_catch(d->context)
+    {
+        ret = -1;
+    }
+    return ret;
 }
 
 /**
@@ -183,16 +183,16 @@ int Document::numPages() const
  */
 Page * Document::page(int index) const
 {
-	Page *page = new Page(*this, index);
-	if (NULL == page) {
-		return NULL;
-	}
-	if (NULL == page->d->page) {
-		delete page;
-		page = NULL;
-		return NULL;
-	}
-	return page;
+    Page *page = new Page(*this, index);
+    if (NULL == page) {
+        return NULL;
+    }
+    if (NULL == page->d->page) {
+        delete page;
+        page = NULL;
+        return NULL;
+    }
+    return page;
 }
 
 /**
@@ -204,17 +204,17 @@ Page * Document::page(int index) const
  */
 Outline * Document::outline() const
 {
-	fz_outline *o;
-	OutlinePrivate *outlinep;
-	
-	o = fz_load_outline(d->document);
-	if (o) {
-		outlinep = new OutlinePrivate(d, o);
-		d->outlines << outlinep;
-		return new Outline(outlinep);
-	}
+    fz_outline *o;
+    OutlinePrivate *outlinep;
+    
+    o = fz_load_outline(d->document);
+    if (o) {
+        outlinep = new OutlinePrivate(d, o);
+        d->outlines << outlinep;
+        return new Outline(outlinep);
+    }
 
-	return NULL;
+    return NULL;
 }
 
 /**
@@ -222,8 +222,8 @@ Outline * Document::outline() const
  */
 QString Document::pdfVersion() const
 {
-	pdf_document *xref = (pdf_document *)d->document;
-	return QString::number(xref->version / 10.0f);
+    pdf_document *xref = (pdf_document *)d->document;
+    return QString::number(xref->version / 10.0f);
 }
 
 /**
@@ -231,7 +231,7 @@ QString Document::pdfVersion() const
  */
 QString Document::title() const
 {
-	return d->info("Title");
+    return d->info("Title");
 }
 
 /**
@@ -239,7 +239,7 @@ QString Document::title() const
  */
 QString Document::author() const
 {
-	return d->info("Author");
+    return d->info("Author");
 }
 
 /**
@@ -247,7 +247,7 @@ QString Document::author() const
  */
 QString Document::subject() const
 {
-	return d->info("Subject");
+    return d->info("Subject");
 }
 
 /**
@@ -255,7 +255,7 @@ QString Document::subject() const
  */
 QString Document::keywords() const
 {
-	return d->info("Keywords");
+    return d->info("Keywords");
 }
 
 /**
@@ -263,7 +263,7 @@ QString Document::keywords() const
  */
 QString Document::creator() const
 {
-	return d->info("Creator");
+    return d->info("Creator");
 }
 
 /**
@@ -271,7 +271,7 @@ QString Document::creator() const
  */
 QString Document::producer() const
 {
-	return d->info("Producer");
+    return d->info("Producer");
 }
 
 /**
@@ -279,13 +279,13 @@ QString Document::producer() const
  */
 QDateTime Document::creationDate() const
 {
-	QString str = d->info("CreationDate");
-	if (str.isEmpty()) {
-		return QDateTime();
-	}
-	// see pdf_reference_1.7.pdf 2.8.3 Dates
-	return QDateTime::fromString(str.left(16),
-			"'D:'yyyyMMddHHmmss");
+    QString str = d->info("CreationDate");
+    if (str.isEmpty()) {
+        return QDateTime();
+    }
+    // see pdf_reference_1.7.pdf 2.8.3 Dates
+    return QDateTime::fromString(str.left(16),
+            "'D:'yyyyMMddHHmmss");
 }
 
 /**
@@ -293,13 +293,13 @@ QDateTime Document::creationDate() const
  */
 QDateTime Document::modDate() const
 {
-	QString str = d->info("ModDate");
-	if (str.isEmpty()) {
-		return QDateTime();
-	}
-	// see pdf_reference_1.7.pdf 2.8.3 Dates
-	return QDateTime::fromString(str.left(16),
-			"'D:'yyyyMMddHHmmss");
+    QString str = d->info("ModDate");
+    if (str.isEmpty()) {
+        return QDateTime();
+    }
+    // see pdf_reference_1.7.pdf 2.8.3 Dates
+    return QDateTime::fromString(str.left(16),
+            "'D:'yyyyMMddHHmmss");
 }
 
 /**
@@ -311,7 +311,7 @@ QDateTime Document::modDate() const
  */
 void Document::setTransparentRendering(bool enable)
 {
-	d->transparent = enable;
+    d->transparent = enable;
 }
 
 /**
@@ -330,26 +330,26 @@ void Document::setTransparentRendering(bool enable)
  */
 void Document::setBackgroundColor(int r, int g, int b, int a)
 {
-	d->r = r;
-	d->g = g;
-	d->b = b;
+    d->r = r;
+    d->g = g;
+    d->b = b;
     d->a = a;
 }
 
 DocumentPrivate::~DocumentPrivate()
 {
-	foreach (OutlinePrivate *outlinep, outlines) {
-		fz_free_outline(context, outlinep->outline);
-		outlinep->outline = NULL;
-	}
-	if (document) {
-		fz_close_document(document);
-		document = NULL;
-	}
-	if (context) {
-		fz_free_context(context);
-		context = NULL;
-	}
+    foreach (OutlinePrivate *outlinep, outlines) {
+        fz_free_outline(context, outlinep->outline);
+        outlinep->outline = NULL;
+    }
+    if (document) {
+        fz_close_document(document);
+        document = NULL;
+    }
+    if (context) {
+        fz_free_context(context);
+        context = NULL;
+    }
 }
 
 /**
@@ -359,20 +359,20 @@ DocumentPrivate::~DocumentPrivate()
  */
 QString DocumentPrivate::info(const char * key)
 {
-	pdf_document *xref = (pdf_document *)document;
-	pdf_obj *info = pdf_dict_gets(pdf_trailer(xref), (char *)"Info");
-	if (NULL == info) {
-		return QString();
-	}
-	pdf_obj *obj = pdf_dict_gets(info, (char *)key);
-	if (NULL == obj) {
-		return QString();
-	}
+    pdf_document *xref = (pdf_document *)document;
+    pdf_obj *info = pdf_dict_gets(pdf_trailer(xref), (char *)"Info");
+    if (NULL == info) {
+        return QString();
+    }
+    pdf_obj *obj = pdf_dict_gets(info, (char *)key);
+    if (NULL == obj) {
+        return QString();
+    }
     //char *str = pdf_to_utf8(context, obj);
     char *str = pdf_to_utf8((pdf_document *)document, obj);
-	QString ret = QString::fromUtf8(str);
-	free(str);
-	return ret;
+    QString ret = QString::fromUtf8(str);
+    free(str);
+    return ret;
 }
 
 } // end namespace MuPDF

@@ -26,27 +26,27 @@ void printOutlineItem(const MuPDF::OutlineItem &item, int space = 0)
 
 int main(int argc, char **argv)
 {
-	// open document
-	QString file = argv[1];
-	if (file.isEmpty()) {
-		return 1;
-	}
-	MuPDF::Document *document = MuPDF::loadDocument(file);
-	if (NULL == document) {
-		return -1;
-	}
+    // open document
+    QString file = argv[1];
+    if (file.isEmpty()) {
+        return 1;
+    }
+    MuPDF::Document *document = MuPDF::loadDocument(file);
+    if (NULL == document) {
+        return -1;
+    }
 
-	// load outline
-	MuPDF::Outline *outline = document->outline();
+    // load outline
+    MuPDF::Outline *outline = document->outline();
     MuPDF::OutlineItem item;
-	if (outline) {
+    if (outline) {
         item = outline->topLevelItem();
         printOutlineItem(item);
-	} else {
+    } else {
         qDebug() << "No outline!";
     }
 
-	delete outline;
-	delete document;
-	return 0;
+    delete outline;
+    delete document;
+    return 0;
 }

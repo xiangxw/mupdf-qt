@@ -17,28 +17,28 @@ class OutlinePrivate;
 class DocumentPrivate
 {
 public:
-	DocumentPrivate()
-		: context(NULL),
-		  document(NULL),
-		  transparent(false),
-		  b(-1),
-		  g(-1),
-		  r(-1),
-		  a(-1)
-	{
+    DocumentPrivate()
+        : context(NULL),
+          document(NULL),
+          transparent(false),
+          b(-1),
+          g(-1),
+          r(-1),
+          a(-1)
+    {
 
-	}
-	~DocumentPrivate();
+    }
+    ~DocumentPrivate();
 
-	QString info(const char * key);
+    QString info(const char * key);
 
-	fz_context *context;
-	fz_document *document;
-	bool transparent;
-	int b, g, r, a; // background color
-	
-	// children
-	QList<OutlinePrivate *> outlines;
+    fz_context *context;
+    fz_document *document;
+    bool transparent;
+    int b, g, r, a; // background color
+    
+    // children
+    QList<OutlinePrivate *> outlines;
 };
 
 }

@@ -19,14 +19,14 @@ class Link;
 class Outline
 {
 public:
-	~Outline();
+    ~Outline();
 
     OutlineItem topLevelItem() const;
 
 private:
-	Outline(OutlinePrivate *outlinep);
+    Outline(OutlinePrivate *outlinep);
 
-	OutlinePrivate *d;
+    OutlinePrivate *d;
 
 friend class Document;
 };
@@ -43,10 +43,10 @@ public:
     ~OutlineItem();
 
     bool isValid() const;
-	QString title() const;
-	Link * link() const;
-	OutlineItem next() const;
-	OutlineItem down() const;
+    QString title() const;
+    Link * link() const;
+    OutlineItem next() const;
+    OutlineItem down() const;
 
 private:
     OutlineItem(OutlineItemPrivate *itemp);

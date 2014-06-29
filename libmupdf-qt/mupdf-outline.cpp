@@ -134,7 +134,7 @@ bool OutlineItem::isValid() const
  */
 QString OutlineItem::title() const
 {
-	return d->outline->title;
+    return d->outline->title;
 }
 
 /**
@@ -147,7 +147,7 @@ QString OutlineItem::title() const
  */
 Link * OutlineItem::link() const
 {
-	return d->link;
+    return d->link;
 }
 
 /**
@@ -160,12 +160,12 @@ Link * OutlineItem::link() const
  */
 OutlineItem OutlineItem::next() const
 {
-	fz_outline *outline = d->outline->next;
+    fz_outline *outline = d->outline->next;
     OutlineItemPrivate *itemp = NULL;
 
-	if (outline) {
+    if (outline) {
         itemp = new OutlineItemPrivate(outline);
-	}
+    }
 
     return OutlineItem(itemp);
 }
@@ -180,14 +180,14 @@ OutlineItem OutlineItem::next() const
  */
 OutlineItem OutlineItem::down() const
 {
-	fz_outline *outline = d->outline->down;
+    fz_outline *outline = d->outline->down;
     OutlineItemPrivate *itemp = NULL;
 
-	if (outline) {
+    if (outline) {
         itemp = new OutlineItemPrivate(outline);
-	}
+    }
 
-	return OutlineItem(itemp);
+    return OutlineItem(itemp);
 }
 
 }

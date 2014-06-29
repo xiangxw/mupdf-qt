@@ -19,8 +19,8 @@ Link::~Link()
  */
 QRectF Link::linkArea() const
 {
-	return QRectF(QPointF(d->link->rect.x0, d->link->rect.y0),
-				  QPointF(d->link->rect.x1, d->link->rect.y1));
+    return QRectF(QPointF(d->link->rect.x0, d->link->rect.y0),
+                  QPointF(d->link->rect.x1, d->link->rect.y1));
 }
 
 /**
@@ -28,7 +28,7 @@ QRectF Link::linkArea() const
  */
 int LinkGoto::page() const
 {
-	return d->dest.ld.gotor.page;
+    return d->dest.ld.gotor.page;
 }
 
 /**
@@ -36,7 +36,7 @@ int LinkGoto::page() const
  */
 bool LinkGoto::fitHorizontally() const
 {
-	return d->dest.ld.gotor.flags & fz_link_flag_fit_h;
+    return d->dest.ld.gotor.flags & fz_link_flag_fit_h;
 }
 
 /**
@@ -44,7 +44,7 @@ bool LinkGoto::fitHorizontally() const
  */
 bool LinkGoto::fitVertically() const
 {
-	return d->dest.ld.gotor.flags & fz_link_flag_fit_v;
+    return d->dest.ld.gotor.flags & fz_link_flag_fit_v;
 }
 
 /**
@@ -54,11 +54,11 @@ bool LinkGoto::fitVertically() const
  */
 float LinkGoto::zoom() const
 {
-	if (d->dest.ld.gotor.flags & fz_link_flag_r_is_zoom) {
-		return d->dest.ld.gotor.rb.x;
-	}
+    if (d->dest.ld.gotor.flags & fz_link_flag_r_is_zoom) {
+        return d->dest.ld.gotor.rb.x;
+    }
 
-	return 0.0f;
+    return 0.0f;
 }
 
 /**
@@ -66,7 +66,7 @@ float LinkGoto::zoom() const
  */
 QString LinkURI::uri() const
 {
-	return d->dest.ld.uri.uri;
+    return d->dest.ld.uri.uri;
 }
 
 /**
@@ -75,7 +75,7 @@ QString LinkURI::uri() const
  */
 bool LinkURI::isMap() const
 {
-	return d->dest.ld.uri.is_map;
+    return d->dest.ld.uri.is_map;
 }
 
 /**
@@ -83,7 +83,7 @@ bool LinkURI::isMap() const
  */
 QString LinkLaunch::file() const
 {
-	return d->dest.ld.launch.file_spec;
+    return d->dest.ld.launch.file_spec;
 }
 
 /**
@@ -91,7 +91,7 @@ QString LinkLaunch::file() const
  */
 bool LinkLaunch::newWindow() const
 {
-	return d->dest.ld.launch.new_window;
+    return d->dest.ld.launch.new_window;
 }
 
 /**
@@ -99,7 +99,7 @@ bool LinkLaunch::newWindow() const
  */
 bool LinkLaunch::isURI() const
 {
-	return d->dest.ld.launch.is_uri;
+    return d->dest.ld.launch.is_uri;
 }
 
 /**
@@ -107,7 +107,7 @@ bool LinkLaunch::isURI() const
  */
 QString LinkNamed::named() const
 {
-	return d->dest.ld.named.named;
+    return d->dest.ld.named.named;
 }
 
 /**
@@ -117,7 +117,7 @@ QString LinkNamed::named() const
  */
 int LinkGotoR::page() const
 {
-	return d->dest.ld.gotor.page;
+    return d->dest.ld.gotor.page;
 }
 
 /**
@@ -127,7 +127,7 @@ int LinkGotoR::page() const
  */
 QString LinkGotoR::destination() const
 {
-	return d->dest.ld.gotor.dest;
+    return d->dest.ld.gotor.dest;
 }
 
 /**
@@ -136,7 +136,7 @@ QString LinkGotoR::destination() const
  */
 QString LinkGotoR::file() const
 {
-	return d->dest.ld.gotor.file_spec;
+    return d->dest.ld.gotor.file_spec;
 }
 
 /**
@@ -144,7 +144,7 @@ QString LinkGotoR::file() const
  */
 bool LinkGotoR::newWindow() const
 {
-	return d->dest.ld.gotor.new_window;
+    return d->dest.ld.gotor.new_window;
 }
 
 }

@@ -14,18 +14,18 @@ class Document;
 class Page
 {
 public:
-	~Page();
-	bool isValid() const;
-	QImage renderImage() const;
-	QRect size() const;
-	void setTransparentRendering(bool enable);
-	void setBackgroundColor(int r, int g, int b, int a = 255);
-	void setTransform(float scaleX, float scaleY, float rotation = 0.0f);
-	QString text(float x0, float y0, float x1, float y1) const;
+    ~Page();
+    bool isValid() const;
+    QImage renderImage() const;
+    QRect size() const;
+    void setTransparentRendering(bool enable);
+    void setBackgroundColor(int r, int g, int b, int a = 255);
+    void setTransform(float scaleX, float scaleY, float rotation = 0.0f);
+    QString text(float x0, float y0, float x1, float y1) const;
 
 private:
-	Page(const Document &document, int index);
-	PagePrivate *d;
+    Page(const Document &document, int index);
+    PagePrivate *d;
 
 friend class Document;
 };

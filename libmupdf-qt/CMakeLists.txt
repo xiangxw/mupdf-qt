@@ -4,9 +4,9 @@ set (LIBMUPDF mupdf-qt)
 find_package (Qt5Gui)
 
 set (LIBMUPDF_SOURCES mupdf-document.cpp
-	                  mupdf-page.cpp
-					  mupdf-link.cpp
-					  mupdf-outline.cpp)
+                      mupdf-page.cpp
+                      mupdf-link.cpp
+                      mupdf-outline.cpp)
 
 add_library (${LIBMUPDF} STATIC ${LIBMUPDF_SOURCES})
 target_link_libraries (${LIBMUPDF} ${MuPDF_LIBRARIES})
