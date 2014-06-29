@@ -6,11 +6,12 @@
 class QString;
 class QDateTime;
 
-class DocumentPrivate;
 namespace MuPDF
 {
 class Document;
+class DocumentPrivate;
 class Page;
+class Outline;
 
 Document * loadDocument(const QString &filePath);
 Document * loadDocument(const QByteArray &bytes);
@@ -22,7 +23,9 @@ public:
 	bool needsPassword() const;
 	bool authPassword(const QString &password);
 	int numPages() const;
-	Page *page(int index) const;
+	Page * page(int index) const;
+	Outline * outline() const;
+	// TODO QJsonObject toc() const;
 	QString pdfVersion() const;
 	QString title() const;
 	QString author() const;

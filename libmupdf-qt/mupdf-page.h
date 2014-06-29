@@ -4,11 +4,11 @@
 class QImage;
 class QString;
 class QRect;
-class PagePrivate;
 
 namespace MuPDF
 {
 class Page;
+class PagePrivate;
 class Document;
 
 class Page

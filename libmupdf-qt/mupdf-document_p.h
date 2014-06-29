@@ -5,8 +5,14 @@ extern "C" {
 #include <mupdf/fitz.h>
 #include <mupdf/pdf.h>
 }
+#include <QList>
 
 class QString;
+
+namespace MuPDF
+{
+
+class OutlinePrivate;
 
 class DocumentPrivate
 {
@@ -20,24 +26,21 @@ public:
 		  r(-1),
 		  a(-1)
 	{
+
 	}
-	~DocumentPrivate()
-	{
-		if (document) {
-			fz_close_document(document);
-			document = NULL;
-		}
-		if (context) {
-			fz_free_context(context);
-			context = NULL;
-		}
-	}
+	~DocumentPrivate();
+
 	QString info(const char * key);
 
 	fz_context *context;
 	fz_document *document;
 	bool transparent;
 	int b, g, r, a; // background color
+	
+	// children
+	QList<OutlinePrivate *> outlines;
 };
+
+}
 
 #endif // end MUPDF_DOCUMENT_P_H

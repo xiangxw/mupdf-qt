@@ -3,5 +3,7 @@
 
 #include "mupdf-document.h"
 #include "mupdf-page.h"
+#include "mupdf-link.h"
+#include "mupdf-outline.h"
 
 #endif // end MUPDF_QT_H
