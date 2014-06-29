@@ -19,6 +19,7 @@ script:
   - ./bin/outline pdf_reference_1-7.pdf
   - ./bin/test_document pdf_reference_1-7.pdf
   - ./bin/test_page pdf_reference_1-7.pdf
+  - ./bin/test_outline pdf_reference_1-7.pdf
 branches:
   only:
     - master
