@@ -21,6 +21,8 @@ public:
     }
     ~OutlinePrivate();
 
+    void deleteData();
+
     DocumentPrivate *documentp;
     fz_outline *outline;
 };

@@ -13,6 +13,7 @@ namespace MuPDF
 {
 
 class OutlinePrivate;
+class PagePrivate;
 
 class DocumentPrivate
 {
@@ -39,6 +40,7 @@ public:
     
     // children
     QList<OutlinePrivate *> outlines;
+    QList<PagePrivate *> pages;
 };
 
 }

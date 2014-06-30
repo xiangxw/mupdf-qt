@@ -192,6 +192,7 @@ Page * Document::page(int index) const
         page = NULL;
         return NULL;
     }
+    d->pages << page->d;
     return page;
 }
 
@@ -339,8 +340,10 @@ void Document::setBackgroundColor(int r, int g, int b, int a)
 DocumentPrivate::~DocumentPrivate()
 {
     foreach (OutlinePrivate *outlinep, outlines) {
-        fz_free_outline(context, outlinep->outline);
-        outlinep->outline = NULL;
+        outlinep->deleteData();
+    }
+    foreach (PagePrivate *pagep, pages) {
+        pagep->deleteData();
     }
     if (document) {
         fz_close_document(document);

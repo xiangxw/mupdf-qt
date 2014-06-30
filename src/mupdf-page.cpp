@@ -62,7 +62,7 @@ Page::Page(const Document &document, int index)
         return;
     }
 
-    d = new PagePrivate();
+    d = new PagePrivate(document.d);
     if (NULL == d) {
         return;
     }
@@ -340,6 +340,14 @@ QList<TextBox *> Page::textList() const
     }
 
     return ret;
+}
+
+PagePrivate::~PagePrivate()
+{
+    if (page) {
+        deleteData();
+        documentp->pages.removeAt(documentp->pages.indexOf(this));
+    }
 }
 
 } // end namespace MuPDF

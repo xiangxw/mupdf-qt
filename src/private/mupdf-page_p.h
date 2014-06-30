@@ -8,11 +8,14 @@ extern "C" {
 namespace MuPDF
 {
 
+class DocumentPrivate;
+
 class PagePrivate
 {
 public:
-    PagePrivate()
-        : context(NULL),
+    PagePrivate(DocumentPrivate *dp)
+        : documentp(dp),
+          context(NULL),
           document(NULL),
           page(NULL),
           display_list(NULL),
@@ -24,31 +27,21 @@ public:
           transform(fz_identity)
     {
     }
-    ~PagePrivate()
+    ~PagePrivate();
+
+    void deleteData()
     {
-        deleteData();
+        fz_drop_display_list(context, display_list);
+        display_list = NULL;
+        fz_free_text_sheet(context, text_sheet);
+        text_sheet = NULL;
+        fz_free_text_page(context, text_page);
+        text_page = NULL;
+        fz_free_page(document, page);
+        page = NULL;
     }
 
-    inline void deleteData()
-    {
-        if (display_list) {
-            fz_drop_display_list(context, display_list);
-            display_list = NULL;
-        }
-        if (text_sheet) {
-            fz_free_text_sheet(context, text_sheet);
-            text_sheet = NULL;
-        }
-        if (text_page) {
-            fz_free_text_page(context, text_page);
-            text_page = NULL;
-        }
-        if (page) {
-            fz_free_page(document, page);
-            page = NULL;
-        }
-    }
-
+    DocumentPrivate *documentp;
     fz_context *context;
     fz_document *document;
     fz_page *page;

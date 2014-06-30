@@ -21,8 +21,16 @@ Outline::~Outline()
 
 OutlinePrivate::~OutlinePrivate()
 {
+    if (outline) {
+        deleteData();
+        documentp->outlines.removeAt(documentp->outlines.indexOf(this));
+    }
+}
+
+void OutlinePrivate::deleteData()
+{
     fz_free_outline(documentp->context, outline);
-    documentp->outlines.removeAt(documentp->outlines.indexOf(this));
+    outline = NULL;
 }
 
 /**
