@@ -53,6 +53,154 @@ static inline void imageCleanupHandler(void *data)
 namespace MuPDF
 {
 
+/**
+ * @brief Map from a transformed point to the original point.
+ *
+ * @return The original point.
+ */
+QPointF mapToOrigin(const QPointF &pos, float scaleX, float scaleY, float rotation)
+{
+    fz_matrix transform = fz_identity;
+    fz_matrix inverse;
+    fz_point point;
+
+    // build matrix
+    fz_rotate(&transform, rotation);
+    fz_pre_scale(&transform, scaleX, scaleY);
+
+    // invert matrix
+    fz_invert_matrix(&inverse, &transform);
+
+    // map
+    point.x = pos.x();
+    point.y = pos.y();
+    fz_transform_point(&point, &inverse);
+
+    return QPointF(point.x, point.y);
+}
+
+/**
+ * @brief Map from a transformed size to the original size.
+ *
+ * @return The original size.
+ */
+QSizeF mapToOrigin(const QSizeF &size, float scaleX, float scaleY, float rotation)
+{
+    fz_matrix transform = fz_identity;
+    fz_matrix inverse;
+    fz_point vector;
+
+    // build matrix
+    fz_rotate(&transform, rotation);
+    fz_pre_scale(&transform, scaleX, scaleY);
+
+    // invert matrix
+    fz_invert_matrix(&inverse, &transform);
+
+    // map
+    vector.x = size.width();
+    vector.y = size.height();
+    fz_transform_vector(&vector, &inverse);
+
+    return QSizeF(vector.x, vector.y);
+}
+
+/**
+ * @brief Map from a transformed rect to the original rect.
+ *
+ * @return The original rect.
+ */
+QRectF mapToOrigin(const QRectF &rect, float scaleX, float scaleY, float rotation)
+{
+    fz_matrix transform = fz_identity;
+    fz_matrix inverse;
+    fz_rect r;
+
+    // build matrix
+    fz_rotate(&transform, rotation);
+    fz_pre_scale(&transform, scaleX, scaleY);
+
+    // invert matrix
+    fz_invert_matrix(&inverse, &transform);
+
+    // map
+    r.x0 = rect.left();
+    r.y0 = rect.top();
+    r.x1 = rect.right();
+    r.y1 = rect.bottom();
+    fz_transform_rect(&r, &inverse);
+
+    return QRectF(r.x0, r.y0, r.x1 - r.x0, r.y1 - r.y0);
+}
+
+/**
+ * @brief Map from a original point to the transform point.
+ *
+ * @return The transform point.
+ */
+QPointF mapFromOrigin(const QPointF &pos, float scaleX, float scaleY, float rotation)
+{
+    fz_matrix transform = fz_identity;
+    fz_point point;
+
+    // build matrix
+    fz_rotate(&transform, rotation);
+    fz_pre_scale(&transform, scaleX, scaleY);
+
+    // map
+    point.x = pos.x();
+    point.y = pos.y();
+    fz_transform_point(&point, &transform);
+
+    return QPointF(point.x, point.y);
+}
+
+/**
+ * @brief Map from a original size to the transformed size.
+ *
+ * @return The transform size.
+ */
+QSizeF mapFromOrigin(const QSizeF &size, float scaleX, float scaleY, float rotation)
+{
+    fz_matrix transform = fz_identity;
+    fz_point vector;
+
+    // build matrix
+    fz_rotate(&transform, rotation);
+    fz_pre_scale(&transform, scaleX, scaleY);
+
+    // map
+    vector.x = size.width();
+    vector.y = size.height();
+    fz_transform_vector(&vector, &transform);
+
+    return QSizeF(vector.x, vector.y);
+}
+
+/**
+ * @brief Map from a original rect to the transformed rect.
+ *
+ * @return The transform rect.
+ */
+QRectF mapFromOrigin(const QRectF &rect, float scaleX, float scaleY, float rotation)
+{
+    fz_matrix transform = fz_identity;
+    fz_rect r;
+
+    // build matrix
+    fz_rotate(&transform, rotation);
+    fz_pre_scale(&transform, scaleX, scaleY);
+
+    // map
+    r.x0 = rect.left();
+    r.y0 = rect.top();
+    r.x1 = rect.right();
+    r.y1 = rect.bottom();
+    fz_transform_rect(&r, &transform);
+
+    return QRectF(r.x0, r.y0, r.x1 - r.x0, r.y1 - r.y0);
+}
+
 Page::~Page()
 {
     delete d;
@@ -67,8 +215,6 @@ PagePrivate::PagePrivate(DocumentPrivate *dp, int index)
     , display_list(NULL)
     , text_sheet(NULL)
     , text_page(NULL)
-    , scaleX(1.0f), scaleY(1.0f), rotation(0.0f)
-    , transform(fz_identity)
     , transparent(documentp->transparent)
     , b(documentp->b), g(documentp->g), r(documentp->r), a(documentp->a)
 {
@@ -108,13 +254,19 @@ bool Page::isValid() const
 {
     return (d && d->page) ? true : false;
 }
-    
+
 /**
  * @brief Render page to QImage
  *
+ * @param scaleX scale for X direction
+ *               (Default value: 1.0f; >1.0f: zoom in; <1.0f: zoom out)
+ * @param scaleY scale for Y direction
+ *               (Default value: 1.0f; >1.0f: zoom in; <1.0f: zoom out)
+ * @param rotation degree of clockwise rotation (Range: [0.0f, 360.0f))
+ *
  * @return This function will return a empty QImage if failed.
  */
-QImage Page::renderImage() const
+QImage Page::renderImage(float scaleX, float scaleY, float rotation) const
 {
     fz_pixmap *pixmap = NULL;
     unsigned char *samples = NULL;
@@ -123,11 +275,16 @@ QImage Page::renderImage() const
     int height = 0;
     int size = 0;
 
+    // build transform matrix
+    fz_matrix transform = fz_identity;
+    fz_rotate(&transform, rotation);
+    fz_pre_scale(&transform, scaleX, scaleY);
+
     // get transformed page size
     fz_rect bounds;
-    fz_bound_page(d->document, d->page, &bounds);
-    fz_transform_rect(&bounds, &(d->transform));
     fz_irect bbox;
+    fz_bound_page(d->document, d->page, &bounds);
+    fz_transform_rect(&bounds, &transform);
     fz_round_rect(&bbox, &bounds);
 
     // render to pixmap
@@ -160,7 +317,7 @@ QImage Page::renderImage() const
             }
         }
         dev = fz_new_draw_device(d->context, pixmap);
-        fz_run_display_list(d->display_list, dev, &(d->transform), &bounds, NULL);
+        fz_run_display_list(d->display_list, dev, &transform, &bounds, NULL);
     }
     fz_always(d->context)
     {
@@ -244,49 +401,25 @@ void Page::setBackgroundColor(int r, int g, int b, int a)
 }
 
 /**
- * @brief Set scale and rotation.
- *
- * @param scaleX Scale for X direction.
- *               Default value: 1.0f; >1.0f: zoom in; <1.0f: zoom out.
- * @param scaleY Scale for Y direction.
- *               Default value: 1.0f; >1.0f: zoom in; <1.0f: zoom out.
- * @param rotation Degree of clockwise rotation. Range: [0.0f, 360.0f).
- */
-void Page::setTransform(float scaleX, float scaleY, float rotation)
-{
-    d->scaleX = scaleX;
-    d->scaleY = scaleY;
-    d->rotation = rotation;
-    fz_rotate(&(d->transform), rotation);
-    fz_pre_scale(&(d->transform), scaleX, scaleY);
-}
-
-/**
  * @brief Return the text in a rect.
  *
- * @param x0 X coordinate of top left corner.
- * @param y0 Y coordinate of top left corner.
- * @param x1 X coordinate of bottom right corner.
- * @param y1 Y coordinate of bottom right corner.
+ * @param rect original rect (72 dpi), not transformed rect
  */
-QString Page::text(float x0, float y0, float x1, float y1) const
+QString Page::text(const QRectF &rect) const
 {
     QString ret;
+    fz_rect r;
     char *str;
-    fz_rect rect;
-    fz_matrix transform;
 
     // build fz_rect
-    rect.x0 = x0;
-    rect.y0 = y0;
-    rect.x1 = x1;
-    rect.y1 = y1;
-    fz_invert_matrix(&transform, &(d->transform));
-    fz_transform_rect(&rect, &transform);
+    r.x0 = rect.left();
+    r.y0 = rect.top();
+    r.x1 = rect.right();
+    r.y1 = rect.bottom();
     
     // get text
-    if (!fz_is_infinite_rect(&rect)) {
-        str = fz_copy_selection(d->context, d->text_page, rect);
+    if (!fz_is_infinite_rect(&r)) {
+        str = fz_copy_selection(d->context, d->text_page, r);
         ret = QString::fromUtf8(str);
         free(str);
     }
@@ -298,7 +431,7 @@ QString Page::text(float x0, float y0, float x1, float y1) const
  * @brief Return all text boxes of the page.
  *
  * @note The returned text boxes should be deleted when they are no longer used.
- * @note Sizes of the returned text boxes are at 72 dpi, so they won't change when setTransform() is called.
+ * @note Sizes of the returned text boxes are at 72 dpi.
  */
 QList<TextBox *> Page::textList() const
 {

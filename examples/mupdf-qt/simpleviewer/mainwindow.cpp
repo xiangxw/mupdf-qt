@@ -166,7 +166,6 @@ void MainWindow::openPage(int index)
     if (NULL == m_page) {
         return;
     }
-    m_page->setTransform(m_scale, m_scale);
 
     label->setPage(m_page, m_scale);
     scrollArea->verticalScrollBar()->setValue(0);
@@ -244,7 +243,9 @@ void Page::mouseReleaseEvent(QMouseEvent *event)
             y0 = m_pressPoint.y();
             y1 = point.y();
         }
-        qDebug() << m_page->text(x0, y0, x1, y1);
+        QRectF rect(x0, y0, x1 - x0, y1 - y0);
+        rect = MuPDF::mapToOrigin(rect, m_scale, m_scale);
+        qDebug() << m_page->text(rect);
     }
 }
 
@@ -256,8 +257,7 @@ void Page::updatePage()
         return;
     }
 
-    m_page->setTransform(m_scale, m_scale);
-    image = m_page->renderImage();
+    image = m_page->renderImage(m_scale, m_scale);
     this->setPixmap(QPixmap::fromImage(image));
     this->resize(this->sizeHint());
 }

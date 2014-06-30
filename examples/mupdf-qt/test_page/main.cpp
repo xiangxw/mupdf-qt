@@ -20,13 +20,12 @@ int main(int argc, char **argv)
         delete document;
         return -1;
     }
-    page->setTransform(1.0f, 1.0f, 90.0f);
 
     // test Page::size()
     qDebug() << page->size();
 
     // test Page::renderImage()
-    QImage image = page->renderImage();
+    QImage image = page->renderImage(2.0f, 2.0f, 90.0f);
     if (!image.save("a.png")) {
         return 1;
     }

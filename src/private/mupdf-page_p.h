@@ -43,8 +43,6 @@ public:
     fz_display_list *display_list;
     fz_text_sheet *text_sheet;
     fz_text_page *text_page;
-    float scaleX, scaleY, rotation;
-    fz_matrix transform;
     bool transparent;
     int b, g, r, a; // background color
 };

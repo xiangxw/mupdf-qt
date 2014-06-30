@@ -5,7 +5,9 @@
 
 class QImage;
 class QString;
+class QPointF;
 class QSizeF;
+class QRectF;
 
 namespace MuPDF
 {
@@ -13,6 +15,13 @@ class Page;
 class PagePrivate;
 class Document;
 class TextBox;
+
+QPointF mapToOrigin(const QPointF &pos, float scaleX, float scaleY, float rotation = 0.0f);
+QSizeF mapToOrigin(const QSizeF &size, float scaleX, float scaleY, float rotation = 0.0f);
+QRectF mapToOrigin(const QRectF &rect, float scaleX, float scaleY, float rotation = 0.0f);
+QPointF mapFromOrigin(const QPointF &pos, float scaleX, float scaleY, float rotation = 0.0f);
+QSizeF mapFromOrigin(const QSizeF &size, float scaleX, float scaleY, float rotation = 0.0f);
+QRectF mapFromOrigin(const QRectF &rect, float scaleX, float scaleY, float rotation = 0.0f);
 
 /**
  * @brief A page.
@@ -25,12 +34,11 @@ class Page
 public:
     ~Page();
     bool isValid() const;
-    QImage renderImage() const;
+    QImage renderImage(float scaleX = 1.0f, float scaleY = 1.0f, float rotation = 0.0f) const;
     QSizeF size() const;
     void setTransparentRendering(bool enable);
     void setBackgroundColor(int r, int g, int b, int a = 255);
-    void setTransform(float scaleX, float scaleY, float rotation = 0.0f);
-    QString text(float x0, float y0, float x1, float y1) const;
+    QString text(const QRectF &rect) const;
     QList<TextBox *> textList() const;
 
 private:
