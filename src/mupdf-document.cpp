@@ -14,112 +14,105 @@ namespace MuPDF
 {
 
 /**
- * @brief Load document
+ * @brief Load a document.
  *
- * @param filePath Document path
+ * @param filePath document path
  *
- * @return Return NULL if failed.(Note: you need delete manually when it's useless)
+ * @return NULL if failed (Note: you need delete manually when it's useless)
  */
-Document *loadDocument(const QString &filePath)
+Document * loadDocument(const QString &filePath)
 {
-    Document *doc = new Document(filePath);
-    if (NULL == doc) {
+    DocumentPrivate *documentp;
+    Document *document;
+
+    // Create DocumentPrivate
+    documentp = new DocumentPrivate(filePath);
+    if (!documentp)
+        return NULL;
+    else if (!documentp->context || !documentp->document) {
+        delete documentp;
         return NULL;
     }
-    if (doc->d->context && doc->d->document) {
-        return doc;
-    }
-    delete doc; doc = NULL;
-    return NULL;
-}
 
-Document *loadDocument(const QByteArray &bytes)
-{
-    Document *doc = new Document((unsigned char*) bytes.data(), bytes.length());
-    if (NULL == doc) {
-        return NULL;
-    }
-    if (doc->d->context && doc->d->document) {
-        return doc;
-    }
-    delete doc; doc = NULL;
-    return NULL;
+    // Create Document
+    document = new Document(documentp);
+    return document;
 }
-
 
 /**
- * @brief Constructor
+ * @brief Load a document.
  *
- * @param filePath Document path
+ * @param bytes document data
+ *
+ * @return NULL if failed (Note: you need delete manually when it's useless)
  */
-Document::Document(const QString &filePath)
+Document * loadDocument(const QByteArray &bytes)
 {
-    d = new DocumentPrivate();
-    if (NULL == d) {
-        return;
+    DocumentPrivate *documentp;
+    Document *document;
+
+    // Create DocumentPrivate
+    documentp = new DocumentPrivate((unsigned char *)bytes.data(), bytes.length());
+    if (!documentp)
+        return NULL;
+    else if (!documentp->context || !documentp->document) {
+        delete documentp;
+        return NULL;
     }
-    
+
+    // Create Document
+    document = new Document(documentp);
+    return document;
+}
+
+DocumentPrivate::DocumentPrivate(const QString &filePath)
+    : context(NULL), document(NULL)
+    , transparent(false)
+    , b(-1), g(-1), r(-1), a(-1)
+{
     // create context
-    d->context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
-    if (NULL == d->context) {
+    context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
+    if (!context)
         return;
-    }
 
     // register the default file types
-    fz_register_document_handlers(d->context);
+    fz_register_document_handlers(context);
 
     // open document
-    fz_try(d->context)
+    fz_try(context)
     {
-        d->document = fz_open_document(d->context,
-                filePath.toUtf8().data());
+        document = fz_open_document(context, filePath.toUtf8().data());
     }
-    fz_catch(d->context)
+    fz_catch(context)
     {
-        fz_close_document(d->document);
-        d->document = NULL;
-        fz_free_context(d->context);
-        d->context = NULL;
-    }
-    if (NULL == d->document) {
-        return;
+        deleteData();
     }
 }
 
-Document::Document(unsigned char *bytes, int len)
+DocumentPrivate::DocumentPrivate(unsigned char *bytes, int len)
+    : context(NULL), document(NULL)
+    , transparent(false)
+    , b(-1), g(-1), r(-1), a(-1)
 {
-    d = new DocumentPrivate();
-    if (NULL == d) {
-        return;
-    }
-
     // create context
-    d->context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
-    if (NULL == d->context) {
+    context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
+    if (!context)
         return;
-    }
 
     // register the default file types
-    fz_register_document_handlers(d->context);
-
+    fz_register_document_handlers(context);
 
     // open document
-    fz_try(d->context)
+    fz_try(context)
     {
         // access to the bytes stream
-        fz_stream* stream = fz_open_memory(d->context, bytes, len);
+        fz_stream* stream = fz_open_memory(context, bytes, len);
 
-        d->document = fz_open_document_with_stream(d->context, ".pdf", stream);
+        document = fz_open_document_with_stream(context, ".pdf", stream);
     }
-    fz_catch(d->context)
+    fz_catch(context)
     {
-        fz_close_document(d->document);
-        d->document = NULL;
-        fz_free_context(d->context);
-        d->context = NULL;
-    }
-    if (NULL == d->document) {
-        return;
+        deleteData();
     }
 }
 
@@ -128,10 +121,8 @@ Document::Document(unsigned char *bytes, int len)
  */
 Document::~Document()
 {
-    if (d) {
-        delete d;
-        d = NULL;
-    }
+    delete d;
+    d = NULL;
 }
 
 /**
@@ -351,37 +342,8 @@ DocumentPrivate::~DocumentPrivate()
     foreach (PagePrivate *pagep, pages) {
         pagep->deleteData();
     }
-    if (document) {
-        fz_close_document(document);
-        document = NULL;
-    }
-    if (context) {
-        fz_free_context(context);
-        context = NULL;
-    }
-}
 
-/**
- * @brief Get info of the document
- *
- * @param key info key
- */
-QString DocumentPrivate::info(const char * key)
-{
-    pdf_document *xref = (pdf_document *)document;
-    pdf_obj *info = pdf_dict_gets(pdf_trailer(xref), (char *)"Info");
-    if (NULL == info) {
-        return QString();
-    }
-    pdf_obj *obj = pdf_dict_gets(info, (char *)key);
-    if (NULL == obj) {
-        return QString();
-    }
-    //char *str = pdf_to_utf8(context, obj);
-    char *str = pdf_to_utf8((pdf_document *)document, obj);
-    QString ret = QString::fromUtf8(str);
-    free(str);
-    return ret;
+    deleteData();
 }
 
 } // end namespace MuPDF

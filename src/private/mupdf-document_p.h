@@ -6,8 +6,7 @@ extern "C" {
 #include <mupdf/pdf.h>
 }
 #include <QList>
-
-class QString;
+#include <QString>
 
 namespace MuPDF
 {
@@ -18,20 +17,41 @@ class PagePrivate;
 class DocumentPrivate
 {
 public:
-    DocumentPrivate()
-        : context(NULL),
-          document(NULL),
-          transparent(false),
-          b(-1),
-          g(-1),
-          r(-1),
-          a(-1)
-    {
-
-    }
+    DocumentPrivate(const QString &filePath);
+    DocumentPrivate(unsigned char *bytes, int len);
     ~DocumentPrivate();
 
-    QString info(const char * key);
+    void deleteData()
+    {
+        if (document) {
+            fz_close_document(document);
+            document = NULL;
+        }
+        if (context) {
+            fz_free_context(context);
+            context = NULL;
+        }
+    }
+
+    /**
+     * @brief Get info of the document
+     *
+     * @param key info key
+     */
+    QString info(const char *key)
+    {
+        pdf_document *xref = (pdf_document *)document;
+        pdf_obj *info = pdf_dict_gets(pdf_trailer(xref), (char *)"Info");
+        if (!info)
+            return QString();
+        pdf_obj *obj = pdf_dict_gets(info, (char *)key);
+        if (!obj)
+            return QString();
+        char *str = pdf_to_utf8((pdf_document *)document, obj);
+        QString ret = QString::fromUtf8(str);
+        free(str);
+        return ret;
+    }
 
     fz_context *context;
     fz_document *document;

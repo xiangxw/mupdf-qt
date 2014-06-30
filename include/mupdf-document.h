@@ -39,15 +39,17 @@ public:
     void setBackgroundColor(int r, int g, int b, int a = 255);
 
 private:
-    Document(const QString &filePath);
-    Document(unsigned char* bytes, int len);
+    Document(DocumentPrivate *documentp)
+        : d(documentp)
+    {
+
+    }
     // disable copy
     Document(const Document &);
     Document &operator=(const Document &);
 
     DocumentPrivate *d;
 
-friend class Page;
 friend Document *loadDocument(const QString &filePath);
 friend Document *loadDocument(const QByteArray &bytes);
 };
