@@ -4,9 +4,6 @@
 class QRectF;
 class QString;
 
-/**
- * @brief Text box.
- */
 namespace MuPDF
 {
 
