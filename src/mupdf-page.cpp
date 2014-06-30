@@ -8,7 +8,7 @@ extern "C" {
 #include <mupdf/fitz.h>
 }
 #include <QImage>
-#include <QRect>
+#include <QSizeF>
 
 static void clear_bgr_samples_with_value(
         unsigned char *samples, int size,
@@ -201,16 +201,12 @@ QImage Page::renderImage() const
 /**
  * @brief Page size at 72 dpi
  */
-QRect Page::size() const
+QSizeF Page::size() const
 {
-    //fz_rect rect = fz_bound_page(d->document, d->page);
     fz_rect rect;
+
     fz_bound_page(d->document, d->page, &rect);
-    //fz_bbox bbox = fz_round_rect(rect);
-    fz_irect bbox;
-    fz_round_rect(&bbox, &rect);
-    return QRect(bbox.x0, bbox.y0,
-            bbox.x1 - bbox.x0, bbox.y1 - bbox.y0);
+    return QSizeF(rect.x1 - rect.x0, rect.y1 - rect.y0);
 }
 
 /**

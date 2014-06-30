@@ -5,7 +5,7 @@
 
 class QImage;
 class QString;
-class QRect;
+class QSizeF;
 
 namespace MuPDF
 {
@@ -26,7 +26,7 @@ public:
     ~Page();
     bool isValid() const;
     QImage renderImage() const;
-    QRect size() const;
+    QSizeF size() const;
     void setTransparentRendering(bool enable);
     void setBackgroundColor(int r, int g, int b, int a = 255);
     void setTransform(float scaleX, float scaleY, float rotation = 0.0f);
