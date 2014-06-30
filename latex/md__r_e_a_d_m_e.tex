@@ -1,0 +1,87 @@
+\subsection*{Compile on Linux}
+
+\paragraph*{Install tools and thirdparty libraries}
+
+You should install some tools and thirdparty libraries. For Ubuntu users, you can use the following command(similar for other Linux users)\-: \begin{DoxyVerb}sudo apt-get install build-essential pkg-config cmake qtbase5-dev qt5-default libfreetype6-dev
+\end{DoxyVerb}
+
+
+\paragraph*{Clone source code}
+
+\begin{DoxyVerb}git clone https://github.com/xiangxw/mupdf-qt.git
+cd mupdf-qt
+git submodule update --init --recursive
+\end{DoxyVerb}
+
+
+\paragraph*{Compile \hyperlink{namespace_mu_p_d_f}{Mu\-P\-D\-F} Source}
+
+\begin{DoxyVerb}cd mupdf
+make
+\end{DoxyVerb}
+
+
+\paragraph*{Compile mupdf-\/qt}
+
+\begin{DoxyVerb}cd ..
+mkdir build
+cd build
+cmake ..
+make
+\end{DoxyVerb}
+
+
+\subsection*{Compile on Window with Visual Studio}
+
+\paragraph*{Clone source code}
+
+\begin{DoxyVerb}git clone https://github.com/xiangxw/mupdf-qt.git
+cd mupdf-qt
+git submodule update --init --recursive
+\end{DoxyVerb}
+
+
+\paragraph*{Compile \hyperlink{namespace_mu_p_d_f}{Mu\-P\-D\-F} Source}
+
+Go to platforms/win32, open mupdf.\-sln and build.
+
+\paragraph*{Compile mupdf-\/qt}
+
+Launch C\-Make(gui version), set source code directory and build directory. Configure and generate mupdf-\/qt.\-sln. Open mupdf-\/qt.\-sln and build it.
+
+\subsection*{Compile on Window with M\-S\-Y\-S Min\-G\-W}
+
+\paragraph*{Clone source code}
+
+\begin{DoxyVerb}git clone https://github.com/xiangxw/mupdf-qt.git
+cd mupdf-qt
+git submodule update --init --recursive
+\end{DoxyVerb}
+
+
+\paragraph*{Installing M\-S\-Y\-S/\-Min\-G\-W}
+
+Install M\-S\-Y\-S and Min\-G\-W (\href{http://www.mingw.org/wiki/Getting_Started}{\tt http\-://www.\-mingw.\-org/wiki/\-Getting\-\_\-\-Started}). Using the Graphical User Interface Installer, \href{http://sourceforge.net/projects/mingw/files/Installer/mingw-get-setup.exe/download}{\tt mingw-\/get-\/setup.\-exe}, is recommended. During installation, \char`\"{}checking/ticking\char`\"{} the following in \char`\"{}\-Basic Setup\char`\"{} is recommended\-:
+\begin{DoxyEnumerate}
+\item mingw32-\/base
+\item mingw32-\/gcc-\/g++
+\item msys-\/base
+\item mingw-\/developer-\/toolkit
+\end{DoxyEnumerate}
+
+Add C\-:; to your P\-A\-T\-H system variables (at the beginning).
+
+\paragraph*{Compile \hyperlink{namespace_mu_p_d_f}{Mu\-P\-D\-F} source}
+
+\begin{DoxyVerb}cd mupdf-qt
+make build=debug NOX11=yes
+\end{DoxyVerb}
+
+
+For release, just change \char`\"{}debug\char`\"{} to \char`\"{}release\char`\"{}. N\-O\-X11 is necessary since X11 headers are not available in Windows. Note that this will not build the \char`\"{}app\char`\"{} packaged with the \hyperlink{namespace_mu_p_d_f}{Mu\-P\-D\-F} source.
+
+\paragraph*{Compile mupdf-\/qt}
+
+Install C\-Make.
+
+Open C\-Make\-Lists.\-txt with Qt Creator(\-Qt5 built with mingw), run cmake and build mupdf-\/qt 

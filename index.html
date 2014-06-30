@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>mupdf-qt: Main Page</title>
+<title>mupdf-qt: mupdf-qt library</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,8 +23,9 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">mupdf-qt
+   &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">Qt interface for the popular PDF library MuPDF</div>
+   <div id="projectbrief">Qt5 interface of the popular PDF library MuPDF</div>
   </td>
  </tr>
  </tbody>
@@ -38,6 +39,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -65,7 +67,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -76,13 +78,90 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="headertitle">
-<div class="title">mupdf-qt Documentation</div>  </div>
+<div class="title">mupdf-qt library </div>  </div>
 </div><!--header-->
 <div class="contents">
-</div><!-- contents -->
+<div class="textblock"><p>mupdf-qt is a Qt5 interface of the popular PDF library MuPDF. MuPDF is also small, fast, and yet complete. It supports PDF 1.7 with transparency, encryption, hyperlinks, annotations, searching and more.</p>
+<p>MuPDF homepage: <a href="http://mupdf.com/">http://mupdf.com/</a></p>
+<h1><a class="anchor" id="usage"></a>
+How to use mupdf-qt interface library</h1>
+<p>After mupdf-qt is built (read <a class="el" href="_r_e_a_d_m_e_8md.html">README.md</a> to see how to build mupdf-qt), headers are in "include/" directory and library file is in "build/lib/" directory. Include the header directory and link to the mupdf-qt library file. Then, simply add the following line to your C++ source files:</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="mupdf-qt_8h.html">mupdf-qt.h</a>&gt;</span></div>
+</div><!-- fragment --><h2><a class="anchor" id="document"></a>
+Load PDF document</h2>
+<div class="fragment"><div class="line">QString filename;</div>
+<div class="line">QString password;</div>
+<div class="line"></div>
+<div class="line"><a class="code" href="class_mu_p_d_f_1_1_document.html">MuPDF::Document</a> *document = <a class="code" href="namespace_mu_p_d_f.html#a5cf746094bc9648aca0d4a83e3ac44b3" title="Load a document. ">MuPDF::loadDocument</a>(filename);</div>
+<div class="line"><span class="keywordflow">if</span> (document) {</div>
+<div class="line">    <span class="comment">// needs password?</span></div>
+<div class="line">    <span class="keywordflow">if</span> (document-&gt;<a class="code" href="class_mu_p_d_f_1_1_document.html#a1a13ec739fa4ead2caeb317c433c1756" title="Whether the document needs password. ">needsPassword</a>())</div>
+<div class="line">        document-&gt;<a class="code" href="class_mu_p_d_f_1_1_document.html#a5d447dc019e82e7d6c55ee3d55a1a496" title="Authenticate password. ">authPassword</a>(pasword);</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// number of pages</span></div>
+<div class="line">    qDebug() &lt;&lt; <span class="stringliteral">&quot;pages: &quot;</span> &lt;&lt; document-&gt;<a class="code" href="class_mu_p_d_f_1_1_document.html#aa45c6ede18c2d65cd151ba2759732c60" title="Get number of pages. Return -1 when error occurs. ">numPages</a>();</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// other informations</span></div>
+<div class="line">    qDebug() &lt;&lt; <span class="stringliteral">&quot;version: &quot;</span> &lt;&lt; document-&gt;<a class="code" href="class_mu_p_d_f_1_1_document.html#a3635f7be582da314499899a699a2fd75" title="PDF version number, for example: 1.7. ">pdfVersion</a>();</div>
+<div class="line">    qDebug() &lt;&lt; <span class="stringliteral">&quot;title: &quot;</span> &lt;&lt; document-&gt;<a class="code" href="class_mu_p_d_f_1_1_document.html#a5823c559c6c48febeeb3eb1d7d83e10d" title="PDF title. ">title</a>();</div>
+<div class="line">    qDebug() &lt;&lt; <span class="stringliteral">&quot;author: &quot;</span> &lt;&lt; document-&gt;<a class="code" href="class_mu_p_d_f_1_1_document.html#a7f5a23afec90fffc45c1dc093aa025fd" title="Author of the document. ">author</a>();</div>
+<div class="line">    qDebug() &lt;&lt; <span class="stringliteral">&quot;subject: &quot;</span> &lt;&lt; document-&gt;<a class="code" href="class_mu_p_d_f_1_1_document.html#ae784415521f4ed962da82018bbcc7f2f" title="The subject of the document. ">subject</a>();</div>
+<div class="line">    qDebug() &lt;&lt; <span class="stringliteral">&quot;keywords: &quot;</span> &lt;&lt; document-&gt;<a class="code" href="class_mu_p_d_f_1_1_document.html#a751dc7e3ed070eff251713c070a1f6e3" title="Keywords associated with the document. ">keywords</a>();</div>
+<div class="line">    qDebug() &lt;&lt; <span class="stringliteral">&quot;creator: &quot;</span> &lt;&lt; document-&gt;<a class="code" href="class_mu_p_d_f_1_1_document.html#a1d44b5bc59d43c1138a4b4afbb245c01" title="If the document was converted to PDF from another format, the name of the application (for example...">creator</a>();</div>
+<div class="line">    qDebug() &lt;&lt; <span class="stringliteral">&quot;producer: &quot;</span> &lt;&lt; document-&gt;<a class="code" href="class_mu_p_d_f_1_1_document.html#a4b609a777fa9939843a2922f9a292882" title="If the document was converted to PDF from another format, the name of the application (for example...">producer</a>();</div>
+<div class="line">    qDebug() &lt;&lt; <span class="stringliteral">&quot;creation date: &quot;</span> &lt;&lt; document-&gt;<a class="code" href="class_mu_p_d_f_1_1_document.html#ac741bca965122fbd83c87ce21e28baf1" title="The date and time the document was created. ">creationDate</a>();</div>
+<div class="line">    qDebug() &lt;&lt; <span class="stringliteral">&quot;recently modify date: &quot;</span> &lt;&lt; document-&gt;<a class="code" href="class_mu_p_d_f_1_1_document.html#a9a84e656e58c556a61fe228ccdc3f643" title="The date and time the document was most recently modified. ">modDate</a>();</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// do not forget to delete it</span></div>
+<div class="line">    <span class="keyword">delete</span> document;</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2><a class="anchor" id="render"></a>
+Render page</h2>
+<p>Pages can be rendered to QImages with the following code:</p>
+<div class="fragment"><div class="line"><a class="code" href="class_mu_p_d_f_1_1_page.html" title="A page. ">MuPDF::Page</a> *page = document-&gt;<a class="code" href="class_mu_p_d_f_1_1_document.html#ab54358660c0054f821728d32fa9fb1ad" title="Get a page. ">page</a>(pageNumber);</div>
+<div class="line"><span class="keywordflow">if</span> (page) {</div>
+<div class="line">    <span class="keywordtype">float</span> scaleX = 1.0f;</div>
+<div class="line">    <span class="keywordtype">float</span> scaleY = 1.0f;</div>
+<div class="line">    <span class="keywordtype">float</span> rotation = 0.0f;</div>
+<div class="line">    QImage image = page-&gt;<a class="code" href="class_mu_p_d_f_1_1_page.html#abdd1b94b296ea263190b53640168a77b" title="Render page to QImage. ">renderImage</a>(scaleX, scaleY, rotation);</div>
+<div class="line">    <span class="comment">// do something with the QImage</span></div>
+<div class="line">    <span class="comment">// ...</span></div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// do not forget this</span></div>
+<div class="line">    <span class="keyword">delete</span> page;</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2><a class="anchor" id="outline"></a>
+Outline (Table of contents)</h2>
+<p>A PDF document may has a <a class="el" href="class_mu_p_d_f_1_1_outline.html" title="A tree of the outline of a document (also known as table of contents). ">MuPDF::Outline</a>. You can get top level <a class="el" href="class_mu_p_d_f_1_1_outline_item.html" title="A outline item. ">MuPDF::OutlineItem</a> from the <a class="el" href="class_mu_p_d_f_1_1_outline.html" title="A tree of the outline of a document (also known as table of contents). ">MuPDF::Outline</a>. Every <a class="el" href="class_mu_p_d_f_1_1_outline_item.html" title="A outline item. ">MuPDF::OutlineItem</a> may has children (get first child with <a class="el" href="class_mu_p_d_f_1_1_outline_item.html#a3d74fe1a6ed39127f8326a8cfb4205f3" title="The down outline item. ">MuPDF::OutlineItem::down()</a>) and buddies (get next item with <a class="el" href="class_mu_p_d_f_1_1_outline_item.html#aac4d96f572743aab40916b45861ca914" title="The next outline item. ">MuPDF::OutlineItem::next()</a>):</p>
+<div class="fragment"><div class="line"><a class="code" href="class_mu_p_d_f_1_1_outline_item.html" title="A outline item. ">MuPDF::OutlineItem</a> item;</div>
+<div class="line"></div>
+<div class="line"><a class="code" href="class_mu_p_d_f_1_1_outline.html" title="A tree of the outline of a document (also known as table of contents). ">MuPDF::Outline</a> *outline = document-&gt;<a class="code" href="class_mu_p_d_f_1_1_document.html#a0ea90d9e549fafa6b33dd6d1eca603e6" title="The root outline of the document. ">outline</a>();</div>
+<div class="line"><span class="keywordflow">if</span> (outline) {</div>
+<div class="line">    <span class="comment">// current item</span></div>
+<div class="line">    item = outline-&gt;<a class="code" href="class_mu_p_d_f_1_1_outline.html#a5cb3d15517c68bed0486cd7a2a06c5db" title="Top level item. ">topLevelItem</a>();</div>
+<div class="line">    <span class="keywordflow">if</span> (item.<a class="code" href="class_mu_p_d_f_1_1_outline_item.html#a0f8f4d3f59da951e5a9f4d467846d97f" title="Whether this item is valid or not. ">isValid</a>())</div>
+<div class="line">        qDebug() &lt;&lt; item-&gt;<a class="code" href="class_mu_p_d_f_1_1_outline_item.html#a39279fb107effca0ee53f0931d06260d" title="Title. ">title</a>();</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// down</span></div>
+<div class="line">    item = item-&gt;<a class="code" href="class_mu_p_d_f_1_1_outline_item.html#a3d74fe1a6ed39127f8326a8cfb4205f3" title="The down outline item. ">down</a>();</div>
+<div class="line">    <span class="keywordflow">if</span> (item.<a class="code" href="class_mu_p_d_f_1_1_outline_item.html#a0f8f4d3f59da951e5a9f4d467846d97f" title="Whether this item is valid or not. ">isValid</a>())</div>
+<div class="line">        qDebug() &lt;&lt; item-&gt;<a class="code" href="class_mu_p_d_f_1_1_outline_item.html#a39279fb107effca0ee53f0931d06260d" title="Title. ">title</a>();</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// next</span></div>
+<div class="line">    item = item-&gt;<a class="code" href="class_mu_p_d_f_1_1_outline_item.html#aac4d96f572743aab40916b45861ca914" title="The next outline item. ">next</a>();</div>
+<div class="line">    <span class="keywordflow">if</span> (item.<a class="code" href="class_mu_p_d_f_1_1_outline_item.html#a0f8f4d3f59da951e5a9f4d467846d97f" title="Whether this item is valid or not. ">isValid</a>())</div>
+<div class="line">        qDebug() &lt;&lt; item-&gt;<a class="code" href="class_mu_p_d_f_1_1_outline_item.html#a39279fb107effca0ee53f0931d06260d" title="Title. ">title</a>();</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// something else with OutlineItem</span></div>
+<div class="line">    <span class="comment">// ...</span></div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// do not forget this</span></div>
+<div class="line">    <span class="keyword">delete</span> outline;</div>
+<div class="line">}</div>
+</div><!-- fragment --> </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 30 2014 22:35:58 for mupdf-qt by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 1 2014 02:45:34 for mupdf-qt by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>
