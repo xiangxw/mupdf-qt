@@ -13,32 +13,27 @@ class DocumentPrivate;
 class PagePrivate
 {
 public:
-    PagePrivate(DocumentPrivate *dp)
-        : documentp(dp),
-          context(NULL),
-          document(NULL),
-          page(NULL),
-          display_list(NULL),
-          text_sheet(NULL),
-          text_page(NULL),
-          scaleX(1.0f),
-          scaleY(1.0f),
-          rotation(0.0f),
-          transform(fz_identity)
-    {
-    }
+    PagePrivate(DocumentPrivate *dp, int index);
     ~PagePrivate();
 
     void deleteData()
     {
-        fz_drop_display_list(context, display_list);
-        display_list = NULL;
-        fz_free_text_sheet(context, text_sheet);
-        text_sheet = NULL;
-        fz_free_text_page(context, text_page);
-        text_page = NULL;
-        fz_free_page(document, page);
-        page = NULL;
+        if (display_list) {
+            fz_drop_display_list(context, display_list);
+            display_list = NULL;
+        }
+        if (text_sheet) {
+            fz_free_text_sheet(context, text_sheet);
+            text_sheet = NULL;
+        }
+        if (text_page) {
+            fz_free_text_page(context, text_page);
+            text_page = NULL;
+        }
+        if (page) {
+            fz_free_page(document, page);
+            page = NULL;
+        }
     }
 
     DocumentPrivate *documentp;

@@ -14,6 +14,12 @@ class PagePrivate;
 class Document;
 class TextBox;
 
+/**
+ * @brief A page.
+ *
+ * @note When you are doing something with this page, make sure the Document
+ * who generate this page is valid.
+ */
 class Page
 {
 public:
@@ -28,7 +34,12 @@ public:
     QList<TextBox *> textList() const;
 
 private:
-    Page(const Document &document, int index);
+    Page(PagePrivate *pagep)
+        : d(pagep)
+    {
+
+    }
+
     PagePrivate *d;
 
 friend class Document;

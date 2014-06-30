@@ -175,24 +175,30 @@ int Document::numPages() const
 }
 
 /**
- * @brief Get page
+ * @brief Get a page.
  *
- * @param index Page index, begin with 0
+ * @param index page index, begin with 0
  *
- * @return Note: you need delete this manually before document is deleted
+ * @return You need delete this manually when it's useless.
  */
 Page * Document::page(int index) const
 {
-    Page *page = new Page(*this, index);
-    if (NULL == page) {
+    PagePrivate *pagep;
+    Page *page;
+
+    // Create PagePrivate
+    pagep = new PagePrivate(d, index);
+    if (!pagep)
+        return NULL;
+    else if (!pagep->page) {
+        delete pagep;
         return NULL;
     }
-    if (NULL == page->d->page) {
-        delete page;
-        page = NULL;
-        return NULL;
-    }
-    d->pages << page->d;
+
+    // Create Page
+    page = new Page(pagep);
+    if (page)
+        d->pages << pagep;
     return page;
 }
 

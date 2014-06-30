@@ -53,61 +53,51 @@ static inline void imageCleanupHandler(void *data)
 namespace MuPDF
 {
 
-/**
- * @brief Constructor
- */
-Page::Page(const Document &document, int index)
+Page::~Page()
 {
-    if (document.d->document == NULL || index < 0) {
-        return;
-    }
+    delete d;
+    d = NULL;
+}
 
-    d = new PagePrivate(document.d);
-    if (NULL == d) {
-        return;
-    }
-    d->context = document.d->context;
-    d->document = document.d->document;
-    d->transparent = document.d->transparent;
-    d->b = document.d->b;
-    d->g = document.d->g;
-    d->r = document.d->r;
-    d->a = document.d->a;
-
-    fz_try(d->context)
+PagePrivate::PagePrivate(DocumentPrivate *dp, int index)
+    : documentp(dp)
+    , context(documentp->context)
+    , document(documentp->document)
+    , page(NULL)
+    , display_list(NULL)
+    , text_sheet(NULL)
+    , text_page(NULL)
+    , scaleX(1.0f), scaleY(1.0f), rotation(0.0f)
+    , transform(fz_identity)
+    , transparent(documentp->transparent)
+    , b(documentp->b), g(documentp->g), r(documentp->r), a(documentp->a)
+{
+    fz_try(context)
     {
         fz_rect bounds;
         fz_device *list_device;
         fz_device *text_device;
 
         // load page
-        d->page = fz_load_page(d->document, index);
+        page = fz_load_page(document, index);
         
         // display list
-        d->display_list = fz_new_display_list(d->context);
-        list_device = fz_new_list_device(d->context, d->display_list);
-        fz_run_page(d->document, d->page, list_device, &fz_identity, NULL);
+        display_list = fz_new_display_list(context);
+        list_device = fz_new_list_device(context, display_list);
+        fz_run_page(document, page, list_device, &fz_identity, NULL);
         fz_free_device(list_device);
 
         // create text sheet and text page
-        d->text_sheet = fz_new_text_sheet(d->context);
-        d->text_page = fz_new_text_page(d->context);
-        text_device = fz_new_text_device(d->context, d->text_sheet, d->text_page);
-        fz_bound_page(d->document, d->page, &bounds);
-        fz_run_display_list(d->display_list, text_device, &fz_identity, &bounds, NULL);
+        text_sheet = fz_new_text_sheet(context);
+        text_page = fz_new_text_page(context);
+        text_device = fz_new_text_device(context, text_sheet, text_page);
+        fz_bound_page(document, page, &bounds);
+        fz_run_display_list(display_list, text_device, &fz_identity, &bounds, NULL);
         fz_free_device(text_device);
     }
-    fz_catch(d->context)
+    fz_catch(context)
     {
-        d->deleteData();
-    }
-}
-
-Page::~Page()
-{
-    if (d) {
-        delete d;
-        d = NULL;
+        deleteData();
     }
 }
 
