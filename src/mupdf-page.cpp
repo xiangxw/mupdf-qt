@@ -53,11 +53,6 @@ static inline void imageCleanupHandler(void *data)
 namespace MuPDF
 {
 
-/**
- * @brief Map from a transformed point to the original point.
- *
- * @return The original point.
- */
 QPointF mapToOrigin(const QPointF &pos, float scaleX, float scaleY, float rotation)
 {
     fz_matrix transform = fz_identity;
@@ -79,11 +74,6 @@ QPointF mapToOrigin(const QPointF &pos, float scaleX, float scaleY, float rotati
     return QPointF(point.x, point.y);
 }
 
-/**
- * @brief Map from a transformed size to the original size.
- *
- * @return The original size.
- */
 QSizeF mapToOrigin(const QSizeF &size, float scaleX, float scaleY, float rotation)
 {
     fz_matrix transform = fz_identity;
@@ -105,11 +95,6 @@ QSizeF mapToOrigin(const QSizeF &size, float scaleX, float scaleY, float rotatio
     return QSizeF(vector.x, vector.y);
 }
 
-/**
- * @brief Map from a transformed rect to the original rect.
- *
- * @return The original rect.
- */
 QRectF mapToOrigin(const QRectF &rect, float scaleX, float scaleY, float rotation)
 {
     fz_matrix transform = fz_identity;
@@ -133,11 +118,6 @@ QRectF mapToOrigin(const QRectF &rect, float scaleX, float scaleY, float rotatio
     return QRectF(r.x0, r.y0, r.x1 - r.x0, r.y1 - r.y0);
 }
 
-/**
- * @brief Map from a original point to the transform point.
- *
- * @return The transform point.
- */
 QPointF mapFromOrigin(const QPointF &pos, float scaleX, float scaleY, float rotation)
 {
     fz_matrix transform = fz_identity;
@@ -155,11 +135,6 @@ QPointF mapFromOrigin(const QPointF &pos, float scaleX, float scaleY, float rota
     return QPointF(point.x, point.y);
 }
 
-/**
- * @brief Map from a original size to the transformed size.
- *
- * @return The transform size.
- */
 QSizeF mapFromOrigin(const QSizeF &size, float scaleX, float scaleY, float rotation)
 {
     fz_matrix transform = fz_identity;
@@ -177,11 +152,6 @@ QSizeF mapFromOrigin(const QSizeF &size, float scaleX, float scaleY, float rotat
     return QSizeF(vector.x, vector.y);
 }
 
-/**
- * @brief Map from a original rect to the transformed rect.
- *
- * @return The transform rect.
- */
 QRectF mapFromOrigin(const QRectF &rect, float scaleX, float scaleY, float rotation)
 {
     fz_matrix transform = fz_identity;

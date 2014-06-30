@@ -16,11 +16,41 @@ class PagePrivate;
 class Document;
 class TextBox;
 
+/**
+ * @brief Map from a transformed point to the original point.
+ *
+ * @return The original point.
+ */
 QPointF mapToOrigin(const QPointF &pos, float scaleX, float scaleY, float rotation = 0.0f);
+/**
+ * @brief Map from a transformed size to the original size.
+ *
+ * @return The original size.
+ */
 QSizeF mapToOrigin(const QSizeF &size, float scaleX, float scaleY, float rotation = 0.0f);
+/**
+ * @brief Map from a transformed rect to the original rect.
+ *
+ * @return The original rect.
+ */
 QRectF mapToOrigin(const QRectF &rect, float scaleX, float scaleY, float rotation = 0.0f);
+/**
+ * @brief Map from a original point to the transform point.
+ *
+ * @return The transform point.
+ */
 QPointF mapFromOrigin(const QPointF &pos, float scaleX, float scaleY, float rotation = 0.0f);
+/**
+ * @brief Map from a original size to the transformed size.
+ *
+ * @return The transform size.
+ */
 QSizeF mapFromOrigin(const QSizeF &size, float scaleX, float scaleY, float rotation = 0.0f);
+/**
+ * @brief Map from a original rect to the transformed rect.
+ *
+ * @return The transform rect.
+ */
 QRectF mapFromOrigin(const QRectF &rect, float scaleX, float scaleY, float rotation = 0.0f);
 
 /**
