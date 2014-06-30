@@ -1,0 +1,12 @@
+{
+    glib
+    Memcheck:Leak
+    ...
+    obj:/*lib*/libglib-*
+}
+{
+    Qt
+    Memcheck:Leak
+    ...
+    obj:/*lib*/libQt*
+}

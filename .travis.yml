@@ -9,23 +9,14 @@ compiler:
 before_install:
   - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
   - sudo apt-get update -qq
-  - sudo apt-get install -qq qtbase5-dev qt5-default
+  - sudo apt-get install -qq qtbase5-dev qt5-default valgrind
   - sudo apt-get install cmake
 script:
   - git submodule update --init --recursive
   - cd mupdf && make build=$MUPDF_BUILD_TYPE && cd ..
   - mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=$MUPDF_QT_BUILD_TYPE .. && make
   - wget http://www.adobe.com/content/dam/Adobe/en/devnet/acrobat/pdfs/pdf_reference_1-7.pdf
-  - ./bin/countpages_c pdf_reference_1-7.pdf
-  - ./bin/exportpage_c pdf_reference_1-7.pdf 1
-  - ./bin/qimage_c pdf_reference_1-7.pdf
-  - ./bin/showinfo_c pdf_reference_1-7.pdf
-  - ./bin/showtext_c pdf_reference_1-7.pdf 1
-  - ./bin/outline_c pdf_reference_1-7.pdf
-  - ./bin/test_document pdf_reference_1-7.pdf
-  - ./bin/test_outline pdf_reference_1-7.pdf
-  - ./bin/test_page pdf_reference_1-7.pdf
-  - ./bin/test_text pdf_reference_1-7.pdf 1
+  - ../.script/valgrind.sh
 branches:
   only:
     - master
