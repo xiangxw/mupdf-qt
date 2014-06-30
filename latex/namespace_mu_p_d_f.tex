@@ -23,16 +23,28 @@ class \hyperlink{class_mu_p_d_f_1_1_outline}{Outline}
 class \hyperlink{class_mu_p_d_f_1_1_outline_item}{Outline\-Item}
 \begin{DoxyCompactList}\small\item\em A outline item. \end{DoxyCompactList}\item 
 class \hyperlink{class_mu_p_d_f_1_1_page}{Page}
-\item 
+\begin{DoxyCompactList}\small\item\em A page. \end{DoxyCompactList}\item 
 class \hyperlink{class_mu_p_d_f_1_1_text_box}{Text\-Box}
 \begin{DoxyCompactList}\small\item\em A text box. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{class_mu_p_d_f_1_1_document}{Document} $\ast$ \hyperlink{namespace_mu_p_d_f_a5cf746094bc9648aca0d4a83e3ac44b3}{load\-Document} (const Q\-String \&file\-Path)
-\begin{DoxyCompactList}\small\item\em Load document. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Load a document. \end{DoxyCompactList}\item 
 \hyperlink{class_mu_p_d_f_1_1_document}{Document} $\ast$ \hyperlink{namespace_mu_p_d_f_a294a09188a3dcab290679752dfc8d52b}{load\-Document} (const Q\-Byte\-Array \&bytes)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Load a document. \end{DoxyCompactList}\item 
+Q\-Point\-F \hyperlink{namespace_mu_p_d_f_a40833e5e56d0d7d44cba455e4186d5e4}{map\-To\-Origin} (const Q\-Point\-F \&pos, float scale\-X, float scale\-Y, float rotation=0.\-0f)
+\begin{DoxyCompactList}\small\item\em Map from a transformed point to the original point. \end{DoxyCompactList}\item 
+Q\-Size\-F \hyperlink{namespace_mu_p_d_f_ae91a73bb4e3e4c10eb54c07ab9be9cf7}{map\-To\-Origin} (const Q\-Size\-F \&size, float scale\-X, float scale\-Y, float rotation=0.\-0f)
+\begin{DoxyCompactList}\small\item\em Map from a transformed size to the original size. \end{DoxyCompactList}\item 
+Q\-Rect\-F \hyperlink{namespace_mu_p_d_f_a2132cae17dab8f9896ec0c83f0c2173c}{map\-To\-Origin} (const Q\-Rect\-F \&rect, float scale\-X, float scale\-Y, float rotation=0.\-0f)
+\begin{DoxyCompactList}\small\item\em Map from a transformed rect to the original rect. \end{DoxyCompactList}\item 
+Q\-Point\-F \hyperlink{namespace_mu_p_d_f_ad849bcc678dd57c1f12619f9554e6aba}{map\-From\-Origin} (const Q\-Point\-F \&pos, float scale\-X, float scale\-Y, float rotation=0.\-0f)
+\begin{DoxyCompactList}\small\item\em Map from a original point to the transform point. \end{DoxyCompactList}\item 
+Q\-Size\-F \hyperlink{namespace_mu_p_d_f_a6c6cac36e5a30ed75952a619b19d33aa}{map\-From\-Origin} (const Q\-Size\-F \&size, float scale\-X, float scale\-Y, float rotation=0.\-0f)
+\begin{DoxyCompactList}\small\item\em Map from a original size to the transformed size. \end{DoxyCompactList}\item 
+Q\-Rect\-F \hyperlink{namespace_mu_p_d_f_a2f2a28dce44170175d3e9ba9601478ea}{map\-From\-Origin} (const Q\-Rect\-F \&rect, float scale\-X, float scale\-Y, float rotation=0.\-0f)
+\begin{DoxyCompactList}\small\item\em Map from a original rect to the transformed rect. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
@@ -45,15 +57,15 @@ class \hyperlink{class_mu_p_d_f_1_1_text_box}{Text\-Box}
 )}}\label{namespace_mu_p_d_f_a5cf746094bc9648aca0d4a83e3ac44b3}
 
 
-Load document. 
+Load a document. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em file\-Path} & \hyperlink{class_mu_p_d_f_1_1_document}{Document} path\\
+{\em file\-Path} & document path\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Return N\-U\-L\-L if failed.(Note\-: you need delete manually when it's useless) 
+N\-U\-L\-L if failed (Note\-: you need delete manually when it's useless) 
 \end{DoxyReturn}
 
 
@@ -68,5 +80,143 @@ Definition at line 23 of file mupdf-\/document.\-cpp.
 )}}\label{namespace_mu_p_d_f_a294a09188a3dcab290679752dfc8d52b}
 
 
-Definition at line 36 of file mupdf-\/document.\-cpp.
+Load a document. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bytes} & document data\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\-U\-L\-L if failed (Note\-: you need delete manually when it's useless) 
+\end{DoxyReturn}
+
+
+Definition at line 49 of file mupdf-\/document.\-cpp.
+
+\hypertarget{namespace_mu_p_d_f_ad849bcc678dd57c1f12619f9554e6aba}{\index{Mu\-P\-D\-F@{Mu\-P\-D\-F}!map\-From\-Origin@{map\-From\-Origin}}
+\index{map\-From\-Origin@{map\-From\-Origin}!MuPDF@{Mu\-P\-D\-F}}
+\subsubsection[{map\-From\-Origin}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Point\-F Mu\-P\-D\-F\-::map\-From\-Origin (
+\begin{DoxyParamCaption}
+\item[{const Q\-Point\-F \&}]{pos, }
+\item[{float}]{scale\-X, }
+\item[{float}]{scale\-Y, }
+\item[{float}]{rotation = {\ttfamily 0.0f}}
+\end{DoxyParamCaption}
+)}}\label{namespace_mu_p_d_f_ad849bcc678dd57c1f12619f9554e6aba}
+
+
+Map from a original point to the transform point. 
+
+\begin{DoxyReturn}{Returns}
+The transform point. 
+\end{DoxyReturn}
+
+
+Definition at line 121 of file mupdf-\/page.\-cpp.
+
+\hypertarget{namespace_mu_p_d_f_a6c6cac36e5a30ed75952a619b19d33aa}{\index{Mu\-P\-D\-F@{Mu\-P\-D\-F}!map\-From\-Origin@{map\-From\-Origin}}
+\index{map\-From\-Origin@{map\-From\-Origin}!MuPDF@{Mu\-P\-D\-F}}
+\subsubsection[{map\-From\-Origin}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Size\-F Mu\-P\-D\-F\-::map\-From\-Origin (
+\begin{DoxyParamCaption}
+\item[{const Q\-Size\-F \&}]{size, }
+\item[{float}]{scale\-X, }
+\item[{float}]{scale\-Y, }
+\item[{float}]{rotation = {\ttfamily 0.0f}}
+\end{DoxyParamCaption}
+)}}\label{namespace_mu_p_d_f_a6c6cac36e5a30ed75952a619b19d33aa}
+
+
+Map from a original size to the transformed size. 
+
+\begin{DoxyReturn}{Returns}
+The transform size. 
+\end{DoxyReturn}
+
+
+Definition at line 138 of file mupdf-\/page.\-cpp.
+
+\hypertarget{namespace_mu_p_d_f_a2f2a28dce44170175d3e9ba9601478ea}{\index{Mu\-P\-D\-F@{Mu\-P\-D\-F}!map\-From\-Origin@{map\-From\-Origin}}
+\index{map\-From\-Origin@{map\-From\-Origin}!MuPDF@{Mu\-P\-D\-F}}
+\subsubsection[{map\-From\-Origin}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Rect\-F Mu\-P\-D\-F\-::map\-From\-Origin (
+\begin{DoxyParamCaption}
+\item[{const Q\-Rect\-F \&}]{rect, }
+\item[{float}]{scale\-X, }
+\item[{float}]{scale\-Y, }
+\item[{float}]{rotation = {\ttfamily 0.0f}}
+\end{DoxyParamCaption}
+)}}\label{namespace_mu_p_d_f_a2f2a28dce44170175d3e9ba9601478ea}
+
+
+Map from a original rect to the transformed rect. 
+
+\begin{DoxyReturn}{Returns}
+The transform rect. 
+\end{DoxyReturn}
+
+
+Definition at line 155 of file mupdf-\/page.\-cpp.
+
+\hypertarget{namespace_mu_p_d_f_a40833e5e56d0d7d44cba455e4186d5e4}{\index{Mu\-P\-D\-F@{Mu\-P\-D\-F}!map\-To\-Origin@{map\-To\-Origin}}
+\index{map\-To\-Origin@{map\-To\-Origin}!MuPDF@{Mu\-P\-D\-F}}
+\subsubsection[{map\-To\-Origin}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Point\-F Mu\-P\-D\-F\-::map\-To\-Origin (
+\begin{DoxyParamCaption}
+\item[{const Q\-Point\-F \&}]{pos, }
+\item[{float}]{scale\-X, }
+\item[{float}]{scale\-Y, }
+\item[{float}]{rotation = {\ttfamily 0.0f}}
+\end{DoxyParamCaption}
+)}}\label{namespace_mu_p_d_f_a40833e5e56d0d7d44cba455e4186d5e4}
+
+
+Map from a transformed point to the original point. 
+
+\begin{DoxyReturn}{Returns}
+The original point. 
+\end{DoxyReturn}
+
+
+Definition at line 56 of file mupdf-\/page.\-cpp.
+
+\hypertarget{namespace_mu_p_d_f_ae91a73bb4e3e4c10eb54c07ab9be9cf7}{\index{Mu\-P\-D\-F@{Mu\-P\-D\-F}!map\-To\-Origin@{map\-To\-Origin}}
+\index{map\-To\-Origin@{map\-To\-Origin}!MuPDF@{Mu\-P\-D\-F}}
+\subsubsection[{map\-To\-Origin}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Size\-F Mu\-P\-D\-F\-::map\-To\-Origin (
+\begin{DoxyParamCaption}
+\item[{const Q\-Size\-F \&}]{size, }
+\item[{float}]{scale\-X, }
+\item[{float}]{scale\-Y, }
+\item[{float}]{rotation = {\ttfamily 0.0f}}
+\end{DoxyParamCaption}
+)}}\label{namespace_mu_p_d_f_ae91a73bb4e3e4c10eb54c07ab9be9cf7}
+
+
+Map from a transformed size to the original size. 
+
+\begin{DoxyReturn}{Returns}
+The original size. 
+\end{DoxyReturn}
+
+
+Definition at line 77 of file mupdf-\/page.\-cpp.
+
+\hypertarget{namespace_mu_p_d_f_a2132cae17dab8f9896ec0c83f0c2173c}{\index{Mu\-P\-D\-F@{Mu\-P\-D\-F}!map\-To\-Origin@{map\-To\-Origin}}
+\index{map\-To\-Origin@{map\-To\-Origin}!MuPDF@{Mu\-P\-D\-F}}
+\subsubsection[{map\-To\-Origin}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Rect\-F Mu\-P\-D\-F\-::map\-To\-Origin (
+\begin{DoxyParamCaption}
+\item[{const Q\-Rect\-F \&}]{rect, }
+\item[{float}]{scale\-X, }
+\item[{float}]{scale\-Y, }
+\item[{float}]{rotation = {\ttfamily 0.0f}}
+\end{DoxyParamCaption}
+)}}\label{namespace_mu_p_d_f_a2132cae17dab8f9896ec0c83f0c2173c}
+
+
+Map from a transformed rect to the original rect. 
+
+\begin{DoxyReturn}{Returns}
+The original rect. 
+\end{DoxyReturn}
+
+
+Definition at line 98 of file mupdf-\/page.\-cpp.
 

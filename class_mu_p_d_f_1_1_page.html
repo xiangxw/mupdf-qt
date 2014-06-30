@@ -96,6 +96,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
+<p>A page.  
+ <a href="class_mu_p_d_f_1_1_page.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="mupdf-page_8h_source.html">mupdf-page.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -105,24 +108,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1f60d3a284731ac220a8717eb6a93167"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_page.html#a1f60d3a284731ac220a8717eb6a93167">isValid</a> () const </td></tr>
 <tr class="memdesc:a1f60d3a284731ac220a8717eb6a93167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether this page object is valid.  <a href="#a1f60d3a284731ac220a8717eb6a93167">More...</a><br/></td></tr>
 <tr class="separator:a1f60d3a284731ac220a8717eb6a93167"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50c32d7917fe979dcf5404d378852556"><td class="memItemLeft" align="right" valign="top">QImage&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_page.html#a50c32d7917fe979dcf5404d378852556">renderImage</a> () const </td></tr>
-<tr class="memdesc:a50c32d7917fe979dcf5404d378852556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render page to QImage.  <a href="#a50c32d7917fe979dcf5404d378852556">More...</a><br/></td></tr>
-<tr class="separator:a50c32d7917fe979dcf5404d378852556"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd724fcf89232f953315c76ec5a134b0"><td class="memItemLeft" align="right" valign="top">QRect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_page.html#afd724fcf89232f953315c76ec5a134b0">size</a> () const </td></tr>
-<tr class="memdesc:afd724fcf89232f953315c76ec5a134b0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_mu_p_d_f_1_1_page.html">Page</a> size at 72 dpi.  <a href="#afd724fcf89232f953315c76ec5a134b0">More...</a><br/></td></tr>
-<tr class="separator:afd724fcf89232f953315c76ec5a134b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdd1b94b296ea263190b53640168a77b"><td class="memItemLeft" align="right" valign="top">QImage&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_page.html#abdd1b94b296ea263190b53640168a77b">renderImage</a> (float scaleX=1.0f, float scaleY=1.0f, float rotation=0.0f) const </td></tr>
+<tr class="memdesc:abdd1b94b296ea263190b53640168a77b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render page to QImage.  <a href="#abdd1b94b296ea263190b53640168a77b">More...</a><br/></td></tr>
+<tr class="separator:abdd1b94b296ea263190b53640168a77b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79b644e18279956b52d76aa8a492f62b"><td class="memItemLeft" align="right" valign="top">QSizeF&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_page.html#a79b644e18279956b52d76aa8a492f62b">size</a> () const </td></tr>
+<tr class="memdesc:a79b644e18279956b52d76aa8a492f62b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_mu_p_d_f_1_1_page.html" title="A page. ">Page</a> size at 72 dpi.  <a href="#a79b644e18279956b52d76aa8a492f62b">More...</a><br/></td></tr>
+<tr class="separator:a79b644e18279956b52d76aa8a492f62b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6768d64b88de1ccdd1fa0abb2724db0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_page.html#ac6768d64b88de1ccdd1fa0abb2724db0">setTransparentRendering</a> (bool enable)</td></tr>
 <tr class="memdesc:ac6768d64b88de1ccdd1fa0abb2724db0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to do transparent page rendering. This function modify setting of current page only. For global setting, use <a class="el" href="class_mu_p_d_f_1_1_document.html#a8df89d0517437182406e2ba766402a3c" title="Set transparent rendering for all pages. For one page transparent rendering setting, use Page::setTransparentRendering() instead. ">Document::setTransparentRendering()</a> instead.  <a href="#ac6768d64b88de1ccdd1fa0abb2724db0">More...</a><br/></td></tr>
 <tr class="separator:ac6768d64b88de1ccdd1fa0abb2724db0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f16778c9c61692834644d298b6ee77f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_page.html#a4f16778c9c61692834644d298b6ee77f">setBackgroundColor</a> (int r, int g, int b, int a=255)</td></tr>
 <tr class="memdesc:a4f16778c9c61692834644d298b6ee77f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set background color. This function modify setting of current page only. For global setting, use <a class="el" href="class_mu_p_d_f_1_1_document.html#a0b9669def894d9164543e3367ae11d21" title="Set background color. This function modify global setting of all pages. For particular page setting...">Document::setBackgroundColor()</a> instead.  <a href="#a4f16778c9c61692834644d298b6ee77f">More...</a><br/></td></tr>
 <tr class="separator:a4f16778c9c61692834644d298b6ee77f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a366b4f46b6f83a45afda029c81ca4d15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_page.html#a366b4f46b6f83a45afda029c81ca4d15">setTransform</a> (float scaleX, float scaleY, float rotation=0.0f)</td></tr>
-<tr class="memdesc:a366b4f46b6f83a45afda029c81ca4d15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set scale and rotation.  <a href="#a366b4f46b6f83a45afda029c81ca4d15">More...</a><br/></td></tr>
-<tr class="separator:a366b4f46b6f83a45afda029c81ca4d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40d3c45ab4ad02a07c9af726f14c97f3"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_page.html#a40d3c45ab4ad02a07c9af726f14c97f3">text</a> (float x0, float y0, float x1, float y1) const </td></tr>
-<tr class="memdesc:a40d3c45ab4ad02a07c9af726f14c97f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the text in a rect.  <a href="#a40d3c45ab4ad02a07c9af726f14c97f3">More...</a><br/></td></tr>
-<tr class="separator:a40d3c45ab4ad02a07c9af726f14c97f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a4a0cb44db0035c53fe4aca7cf0dbc0"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_page.html#a8a4a0cb44db0035c53fe4aca7cf0dbc0">text</a> (const QRectF &amp;rect) const </td></tr>
+<tr class="memdesc:a8a4a0cb44db0035c53fe4aca7cf0dbc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the text in a rect.  <a href="#a8a4a0cb44db0035c53fe4aca7cf0dbc0">More...</a><br/></td></tr>
+<tr class="separator:a8a4a0cb44db0035c53fe4aca7cf0dbc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a357731345081db20d209685a50cca27a"><td class="memItemLeft" align="right" valign="top">QList&lt; <a class="el" href="class_mu_p_d_f_1_1_text_box.html">TextBox</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mu_p_d_f_1_1_page.html#a357731345081db20d209685a50cca27a">textList</a> () const </td></tr>
 <tr class="memdesc:a357731345081db20d209685a50cca27a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return all text boxes of the page.  <a href="#a357731345081db20d209685a50cca27a">More...</a><br/></td></tr>
 <tr class="separator:a357731345081db20d209685a50cca27a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,8 +133,10 @@ Friends</h2></td></tr>
 <tr class="separator:a883538034e58fc5c0de7d4e4cab3cef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="mupdf-page_8h_source.html#l00017">17</a> of file <a class="el" href="mupdf-page_8h_source.html">mupdf-page.h</a>.</p>
+<div class="textblock"><p>A page. </p>
+<dl class="section note"><dt>Note</dt><dd>When you are doing something with this page, make sure the <a class="el" href="class_mu_p_d_f_1_1_document.html">Document</a> who generate this page is valid. </dd></dl>
+
+<p>Definition at line <a class="el" href="mupdf-page_8h_source.html#l00062">62</a> of file <a class="el" href="mupdf-page_8h_source.html">mupdf-page.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af319e925b5460b6b09a40aacd1d68347"></a>
 <div class="memitem">
@@ -149,7 +151,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00106">106</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00174">174</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
 
 </div>
 </div>
@@ -169,27 +171,52 @@ Friends</h2></td></tr>
 
 <p>Check whether this page object is valid. </p>
 
-<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00117">117</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00223">223</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a50c32d7917fe979dcf5404d378852556"></a>
+<a class="anchor" id="abdd1b94b296ea263190b53640168a77b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">QImage MuPDF::Page::renderImage </td>
           <td>(</td>
-          <td class="paramname">)</td><td></td>
-          <td> const</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scaleX</em> = <code>1.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scaleY</em> = <code>1.0f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>rotation</em> = <code>0.0f</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Render page to QImage. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scaleX</td><td>scale for X direction (Default value: 1.0f; &gt;1.0f: zoom in; &lt;1.0f: zoom out) </td></tr>
+    <tr><td class="paramname">scaleY</td><td>scale for Y direction (Default value: 1.0f; &gt;1.0f: zoom in; &lt;1.0f: zoom out) </td></tr>
+    <tr><td class="paramname">rotation</td><td>degree of clockwise rotation (Range: [0.0f, 360.0f))</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>This function will return a empty QImage if failed. </dd></dl>
 
-<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00127">127</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00239">239</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
 
 </div>
 </div>
@@ -241,51 +268,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00252">252</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a366b4f46b6f83a45afda029c81ca4d15"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MuPDF::Page::setTransform </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>scaleX</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>scaleY</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>rotation</em> = <code>0.0f</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set scale and rotation. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">scaleX</td><td>Scale for X direction. Default value: 1.0f; &gt;1.0f: zoom in; &lt;1.0f: zoom out. </td></tr>
-    <tr><td class="paramname">scaleY</td><td>Scale for Y direction. Default value: 1.0f; &gt;1.0f: zoom in; &lt;1.0f: zoom out. </td></tr>
-    <tr><td class="paramname">rotation</td><td>Degree of clockwise rotation. Range: [0.0f, 360.0f). </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00269">269</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00365">365</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
 
 </div>
 </div>
@@ -311,16 +294,16 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00233">233</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00346">346</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="afd724fcf89232f953315c76ec5a134b0"></a>
+<a class="anchor" id="a79b644e18279956b52d76aa8a492f62b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">QRect MuPDF::Page::size </td>
+          <td class="memname">QSizeF MuPDF::Page::size </td>
           <td>(</td>
           <td class="paramname">)</td><td></td>
           <td> const</td>
@@ -328,44 +311,22 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="class_mu_p_d_f_1_1_page.html">Page</a> size at 72 dpi. </p>
+<p><a class="el" href="class_mu_p_d_f_1_1_page.html" title="A page. ">Page</a> size at 72 dpi. </p>
 
-<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00214">214</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00331">331</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a40d3c45ab4ad02a07c9af726f14c97f3"></a>
+<a class="anchor" id="a8a4a0cb44db0035c53fe4aca7cf0dbc0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">QString MuPDF::Page::text </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>x0</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>y0</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>x1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>y1</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="paramtype">const QRectF &amp;&#160;</td>
+          <td class="paramname"><em>rect</em>)</td><td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -373,15 +334,12 @@ Friends</h2></td></tr>
 <p>Return the text in a rect. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x0</td><td>X coordinate of top left corner. </td></tr>
-    <tr><td class="paramname">y0</td><td>Y coordinate of top left corner. </td></tr>
-    <tr><td class="paramname">x1</td><td>X coordinate of bottom right corner. </td></tr>
-    <tr><td class="paramname">y1</td><td>Y coordinate of bottom right corner. </td></tr>
+    <tr><td class="paramname">rect</td><td>original rect (72 dpi), not transformed rect </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00286">286</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00378">378</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
 
 </div>
 </div>
@@ -401,9 +359,9 @@ Friends</h2></td></tr>
 <p>Return all text boxes of the page. </p>
 <dl class="section note"><dt>Note</dt><dd>The returned text boxes should be deleted when they are no longer used. </dd>
 <dd>
-Sizes of the returned text boxes are at 72 dpi, so they won't change when <a class="el" href="class_mu_p_d_f_1_1_page.html#a366b4f46b6f83a45afda029c81ca4d15" title="Set scale and rotation. ">setTransform()</a> is called. </dd></dl>
+Sizes of the returned text boxes are at 72 dpi. </dd></dl>
 
-<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00317">317</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-page_8cpp_source.html#l00406">406</a> of file <a class="el" href="mupdf-page_8cpp_source.html">mupdf-page.cpp</a>.</p>
 
 </div>
 </div>
@@ -426,7 +384,7 @@ Sizes of the returned text boxes are at 72 dpi, so they won't change when <a cla
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="mupdf-page_8h_source.html#l00034">34</a> of file <a class="el" href="mupdf-page_8h_source.html">mupdf-page.h</a>.</p>
+<p>Definition at line <a class="el" href="mupdf-page_8h_source.html#l00083">83</a> of file <a class="el" href="mupdf-page_8h_source.html">mupdf-page.h</a>.</p>
 
 </div>
 </div>
@@ -437,7 +395,7 @@ Sizes of the returned text boxes are at 72 dpi, so they won't change when <a cla
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 30 2014 10:35:21 for mupdf-qt by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 30 2014 22:28:57 for mupdf-qt by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>

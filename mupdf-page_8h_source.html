@@ -95,42 +95,55 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">class </span>QImage;</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">class </span>QString;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class </span>QRect;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>MuPDF</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Page;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>PagePrivate;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>Document;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>TextBox;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_mu_p_d_f_1_1_page.html">Page</a></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="class_mu_p_d_f_1_1_page.html#af319e925b5460b6b09a40aacd1d68347">~Page</a>();</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#a1f60d3a284731ac220a8717eb6a93167" title="Check whether this page object is valid. ">isValid</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    QImage <a class="code" href="class_mu_p_d_f_1_1_page.html#a50c32d7917fe979dcf5404d378852556" title="Render page to QImage. ">renderImage</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    QRect <a class="code" href="class_mu_p_d_f_1_1_page.html#afd724fcf89232f953315c76ec5a134b0" title="Page size at 72 dpi. ">size</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#ac6768d64b88de1ccdd1fa0abb2724db0" title="Whether to do transparent page rendering. This function modify setting of current page only...">setTransparentRendering</a>(<span class="keywordtype">bool</span> enable);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#a4f16778c9c61692834644d298b6ee77f" title="Set background color. This function modify setting of current page only. For global setting...">setBackgroundColor</a>(<span class="keywordtype">int</span> r, <span class="keywordtype">int</span> g, <span class="keywordtype">int</span> b, <span class="keywordtype">int</span> a = 255);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#a366b4f46b6f83a45afda029c81ca4d15" title="Set scale and rotation. ">setTransform</a>(<span class="keywordtype">float</span> scaleX, <span class="keywordtype">float</span> scaleY, <span class="keywordtype">float</span> rotation = 0.0f);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    QString <a class="code" href="class_mu_p_d_f_1_1_page.html#a40d3c45ab4ad02a07c9af726f14c97f3" title="Return the text in a rect. ">text</a>(<span class="keywordtype">float</span> x0, <span class="keywordtype">float</span> y0, <span class="keywordtype">float</span> x1, <span class="keywordtype">float</span> y1) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    QList&lt;TextBox *&gt; <a class="code" href="class_mu_p_d_f_1_1_page.html#a357731345081db20d209685a50cca27a" title="Return all text boxes of the page. ">textList</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="class_mu_p_d_f_1_1_page.html">Page</a>(<span class="keyword">const</span> <a class="code" href="class_mu_p_d_f_1_1_document.html">Document</a> &amp;document, <span class="keywordtype">int</span> index);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    PagePrivate *d;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#a883538034e58fc5c0de7d4e4cab3cef7">   34</a></span>&#160;<span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_mu_p_d_f_1_1_document.html">Document</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;};</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// end namespace MuPDF</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif // end MUPDF_PAGE_H</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class </span>QPointF;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">class </span>QSizeF;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>QRectF;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>MuPDF</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>Page;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>PagePrivate;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>Document;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>TextBox;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;QPointF <a class="code" href="namespace_mu_p_d_f.html#a40833e5e56d0d7d44cba455e4186d5e4" title="Map from a transformed point to the original point. ">mapToOrigin</a>(<span class="keyword">const</span> QPointF &amp;pos, <span class="keywordtype">float</span> scaleX, <span class="keywordtype">float</span> scaleY, <span class="keywordtype">float</span> rotation = 0.0f);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;QSizeF <a class="code" href="namespace_mu_p_d_f.html#a40833e5e56d0d7d44cba455e4186d5e4" title="Map from a transformed point to the original point. ">mapToOrigin</a>(<span class="keyword">const</span> QSizeF &amp;size, <span class="keywordtype">float</span> scaleX, <span class="keywordtype">float</span> scaleY, <span class="keywordtype">float</span> rotation = 0.0f);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;QRectF <a class="code" href="namespace_mu_p_d_f.html#a40833e5e56d0d7d44cba455e4186d5e4" title="Map from a transformed point to the original point. ">mapToOrigin</a>(<span class="keyword">const</span> QRectF &amp;rect, <span class="keywordtype">float</span> scaleX, <span class="keywordtype">float</span> scaleY, <span class="keywordtype">float</span> rotation = 0.0f);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;QPointF <a class="code" href="namespace_mu_p_d_f.html#ad849bcc678dd57c1f12619f9554e6aba" title="Map from a original point to the transform point. ">mapFromOrigin</a>(<span class="keyword">const</span> QPointF &amp;pos, <span class="keywordtype">float</span> scaleX, <span class="keywordtype">float</span> scaleY, <span class="keywordtype">float</span> rotation = 0.0f);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;QSizeF <a class="code" href="namespace_mu_p_d_f.html#ad849bcc678dd57c1f12619f9554e6aba" title="Map from a original point to the transform point. ">mapFromOrigin</a>(<span class="keyword">const</span> QSizeF &amp;size, <span class="keywordtype">float</span> scaleX, <span class="keywordtype">float</span> scaleY, <span class="keywordtype">float</span> rotation = 0.0f);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;QRectF <a class="code" href="namespace_mu_p_d_f.html#ad849bcc678dd57c1f12619f9554e6aba" title="Map from a original point to the transform point. ">mapFromOrigin</a>(<span class="keyword">const</span> QRectF &amp;rect, <span class="keywordtype">float</span> scaleX, <span class="keywordtype">float</span> scaleY, <span class="keywordtype">float</span> rotation = 0.0f);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html">   62</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_mu_p_d_f_1_1_page.html" title="A page. ">Page</a></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;{</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="class_mu_p_d_f_1_1_page.html#af319e925b5460b6b09a40aacd1d68347">~Page</a>();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#a1f60d3a284731ac220a8717eb6a93167" title="Check whether this page object is valid. ">isValid</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    QImage <a class="code" href="class_mu_p_d_f_1_1_page.html#abdd1b94b296ea263190b53640168a77b" title="Render page to QImage. ">renderImage</a>(<span class="keywordtype">float</span> scaleX = 1.0f, <span class="keywordtype">float</span> scaleY = 1.0f, <span class="keywordtype">float</span> rotation = 0.0f) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    QSizeF <a class="code" href="class_mu_p_d_f_1_1_page.html#a79b644e18279956b52d76aa8a492f62b" title="Page size at 72 dpi. ">size</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#ac6768d64b88de1ccdd1fa0abb2724db0" title="Whether to do transparent page rendering. This function modify setting of current page only...">setTransparentRendering</a>(<span class="keywordtype">bool</span> enable);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#a4f16778c9c61692834644d298b6ee77f" title="Set background color. This function modify setting of current page only. For global setting...">setBackgroundColor</a>(<span class="keywordtype">int</span> r, <span class="keywordtype">int</span> g, <span class="keywordtype">int</span> b, <span class="keywordtype">int</span> a = 255);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    QString <a class="code" href="class_mu_p_d_f_1_1_page.html#a8a4a0cb44db0035c53fe4aca7cf0dbc0" title="Return the text in a rect. ">text</a>(<span class="keyword">const</span> QRectF &amp;rect) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    QList&lt;TextBox *&gt; <a class="code" href="class_mu_p_d_f_1_1_page.html#a357731345081db20d209685a50cca27a" title="Return all text boxes of the page. ">textList</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="class_mu_p_d_f_1_1_page.html" title="A page. ">Page</a>(PagePrivate *pagep)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        : d(pagep)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    PagePrivate *d;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#a883538034e58fc5c0de7d4e4cab3cef7">   83</a></span>&#160;<span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_mu_p_d_f_1_1_document.html">Document</a>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;};</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;} <span class="comment">// end namespace MuPDF</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#endif // end MUPDF_PAGE_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 30 2014 10:35:21 for mupdf-qt by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 30 2014 22:28:56 for mupdf-qt by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>
