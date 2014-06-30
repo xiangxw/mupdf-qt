@@ -326,7 +326,7 @@ QImage Page::renderImage(float scaleX, float scaleY, float rotation) const
 }
 
 /**
- * @brief Page size at 72 dpi
+ * @brief %Page size at 72 dpi
  */
 QSizeF Page::size() const
 {

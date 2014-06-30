@@ -1,0 +1,108 @@
+/**
+@mainpage mupdf-qt library
+
+mupdf-qt is a Qt5 interface of the popular PDF library %MuPDF.
+%MuPDF is also small, fast, and yet complete. It supports PDF 1.7 with
+transparency, encryption, hyperlinks, annotations, searching and more.
+
+%MuPDF homepage: http://mupdf.com/
+
+
+@section usage How to use mupdf-qt interface library
+
+After mupdf-qt is built (read README.md to see how to build mupdf-qt),
+headers are in "include/" directory and library file is in "build/lib/"
+directory. Include the header directory and link to the mupdf-qt library
+file. Then, simply add the following line to your C++ source files:
+
+@code
+#include <mupdf-qt.h>
+@endcode
+
+@subsection document Load PDF document
+
+@code
+QString filename;
+QString password;
+
+MuPDF::Document *document = MuPDF::loadDocument(filename);
+if (document) {
+    // needs password?
+    if (document->needsPassword())
+        document->authPassword(pasword);
+    
+    // number of pages
+    qDebug() << "pages: " << document->numPages();
+
+    // other informations
+    qDebug() << "version: " << document->pdfVersion();
+    qDebug() << "title: " << document->title();
+    qDebug() << "author: " << document->author();
+    qDebug() << "subject: " << document->subject();
+    qDebug() << "keywords: " << document->keywords();
+    qDebug() << "creator: " << document->creator();
+    qDebug() << "producer: " << document->producer();
+    qDebug() << "creation date: " << document->creationDate();
+    qDebug() << "recently modify date: " << document->modDate();
+
+    // do not forget to delete it
+    delete document;
+}
+@endcode
+
+
+@subsection render Render page
+
+Pages can be rendered to QImages with the following code:
+
+@code
+MuPDF::Page *page = document->page(pageNumber);
+if (page) {
+    float scaleX = 1.0f;
+    float scaleY = 1.0f;
+    float rotation = 0.0f;
+    QImage image = page->renderImage(scaleX, scaleY, rotation);
+    // do something with the QImage
+    // ...
+
+    // do not forget this
+    delete page;
+}
+@endcode
+
+
+@subsection outline Outline (Table of contents)
+
+A PDF document may has a MuPDF::Outline. You can get top level
+MuPDF::OutlineItem from the MuPDF::Outline. Every MuPDF::OutlineItem
+may has children (get first child with MuPDF::OutlineItem::down())
+and buddies (get next item with MuPDF::OutlineItem::next()):
+
+@code
+MuPDF::OutlineItem item;
+
+MuPDF::Outline *outline = document->outline();
+if (outline) {
+    // current item
+    item = outline->topLevelItem();
+    if (item.isValid())
+        qDebug() << item->title();
+
+    // down
+    item = item->down();
+    if (item.isValid())
+        qDebug() << item->title();
+
+    // next
+    item = item->next();
+    if (item.isValid())
+        qDebug() << item->title();
+
+    // something else with OutlineItem
+    // ...
+
+    // do not forget this
+    delete outline;
+}
+@endcode
+*/

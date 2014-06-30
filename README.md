@@ -1,4 +1,6 @@
-# Compile on Linux
+# How to compile mupdf-qt
+
+## Compile on Linux
 #### Install tools and thirdparty libraries
 You should install some tools and thirdparty libraries. For Ubuntu users, you can use the following command(similar for other Linux users):
 
@@ -23,7 +25,7 @@ You should install some tools and thirdparty libraries. For Ubuntu users, you ca
     cmake ..
     make
 
-# Compile on Window with Visual Studio
+## Compile on Window with Visual Studio
 #### Clone source code
 
     git clone https://github.com/xiangxw/mupdf-qt.git
@@ -37,7 +39,7 @@ Go to platforms/win32, open mupdf.sln and build.
 #### Compile mupdf-qt
 Launch CMake(gui version), set source code directory and build directory. Configure and generate mupdf-qt.sln. Open mupdf-qt.sln and build it.
 
-# Compile on Window with MSYS MinGW
+## Compile on Window with MSYS MinGW
 #### Clone source code
 
     git clone https://github.com/xiangxw/mupdf-qt.git
