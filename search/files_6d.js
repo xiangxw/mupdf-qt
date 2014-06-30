@@ -8,5 +8,7 @@ var searchData=
   ['mupdf_2doutline_2eh',['mupdf-outline.h',['../mupdf-outline_8h.html',1,'']]],
   ['mupdf_2dpage_2ecpp',['mupdf-page.cpp',['../mupdf-page_8cpp.html',1,'']]],
   ['mupdf_2dpage_2eh',['mupdf-page.h',['../mupdf-page_8h.html',1,'']]],
-  ['mupdf_2dqt_2eh',['mupdf-qt.h',['../mupdf-qt_8h.html',1,'']]]
+  ['mupdf_2dqt_2eh',['mupdf-qt.h',['../mupdf-qt_8h.html',1,'']]],
+  ['mupdf_2dtextbox_2ecpp',['mupdf-textbox.cpp',['../mupdf-textbox_8cpp.html',1,'']]],
+  ['mupdf_2dtextbox_2eh',['mupdf-textbox.h',['../mupdf-textbox_8h.html',1,'']]]
 ];

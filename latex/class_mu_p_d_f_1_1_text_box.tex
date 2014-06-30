@@ -1,0 +1,137 @@
+\hypertarget{class_mu_p_d_f_1_1_text_box}{\section{Mu\-P\-D\-F\-:\-:Text\-Box Class Reference}
+\label{class_mu_p_d_f_1_1_text_box}\index{Mu\-P\-D\-F\-::\-Text\-Box@{Mu\-P\-D\-F\-::\-Text\-Box}}
+}
+
+
+A text box.  
+
+
+
+
+{\ttfamily \#include $<$mupdf-\/textbox.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_mu_p_d_f_1_1_text_box_a820ac00b0ece07e332ac7c9fc75abb54}{$\sim$\-Text\-Box} ()
+\item 
+Q\-Rect\-F \hyperlink{class_mu_p_d_f_1_1_text_box_a2aac0cacaafdc85f1b7c196b1449c55b}{bounding\-Box} () const 
+\begin{DoxyCompactList}\small\item\em Bounding box. \end{DoxyCompactList}\item 
+int \hyperlink{class_mu_p_d_f_1_1_text_box_a4d4cdc8930cf188bc3b9d201d019a987}{num\-Chars} () const 
+\begin{DoxyCompactList}\small\item\em Number of unicode chars. \end{DoxyCompactList}\item 
+Q\-Rect\-F \hyperlink{class_mu_p_d_f_1_1_text_box_a4ecbb3b0ca1a189468e3f1160920400a}{char\-Bounding\-Box} (int index) const 
+\begin{DoxyCompactList}\small\item\em Get bounding box of a unicode char. \end{DoxyCompactList}\item 
+Q\-String \hyperlink{class_mu_p_d_f_1_1_text_box_a5d3c1f7ab3488c832ac97d22fec8a62d}{text} () const 
+\begin{DoxyCompactList}\small\item\em Text string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_mu_p_d_f_1_1_text_box_a66d145c56e1747e0aecb5309042ab183}{Page}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A text box. 
+
+A text box contains a list of characters that share a common baseline/transformation. In typical cases a single text box may be enough to represent a complete line. In cases where the text has big gaps in it (perhaps as it crosses columns or tables), a line may be represented by multiple text boxes. 
+
+Definition at line 24 of file mupdf-\/textbox.\-h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_mu_p_d_f_1_1_text_box_a820ac00b0ece07e332ac7c9fc75abb54}{\index{Mu\-P\-D\-F\-::\-Text\-Box@{Mu\-P\-D\-F\-::\-Text\-Box}!$\sim$\-Text\-Box@{$\sim$\-Text\-Box}}
+\index{$\sim$\-Text\-Box@{$\sim$\-Text\-Box}!MuPDF::TextBox@{Mu\-P\-D\-F\-::\-Text\-Box}}
+\subsubsection[{$\sim$\-Text\-Box}]{\setlength{\rightskip}{0pt plus 5cm}Mu\-P\-D\-F\-::\-Text\-Box\-::$\sim$\-Text\-Box (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_mu_p_d_f_1_1_text_box_a820ac00b0ece07e332ac7c9fc75abb54}
+
+
+Definition at line 10 of file mupdf-\/textbox.\-cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_mu_p_d_f_1_1_text_box_a2aac0cacaafdc85f1b7c196b1449c55b}{\index{Mu\-P\-D\-F\-::\-Text\-Box@{Mu\-P\-D\-F\-::\-Text\-Box}!bounding\-Box@{bounding\-Box}}
+\index{bounding\-Box@{bounding\-Box}!MuPDF::TextBox@{Mu\-P\-D\-F\-::\-Text\-Box}}
+\subsubsection[{bounding\-Box}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Rect\-F Mu\-P\-D\-F\-::\-Text\-Box\-::bounding\-Box (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_text_box_a2aac0cacaafdc85f1b7c196b1449c55b}
+
+
+Bounding box. 
+
+
+
+Definition at line 18 of file mupdf-\/textbox.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_text_box_a4ecbb3b0ca1a189468e3f1160920400a}{\index{Mu\-P\-D\-F\-::\-Text\-Box@{Mu\-P\-D\-F\-::\-Text\-Box}!char\-Bounding\-Box@{char\-Bounding\-Box}}
+\index{char\-Bounding\-Box@{char\-Bounding\-Box}!MuPDF::TextBox@{Mu\-P\-D\-F\-::\-Text\-Box}}
+\subsubsection[{char\-Bounding\-Box}]{\setlength{\rightskip}{0pt plus 5cm}Q\-Rect\-F Mu\-P\-D\-F\-::\-Text\-Box\-::char\-Bounding\-Box (
+\begin{DoxyParamCaption}
+\item[{int}]{index}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_text_box_a4ecbb3b0ca1a189468e3f1160920400a}
+
+
+Get bounding box of a unicode char. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & index of the unicode char(start from 0) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 44 of file mupdf-\/textbox.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_text_box_a4d4cdc8930cf188bc3b9d201d019a987}{\index{Mu\-P\-D\-F\-::\-Text\-Box@{Mu\-P\-D\-F\-::\-Text\-Box}!num\-Chars@{num\-Chars}}
+\index{num\-Chars@{num\-Chars}!MuPDF::TextBox@{Mu\-P\-D\-F\-::\-Text\-Box}}
+\subsubsection[{num\-Chars}]{\setlength{\rightskip}{0pt plus 5cm}int Mu\-P\-D\-F\-::\-Text\-Box\-::num\-Chars (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_text_box_a4d4cdc8930cf188bc3b9d201d019a987}
+
+
+Number of unicode chars. 
+
+
+
+Definition at line 34 of file mupdf-\/textbox.\-cpp.
+
+\hypertarget{class_mu_p_d_f_1_1_text_box_a5d3c1f7ab3488c832ac97d22fec8a62d}{\index{Mu\-P\-D\-F\-::\-Text\-Box@{Mu\-P\-D\-F\-::\-Text\-Box}!text@{text}}
+\index{text@{text}!MuPDF::TextBox@{Mu\-P\-D\-F\-::\-Text\-Box}}
+\subsubsection[{text}]{\setlength{\rightskip}{0pt plus 5cm}Q\-String Mu\-P\-D\-F\-::\-Text\-Box\-::text (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{class_mu_p_d_f_1_1_text_box_a5d3c1f7ab3488c832ac97d22fec8a62d}
+
+
+Text string. 
+
+
+
+Definition at line 56 of file mupdf-\/textbox.\-cpp.
+
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_mu_p_d_f_1_1_text_box_a66d145c56e1747e0aecb5309042ab183}{\index{Mu\-P\-D\-F\-::\-Text\-Box@{Mu\-P\-D\-F\-::\-Text\-Box}!Page@{Page}}
+\index{Page@{Page}!MuPDF::TextBox@{Mu\-P\-D\-F\-::\-Text\-Box}}
+\subsubsection[{Page}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Page}\hspace{0.3cm}{\ttfamily [friend]}}}\label{class_mu_p_d_f_1_1_text_box_a66d145c56e1747e0aecb5309042ab183}
+
+
+Definition at line 45 of file mupdf-\/textbox.\-h.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{mupdf-textbox_8h}{mupdf-\/textbox.\-h}\item 
+src/\hyperlink{mupdf-textbox_8cpp}{mupdf-\/textbox.\-cpp}\end{DoxyCompactItemize}

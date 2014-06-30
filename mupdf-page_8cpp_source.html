@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.4"/>
-<title>mupdf-qt: libmupdf-qt/mupdf-page.cpp Source File</title>
+<title>mupdf-qt: src/mupdf-page.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -80,7 +80,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_c2464853a838199172fbbdea07394f80.html">libmupdf-qt</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -90,260 +90,292 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <a href="mupdf-page_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mupdf-page_8h.html">mupdf-page.h</a>&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;mupdf-page_p.h&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;mupdf/fitz.h&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;}</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;QImage&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;QRect&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> clear_bgr_samples_with_value(</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *samples, <span class="keywordtype">int</span> size,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="keywordtype">int</span> b, <span class="keywordtype">int</span> g, <span class="keywordtype">int</span> r, <span class="keywordtype">int</span> a)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordtype">int</span> i = 0;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">while</span> (i &lt; size) {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        *(samples + i++) = b;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        *(samples + i++) = g;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        *(samples + i++) = r;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        *(samples + i++) = a;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> clear_rgb_samples_with_value(</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *samples, <span class="keywordtype">int</span> size,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordtype">int</span> b, <span class="keywordtype">int</span> g, <span class="keywordtype">int</span> r, <span class="keywordtype">int</span> a)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">int</span> i = 0;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">while</span> (i &lt; size) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        *(samples + i++) = r;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        *(samples + i++) = g;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        *(samples + i++) = b;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        *(samples + i++) = a;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> imageCleanupHandler(<span class="keywordtype">void</span> *data)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;{</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *samples = <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(data);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (samples) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">delete</span> []samples;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">namespace </span>MuPDF</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;Page::Page(<span class="keyword">const</span> Document &amp;document, <span class="keywordtype">int</span> index)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;{</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">if</span> (document.d-&gt;document == NULL || index &lt; 0) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    d = <span class="keyword">new</span> PagePrivate();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">if</span> (NULL == d) {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    d-&gt;context = document.d-&gt;context;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    d-&gt;document = document.d-&gt;document;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    d-&gt;transparent = document.d-&gt;transparent;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    d-&gt;b = document.d-&gt;b;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    d-&gt;g = document.d-&gt;g;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    d-&gt;r = document.d-&gt;r;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    d-&gt;a = document.d-&gt;a;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    fz_try(d-&gt;context)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        fz_rect bounds;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        fz_device *list_device;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        fz_device *text_device;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="comment">// load page</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        d-&gt;page = fz_load_page(d-&gt;document, index);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="comment">// display list</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        d-&gt;display_list = fz_new_display_list(d-&gt;context);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        list_device = fz_new_list_device(d-&gt;context, d-&gt;display_list);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        fz_run_page(d-&gt;document, d-&gt;page, list_device, &amp;fz_identity, NULL);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        fz_free_device(list_device);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="comment">// create text sheet and text page</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        d-&gt;text_sheet = fz_new_text_sheet(d-&gt;context);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        d-&gt;text_page = fz_new_text_page(d-&gt;context);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        text_device = fz_new_text_device(d-&gt;context, d-&gt;text_sheet, d-&gt;text_page);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        fz_bound_page(d-&gt;document, d-&gt;page, &amp;bounds);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        fz_run_display_list(d-&gt;display_list, text_device, &amp;fz_identity, &amp;bounds, NULL);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        fz_free_device(text_device);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    fz_catch(d-&gt;context)</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        d-&gt;deleteData();</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mupdf-document_8h.html">mupdf-document.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;mupdf-document_p.h&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mupdf-textbox_8h.html">mupdf-textbox.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;mupdf-textbox_p.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;mupdf/fitz.h&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;}</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;QImage&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;QRect&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> clear_bgr_samples_with_value(</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *samples, <span class="keywordtype">int</span> size,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordtype">int</span> b, <span class="keywordtype">int</span> g, <span class="keywordtype">int</span> r, <span class="keywordtype">int</span> a)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">while</span> (i &lt; size) {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        *(samples + i++) = b;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        *(samples + i++) = g;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        *(samples + i++) = r;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        *(samples + i++) = a;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    }</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> clear_rgb_samples_with_value(</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *samples, <span class="keywordtype">int</span> size,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordtype">int</span> b, <span class="keywordtype">int</span> g, <span class="keywordtype">int</span> r, <span class="keywordtype">int</span> a)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">while</span> (i &lt; size) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        *(samples + i++) = r;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        *(samples + i++) = g;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        *(samples + i++) = b;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        *(samples + i++) = a;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> imageCleanupHandler(<span class="keywordtype">void</span> *data)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;{</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *samples = <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(data);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span> (samples) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keyword">delete</span> []samples;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">namespace </span>MuPDF</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;{</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;Page::Page(<span class="keyword">const</span> Document &amp;document, <span class="keywordtype">int</span> index)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;{</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">if</span> (document.d-&gt;document == NULL || index &lt; 0) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    d = <span class="keyword">new</span> PagePrivate();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> (NULL == d) {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    d-&gt;context = document.d-&gt;context;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    d-&gt;document = document.d-&gt;document;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    d-&gt;transparent = document.d-&gt;transparent;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    d-&gt;b = document.d-&gt;b;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    d-&gt;g = document.d-&gt;g;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    d-&gt;r = document.d-&gt;r;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    d-&gt;a = document.d-&gt;a;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    fz_try(d-&gt;context)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        fz_rect bounds;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        fz_device *list_device;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        fz_device *text_device;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="comment">// load page</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        d-&gt;page = fz_load_page(d-&gt;document, index);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="comment">// display list</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        d-&gt;display_list = fz_new_display_list(d-&gt;context);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        list_device = fz_new_list_device(d-&gt;context, d-&gt;display_list);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        fz_run_page(d-&gt;document, d-&gt;page, list_device, &amp;fz_identity, NULL);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        fz_free_device(list_device);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="comment">// create text sheet and text page</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        d-&gt;text_sheet = fz_new_text_sheet(d-&gt;context);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        d-&gt;text_page = fz_new_text_page(d-&gt;context);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        text_device = fz_new_text_device(d-&gt;context, d-&gt;text_sheet, d-&gt;text_page);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        fz_bound_page(d-&gt;document, d-&gt;page, &amp;bounds);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        fz_run_display_list(d-&gt;display_list, text_device, &amp;fz_identity, &amp;bounds, NULL);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        fz_free_device(text_device);</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#af319e925b5460b6b09a40aacd1d68347">  102</a></span>&#160;<a class="code" href="class_mu_p_d_f_1_1_page.html#af319e925b5460b6b09a40aacd1d68347">Page::~Page</a>()</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;{</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">if</span> (d) {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keyword">delete</span> d;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        d = NULL;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#a1f60d3a284731ac220a8717eb6a93167">  113</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#a1f60d3a284731ac220a8717eb6a93167" title="Check whether this page object is valid. ">Page::isValid</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">return</span> (d &amp;&amp; d-&gt;page) ? <span class="keyword">true</span> : <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    </div>
-<div class="line"><a name="l00123"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#a50c32d7917fe979dcf5404d378852556">  123</a></span>&#160;QImage <a class="code" href="class_mu_p_d_f_1_1_page.html#a50c32d7917fe979dcf5404d378852556" title="Render page to QImage. ">Page::renderImage</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    fz_pixmap *pixmap = NULL;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *samples = NULL;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *copyed_samples = NULL;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">int</span> width = 0;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordtype">int</span> height = 0;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">int</span> size = 0;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="comment">// get transformed page size</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    fz_rect bounds;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    fz_bound_page(d-&gt;document, d-&gt;page, &amp;bounds);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    fz_transform_rect(&amp;bounds, &amp;(d-&gt;transform));</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    fz_irect bbox;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    fz_round_rect(&amp;bbox, &amp;bounds);</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="comment">// render to pixmap</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    fz_device *dev = NULL;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    fz_try(d-&gt;context)</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    {</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="comment">// fz_pixmap will always include a separate alpha channel</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="preprocessor">#if QT_VERSION &lt; 0x050200</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="preprocessor"></span>        pixmap = fz_new_pixmap_with_bbox(d-&gt;context, fz_device_bgr(d-&gt;context), &amp;bbox);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="preprocessor"></span>        <span class="comment">// use rgba for Qt5.2</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        pixmap = fz_new_pixmap_with_bbox(d-&gt;context, fz_device_rgb(d-&gt;context), &amp;bbox);</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="preprocessor"></span>        samples = fz_pixmap_samples(d-&gt;context, pixmap);</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        width = fz_pixmap_width(d-&gt;context, pixmap);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        height = fz_pixmap_height(d-&gt;context, pixmap);</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        size = width * height * 4;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        <span class="keywordflow">if</span> (!d-&gt;transparent) {</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            <span class="keywordflow">if</span> (d-&gt;b &gt;= 0 &amp;&amp; d-&gt;g &gt;= 0 &amp;&amp; d-&gt;r &gt;= 0 &amp;&amp; d-&gt;a &gt;= 0) {</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                <span class="comment">// with user defined background color</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="preprocessor">#if QT_VERSION &lt; 0x050200</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor"></span>                clear_bgr_samples_with_value(samples, size, d-&gt;b, d-&gt;g, d-&gt;r, d-&gt;a);</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor"></span>                <span class="comment">// use rgba for Qt5.2</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                clear_rgb_samples_with_value(samples, size, d-&gt;b, d-&gt;g, d-&gt;r, d-&gt;a);</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="preprocessor"></span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                <span class="comment">// with white background</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                fz_clear_pixmap_with_value(d-&gt;context, pixmap, 0xff);</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            }</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        }</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        dev = fz_new_draw_device(d-&gt;context, pixmap);</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        fz_run_display_list(d-&gt;display_list, dev, &amp;(d-&gt;transform), &amp;bounds, NULL);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    }</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    fz_always(d-&gt;context)</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    {</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keywordflow">if</span> (dev) {</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            fz_free_device(dev);</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        }</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        dev = NULL;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    }</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    fz_catch(d-&gt;context)</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    {</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <span class="keywordflow">if</span> (pixmap) {</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;            fz_drop_pixmap(d-&gt;context, pixmap);</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        }</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        pixmap = NULL;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    }</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="comment">// render to QImage</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    QImage image;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordflow">if</span> (NULL == pixmap) {</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        <span class="keywordflow">return</span> image;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    }</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    copyed_samples = <span class="keyword">new</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>[<a class="code" href="class_mu_p_d_f_1_1_page.html#afd724fcf89232f953315c76ec5a134b0" title="Page size at 72 dpi. ">size</a>];</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    memcpy(copyed_samples, samples, size);</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    fz_drop_pixmap(d-&gt;context, pixmap);</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="preprocessor">#if QT_VERSION &lt; 0x050200</span></div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="preprocessor"></span>    <span class="comment">// most computers use little endian, so Format_ARGB32 means bgra order</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="comment">// note: this is not correct for computers with big endian architecture</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    image = QImage(copyed_samples,</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            width, height, QImage::Format_ARGB32, imageCleanupHandler, copyed_samples);</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="preprocessor"></span>    <span class="comment">// with Qt 5.2, Format_RGBA8888 is correct for any architecture</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    fz_catch(d-&gt;context)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        d-&gt;deleteData();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#af319e925b5460b6b09a40aacd1d68347">  106</a></span>&#160;<a class="code" href="class_mu_p_d_f_1_1_page.html#af319e925b5460b6b09a40aacd1d68347">Page::~Page</a>()</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">if</span> (d) {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keyword">delete</span> d;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        d = NULL;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#a1f60d3a284731ac220a8717eb6a93167">  117</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#a1f60d3a284731ac220a8717eb6a93167" title="Check whether this page object is valid. ">Page::isValid</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">return</span> (d &amp;&amp; d-&gt;page) ? <span class="keyword">true</span> : <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    </div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#a50c32d7917fe979dcf5404d378852556">  127</a></span>&#160;QImage <a class="code" href="class_mu_p_d_f_1_1_page.html#a50c32d7917fe979dcf5404d378852556" title="Render page to QImage. ">Page::renderImage</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    fz_pixmap *pixmap = NULL;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *samples = NULL;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *copyed_samples = NULL;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">int</span> width = 0;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">int</span> height = 0;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordtype">int</span> size = 0;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="comment">// get transformed page size</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    fz_rect bounds;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    fz_bound_page(d-&gt;document, d-&gt;page, &amp;bounds);</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    fz_transform_rect(&amp;bounds, &amp;(d-&gt;transform));</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    fz_irect bbox;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    fz_round_rect(&amp;bbox, &amp;bounds);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="comment">// render to pixmap</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    fz_device *dev = NULL;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    fz_try(d-&gt;context)</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="comment">// fz_pixmap will always include a separate alpha channel</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="preprocessor">#if QT_VERSION &lt; 0x050200</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="preprocessor"></span>        pixmap = fz_new_pixmap_with_bbox(d-&gt;context, fz_device_bgr(d-&gt;context), &amp;bbox);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="preprocessor"></span>        <span class="comment">// use rgba for Qt5.2</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        pixmap = fz_new_pixmap_with_bbox(d-&gt;context, fz_device_rgb(d-&gt;context), &amp;bbox);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="preprocessor"></span>        samples = fz_pixmap_samples(d-&gt;context, pixmap);</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        width = fz_pixmap_width(d-&gt;context, pixmap);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        height = fz_pixmap_height(d-&gt;context, pixmap);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        size = width * height * 4;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">if</span> (!d-&gt;transparent) {</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <span class="keywordflow">if</span> (d-&gt;b &gt;= 0 &amp;&amp; d-&gt;g &gt;= 0 &amp;&amp; d-&gt;r &gt;= 0 &amp;&amp; d-&gt;a &gt;= 0) {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                <span class="comment">// with user defined background color</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#if QT_VERSION &lt; 0x050200</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="preprocessor"></span>                clear_bgr_samples_with_value(samples, size, d-&gt;b, d-&gt;g, d-&gt;r, d-&gt;a);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="preprocessor"></span>                <span class="comment">// use rgba for Qt5.2</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                clear_rgb_samples_with_value(samples, size, d-&gt;b, d-&gt;g, d-&gt;r, d-&gt;a);</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor"></span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                <span class="comment">// with white background</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                fz_clear_pixmap_with_value(d-&gt;context, pixmap, 0xff);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            }</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        }</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        dev = fz_new_draw_device(d-&gt;context, pixmap);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        fz_run_display_list(d-&gt;display_list, dev, &amp;(d-&gt;transform), &amp;bounds, NULL);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    }</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    fz_always(d-&gt;context)</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    {</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">if</span> (dev) {</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            fz_free_device(dev);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        }</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        dev = NULL;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    }</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    fz_catch(d-&gt;context)</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    {</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keywordflow">if</span> (pixmap) {</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            fz_drop_pixmap(d-&gt;context, pixmap);</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        }</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        pixmap = NULL;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    }</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="comment">// render to QImage</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    QImage image;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordflow">if</span> (NULL == pixmap) {</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="keywordflow">return</span> image;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    }</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    copyed_samples = <span class="keyword">new</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>[<a class="code" href="class_mu_p_d_f_1_1_page.html#afd724fcf89232f953315c76ec5a134b0" title="Page size at 72 dpi. ">size</a>];</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    memcpy(copyed_samples, samples, size);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    fz_drop_pixmap(d-&gt;context, pixmap);</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="preprocessor">#if QT_VERSION &lt; 0x050200</span></div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="preprocessor"></span>    <span class="comment">// most computers use little endian, so Format_ARGB32 means bgra order</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="comment">// note: this is not correct for computers with big endian architecture</span></div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    image = QImage(copyed_samples,</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            width, height, QImage::Format_RGBA8888, imageCleanupHandler, copyed_samples);</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> image;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;}</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;</div>
-<div class="line"><a name="l00210"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#afd724fcf89232f953315c76ec5a134b0">  210</a></span>&#160;QRect <a class="code" href="class_mu_p_d_f_1_1_page.html#afd724fcf89232f953315c76ec5a134b0" title="Page size at 72 dpi. ">Page::size</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="comment">//fz_rect rect = fz_bound_page(d-&gt;document, d-&gt;page);</span></div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    fz_rect rect;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    fz_bound_page(d-&gt;document, d-&gt;page, &amp;rect);</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="comment">//fz_bbox bbox = fz_round_rect(rect);</span></div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    fz_irect bbox;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    fz_round_rect(&amp;bbox, &amp;rect);</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keywordflow">return</span> QRect(bbox.x0, bbox.y0,</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;            bbox.x1 - bbox.x0, bbox.y1 - bbox.y0);</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;}</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;</div>
-<div class="line"><a name="l00229"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#ac6768d64b88de1ccdd1fa0abb2724db0">  229</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#ac6768d64b88de1ccdd1fa0abb2724db0" title="Whether to do transparent page rendering. This function modify setting of current page only...">Page::setTransparentRendering</a>(<span class="keywordtype">bool</span> enable)</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;{</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    d-&gt;transparent = enable;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;}</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
-<div class="line"><a name="l00248"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#a4f16778c9c61692834644d298b6ee77f">  248</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#a4f16778c9c61692834644d298b6ee77f" title="Set background color. This function modify setting of current page only. For global setting...">Page::setBackgroundColor</a>(<span class="keywordtype">int</span> r, <span class="keywordtype">int</span> g, <span class="keywordtype">int</span> b, <span class="keywordtype">int</span> a)</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;{</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    d-&gt;r = r;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    d-&gt;g = g;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    d-&gt;b = b;</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    d-&gt;a = a;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;}</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;</div>
-<div class="line"><a name="l00265"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#a366b4f46b6f83a45afda029c81ca4d15">  265</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#a366b4f46b6f83a45afda029c81ca4d15" title="Set scale and rotation. ">Page::setTransform</a>(<span class="keywordtype">float</span> scaleX, <span class="keywordtype">float</span> scaleY, <span class="keywordtype">float</span> rotation)</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;{</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    d-&gt;scaleX = scaleX;</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    d-&gt;scaleY = scaleY;</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    d-&gt;rotation = rotation;</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    fz_rotate(&amp;(d-&gt;transform), rotation);</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    fz_pre_scale(&amp;(d-&gt;transform), scaleX, scaleY);</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;}</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;</div>
-<div class="line"><a name="l00282"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#a40d3c45ab4ad02a07c9af726f14c97f3">  282</a></span>&#160;QString <a class="code" href="class_mu_p_d_f_1_1_page.html#a40d3c45ab4ad02a07c9af726f14c97f3" title="Return the text in a rect. ">Page::text</a>(<span class="keywordtype">float</span> x0, <span class="keywordtype">float</span> y0, <span class="keywordtype">float</span> x1, <span class="keywordtype">float</span> y1)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    QString ret;</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="keywordtype">char</span> *str;</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    fz_rect rect;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    fz_matrix transform;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="comment">// build fz_rect</span></div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    rect.x0 = x0;</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    rect.y0 = y0;</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    rect.x1 = x1;</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    rect.y1 = y1;</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    fz_invert_matrix(&amp;transform, &amp;(d-&gt;transform));</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    fz_transform_rect(&amp;rect, &amp;transform);</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    </div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <span class="comment">// get text</span></div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="keywordflow">if</span> (!fz_is_infinite_rect(&amp;rect)) {</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        str = fz_copy_selection(d-&gt;context, d-&gt;text_page, rect);</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        ret = QString::fromUtf8(str);</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        free(str);</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    }</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;}</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;} <span class="comment">// end namespace MuPDF</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            width, height, QImage::Format_ARGB32, imageCleanupHandler, copyed_samples);</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="preprocessor"></span>    <span class="comment">// with Qt 5.2, Format_RGBA8888 is correct for any architecture</span></div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    image = QImage(copyed_samples,</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            width, height, QImage::Format_RGBA8888, imageCleanupHandler, copyed_samples);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> image;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;}</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
+<div class="line"><a name="l00214"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#afd724fcf89232f953315c76ec5a134b0">  214</a></span>&#160;QRect <a class="code" href="class_mu_p_d_f_1_1_page.html#afd724fcf89232f953315c76ec5a134b0" title="Page size at 72 dpi. ">Page::size</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="comment">//fz_rect rect = fz_bound_page(d-&gt;document, d-&gt;page);</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    fz_rect rect;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    fz_bound_page(d-&gt;document, d-&gt;page, &amp;rect);</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="comment">//fz_bbox bbox = fz_round_rect(rect);</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    fz_irect bbox;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    fz_round_rect(&amp;bbox, &amp;rect);</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keywordflow">return</span> QRect(bbox.x0, bbox.y0,</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            bbox.x1 - bbox.x0, bbox.y1 - bbox.y0);</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;}</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;</div>
+<div class="line"><a name="l00233"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#ac6768d64b88de1ccdd1fa0abb2724db0">  233</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#ac6768d64b88de1ccdd1fa0abb2724db0" title="Whether to do transparent page rendering. This function modify setting of current page only...">Page::setTransparentRendering</a>(<span class="keywordtype">bool</span> enable)</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;{</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    d-&gt;transparent = enable;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;}</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;</div>
+<div class="line"><a name="l00252"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#a4f16778c9c61692834644d298b6ee77f">  252</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#a4f16778c9c61692834644d298b6ee77f" title="Set background color. This function modify setting of current page only. For global setting...">Page::setBackgroundColor</a>(<span class="keywordtype">int</span> r, <span class="keywordtype">int</span> g, <span class="keywordtype">int</span> b, <span class="keywordtype">int</span> a)</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;{</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    d-&gt;r = r;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    d-&gt;g = g;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    d-&gt;b = b;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    d-&gt;a = a;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;}</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;</div>
+<div class="line"><a name="l00269"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#a366b4f46b6f83a45afda029c81ca4d15">  269</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_mu_p_d_f_1_1_page.html#a366b4f46b6f83a45afda029c81ca4d15" title="Set scale and rotation. ">Page::setTransform</a>(<span class="keywordtype">float</span> scaleX, <span class="keywordtype">float</span> scaleY, <span class="keywordtype">float</span> rotation)</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;{</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    d-&gt;scaleX = scaleX;</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    d-&gt;scaleY = scaleY;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    d-&gt;rotation = rotation;</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    fz_rotate(&amp;(d-&gt;transform), rotation);</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    fz_pre_scale(&amp;(d-&gt;transform), scaleX, scaleY);</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;}</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;</div>
+<div class="line"><a name="l00286"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#a40d3c45ab4ad02a07c9af726f14c97f3">  286</a></span>&#160;QString <a class="code" href="class_mu_p_d_f_1_1_page.html#a40d3c45ab4ad02a07c9af726f14c97f3" title="Return the text in a rect. ">Page::text</a>(<span class="keywordtype">float</span> x0, <span class="keywordtype">float</span> y0, <span class="keywordtype">float</span> x1, <span class="keywordtype">float</span> y1)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    QString ret;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordtype">char</span> *str;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    fz_rect rect;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    fz_matrix transform;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="comment">// build fz_rect</span></div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    rect.x0 = x0;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    rect.y0 = y0;</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    rect.x1 = x1;</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    rect.y1 = y1;</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    fz_invert_matrix(&amp;transform, &amp;(d-&gt;transform));</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    fz_transform_rect(&amp;rect, &amp;transform);</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    </div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="comment">// get text</span></div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keywordflow">if</span> (!fz_is_infinite_rect(&amp;rect)) {</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        str = fz_copy_selection(d-&gt;context, d-&gt;text_page, rect);</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        ret = QString::fromUtf8(str);</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        free(str);</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    }</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;}</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;</div>
+<div class="line"><a name="l00317"></a><span class="lineno"><a class="code" href="class_mu_p_d_f_1_1_page.html#a357731345081db20d209685a50cca27a">  317</a></span>&#160;QList&lt;TextBox *&gt; <a class="code" href="class_mu_p_d_f_1_1_page.html#a357731345081db20d209685a50cca27a" title="Return all text boxes of the page. ">Page::textList</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    QList&lt;TextBox *&gt; ret;</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <a class="code" href="class_mu_p_d_f_1_1_text_box.html" title="A text box. ">TextBox</a> *box;</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    TextBoxPrivate *boxp;</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    fz_text_block *block;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    fz_text_line *line;</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    fz_text_span *span;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> block_num = 0; block_num &lt; d-&gt;text_page-&gt;len; ++block_num) {</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        <span class="comment">// get block</span></div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        <span class="keywordflow">if</span> (d-&gt;text_page-&gt;blocks[block_num].type != FZ_PAGE_BLOCK_TEXT) {</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        }</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        block = d-&gt;text_page-&gt;blocks[block_num].u.text;</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        <span class="keywordflow">for</span> (line = block-&gt;lines; line &lt; block-&gt;lines + block-&gt;len; ++line) { <span class="comment">// lines</span></div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;            <span class="keywordflow">for</span> (span = line-&gt;first_span; span; span = span-&gt;next) { <span class="comment">// spans</span></div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                boxp = <span class="keyword">new</span> TextBoxPrivate(span);</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                box = <span class="keyword">new</span> <a class="code" href="class_mu_p_d_f_1_1_text_box.html" title="A text box. ">TextBox</a>(boxp);</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                ret &lt;&lt; box;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;            }</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        }</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    }</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;}</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;} <span class="comment">// end namespace MuPDF</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 29 2014 14:07:52 for mupdf-qt by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 30 2014 10:30:19 for mupdf-qt by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.4
 </small></address>
