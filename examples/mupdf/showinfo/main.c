@@ -10,6 +10,7 @@ int main(int argc, char **argv)
     fz_context *context;
     pdf_document *xref;
     pdf_obj *info;
+    char *str;
 
     /* open xref */
     context = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
@@ -26,35 +27,51 @@ int main(int argc, char **argv)
         pdf_obj *obj = NULL;
         obj = pdf_dict_gets(info, (char *)"Title"); /* print title */
         if (obj) {
-            printf("Title: %s\n", pdf_to_utf8(xref, obj));
+            str = pdf_to_utf8(xref, obj);
+            printf("Title: %s\n", str);
+            free(str);
         }
         obj = pdf_dict_gets(info, (char *)"Subject"); /* print subject */
         if (obj) {
-            printf("Subject: %s\n", pdf_to_utf8(xref, obj));
+            str = pdf_to_utf8(xref, obj);
+            printf("Subject: %s\n", str);
+            free(str);
         }
         obj = pdf_dict_gets(info, (char *)"Author"); /* print author */
         if (obj) {
-            printf("Author: %s\n", pdf_to_utf8(xref, obj));
+            str = pdf_to_utf8(xref, obj);
+            printf("Author: %s\n", str);
+            free(str);
         }
         obj = pdf_dict_gets(info, (char *)"Keywords"); /* print keywords */
         if (obj) {
-            printf("Keywords: %s\n", pdf_to_utf8(xref, obj));
+            str = pdf_to_utf8(xref, obj);
+            printf("Keywords: %s\n", str);
+            free(str);
         }
         obj = pdf_dict_gets(info, (char *)"Creator"); /* print creator */
         if (obj) {
-            printf("Creator: %s\n", pdf_to_utf8(xref, obj));
+            str = pdf_to_utf8(xref, obj);
+            printf("Creator: %s\n", str);
+            free(str);
         }
         obj = pdf_dict_gets(info, (char *)"Producer"); /* print producer */
         if (obj) {
-            printf("Producer: %s\n", pdf_to_utf8(xref, obj));
+            str = pdf_to_utf8(xref, obj);
+            printf("Producer: %s\n", str);
+            free(str);
         }
         obj = pdf_dict_gets(info, (char *)"CreationDate"); /* print creation date */
         if (obj) {
-            printf("CreationDate: %s\n", pdf_to_utf8(xref, obj));
+            str = pdf_to_utf8(xref, obj);
+            printf("CreationDate: %s\n", str);
+            free(str);
         }
         obj = pdf_dict_gets(info, (char *)"ModDate"); /* print mod date */
         if (obj) {
-            printf("ModDate: %s\n", pdf_to_utf8(xref, obj));
+            str = pdf_to_utf8(xref, obj);
+            printf("ModDate: %s\n", str);
+            free(str);
         }
     }
 

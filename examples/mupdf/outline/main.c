@@ -29,7 +29,7 @@ int main(int argc, char **argv)
     }
 
     /* clean up */
-    fz_free_outline(context, link);
+    fz_free_outline(context, outline);
     fz_close_document(document);
     fz_free_context(context);
     return 0;

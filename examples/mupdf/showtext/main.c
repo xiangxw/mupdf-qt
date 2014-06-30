@@ -58,6 +58,7 @@ int main(int argc, char **argv)
     output = fz_new_output_with_file(context, file);
     fz_print_text_page(context, output, text_page);
     fz_print_text_sheet(context, output, text_sheet);
+    fz_close_output(output);
 
     /* clean up */
     fz_free_text_sheet(context, text_sheet);
