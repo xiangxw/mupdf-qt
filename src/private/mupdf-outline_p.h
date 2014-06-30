@@ -14,16 +14,19 @@ class Link;
 class OutlinePrivate
 {
 public:
-    OutlinePrivate(DocumentPrivate *dp, fz_outline *o)
-        : documentp(dp), outline(o)
-    {
-
-    }
+    OutlinePrivate(DocumentPrivate *dp, fz_outline *o);
     ~OutlinePrivate();
 
-    void deleteData();
+    void deleteData()
+    {
+        if (outline) {
+            fz_free_outline(context, outline);
+            outline = NULL;
+        }
+    }
 
     DocumentPrivate *documentp;
+    fz_context *context;
     fz_outline *outline;
 };
 

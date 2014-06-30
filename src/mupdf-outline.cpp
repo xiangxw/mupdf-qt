@@ -19,18 +19,18 @@ Outline::~Outline()
     delete d;
 }
 
+OutlinePrivate::OutlinePrivate(DocumentPrivate *dp, fz_outline *o)
+    : documentp(dp), context(documentp->context), outline(o)
+{
+
+}
+
 OutlinePrivate::~OutlinePrivate()
 {
     if (outline) {
         deleteData();
         documentp->outlines.removeAt(documentp->outlines.indexOf(this));
     }
-}
-
-void OutlinePrivate::deleteData()
-{
-    fz_free_outline(documentp->context, outline);
-    outline = NULL;
 }
 
 /**
