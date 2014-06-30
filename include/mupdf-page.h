@@ -35,21 +35,21 @@ QSizeF mapToOrigin(const QSizeF &size, float scaleX, float scaleY, float rotatio
  */
 QRectF mapToOrigin(const QRectF &rect, float scaleX, float scaleY, float rotation = 0.0f);
 /**
- * @brief Map from a original point to the transform point.
+ * @brief Map from a original point to the transformed point.
  *
- * @return The transform point.
+ * @return The transformed point.
  */
 QPointF mapFromOrigin(const QPointF &pos, float scaleX, float scaleY, float rotation = 0.0f);
 /**
  * @brief Map from a original size to the transformed size.
  *
- * @return The transform size.
+ * @return The transformed size.
  */
 QSizeF mapFromOrigin(const QSizeF &size, float scaleX, float scaleY, float rotation = 0.0f);
 /**
  * @brief Map from a original rect to the transformed rect.
  *
- * @return The transform rect.
+ * @return The transformed rect.
  */
 QRectF mapFromOrigin(const QRectF &rect, float scaleX, float scaleY, float rotation = 0.0f);
 
