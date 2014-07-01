@@ -2,10 +2,23 @@
 @mainpage mupdf-qt library
 
 mupdf-qt is a Qt5 interface of the popular PDF library %MuPDF.
-%MuPDF is also small, fast, and yet complete. It supports PDF 1.7 with
+%MuPDF is small, fast, and yet complete. It supports PDF 1.7 with
 transparency, encryption, hyperlinks, annotations, searching and more.
 
 %MuPDF homepage: http://mupdf.com/
+
+
+@section status Current status
+
+There are many other features that we don't have time to implement yet.
+Looking forward to your participation! Here is a list of API current
+implemented:
+
+- Document info
+- Page rendering
+- Outline
+- Text (partly implemented)
+- More to be added
 
 
 @section usage How to use mupdf-qt interface library

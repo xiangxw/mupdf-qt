@@ -54,7 +54,7 @@ Install MSYS and MinGW (http://www.mingw.org/wiki/Getting_Started). Using the Gr
 3. msys-base
 4. mingw-developer-toolkit
 
-Add C:\MinGW\bin; to your PATH system variables (at the beginning).
+Add ```C:\MinGW\bin;``` to your PATH system variables (at the beginning).
 
 #### Compile MuPDF source
 
