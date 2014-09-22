@@ -35,6 +35,9 @@ You should install some tools and thirdparty libraries. For Ubuntu users, you ca
 #### Compile MuPDF Source
 Go to platforms/win32, open mupdf.sln and build.
 
+#### Qt5
+Install Qt5 and add path of qmake.exe to PATH
+
     
 #### Compile mupdf-qt
 Launch CMake(gui version), set source code directory and build directory. Configure and generate mupdf-qt.sln. Open mupdf-qt.sln and build it.
